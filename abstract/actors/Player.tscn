@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://cd5jwffggrspi"]
+
+[ext_resource type="PackedScene" uid="uid://uthrp0a0t4to" path="res://scenes/Actor.tscn" id="1_7iqmi"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bfcww"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_mgpo1"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_60f3s"]
+size = Vector3(0.1, 0.12, 1)
+
+[node name="Player" groups=["PLAYER"] instance=ExtResource("1_7iqmi")]
+
+[node name="CollisionShape3D" parent="." index="0"]
+shape = SubResource("CapsuleShape3D_bfcww")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="1"]
+mesh = SubResource("CapsuleMesh_mgpo1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.654498, 0.775921)
+mesh = SubResource("BoxMesh_60f3s")

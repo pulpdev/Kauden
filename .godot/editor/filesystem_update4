@@ -1,0 +1,12 @@
+res://abstract/terrains/new_terrain_3d_storage.res
+res://scenes/GameScene.tscn
+res://scenes/Actor.tscn
+res://scripts/class_Actor.gd
+res://abstract/actors/Player.tscn
+res://scripts/class_Command.gd
+res://scripts/class_Controller.gd
+res://scripts/class_Command_MoveCommand.gd
+res://autoloads/Debug.tscn
+res://scripts/class_Controller_ActorController.gd
+res://scripts/class_Controller_PlayerController.gd
+res://scripts/class_Destination.gd

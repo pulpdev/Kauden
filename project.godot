@@ -13,3 +13,19 @@ config_version=5
 config/name="Kauden"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Debug="*res://autoloads/Debug.tscn"
+
+[editor]
+
+naming/scene_name_casing=0
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/terrain_3d/plugin.cfg")
+
+[gui]
+
+theme/custom="res://theme.tres"

@@ -1,0 +1,12 @@
+Node3D
+MeshInstance3D
+Camera3D
+CollisionShape3D
+CharacterBody3D
+Terrain3D
+Label
+CSGMesh3D
+Timer
+VBoxContainer
+CanvasLayer
+Node

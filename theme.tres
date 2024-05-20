@@ -1,0 +1,8 @@
+[gd_resource type="Theme" format=3 uid="uid://tnv3l128nd5e"]
+
+[resource]
+DebugLabel/base_type = &"Label"
+DebugLabel/colors/font_color = Color(1, 1, 1, 1)
+DebugLabel/colors/font_outline_color = Color(0, 0, 0, 1)
+DebugLabel/constants/outline_size = 4
+DebugLabel/font_sizes/font_size = 14
