@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ActorData" load_steps=2 format=3 uid="uid://d120yeioxme88"]
+
+[ext_resource type="Script" path="res://scripts/class_ActorData.gd" id="1_h4pgp"]
+
+[resource]
+script = ExtResource("1_h4pgp")
+speed_walk = 1.0
+speed_run = 3.0
+speed_sprint = 6.0
+anim_idle = "idle"
+anim_walk = "walk"
+anim_run = "run"
+anim_sprint = "sprint"
+anim_jump = "jump"

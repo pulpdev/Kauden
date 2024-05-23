@@ -1,8 +1,30 @@
-[gd_scene load_steps=11 format=3 uid="uid://c8e6y1b77csa8"]
+[gd_scene load_steps=14 format=3 uid="uid://c8e6y1b77csa8"]
 
 [ext_resource type="Script" path="res://scripts/class_GameScene.gd" id="1_1846m"]
 [ext_resource type="Terrain3DStorage" uid="uid://cw6ifmnonf44" path="res://abstract/terrains/new_terrain_3d_storage.res" id="2_ht14o"]
 [ext_resource type="PackedScene" uid="uid://cd5jwffggrspi" path="res://abstract/actors/Player.tscn" id="3_hi1i3"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vnnfq"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_10rvc"]
+sky_material = SubResource("ProceduralSkyMaterial_vnnfq")
+
+[sub_resource type="Environment" id="Environment_8jnht"]
+background_mode = 2
+sky = SubResource("Sky_10rvc")
+ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
+reflected_light_source = 2
+tonemap_mode = 2
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+sdfgi_enabled = true
+sdfgi_use_occlusion = true
+glow_enabled = true
+glow_normalized = true
 
 [sub_resource type="Gradient" id="Gradient_quat8"]
 offsets = PackedFloat32Array(0.2, 1)
@@ -48,21 +70,26 @@ albedo_color = Color(1, 0, 1, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_72boq"]
 
-[node name="GameScene" type="Node3D"]
+[node name="GameScene" type="Node3D" node_paths=PackedStringArray("player")]
 script = ExtResource("1_1846m")
+player = NodePath("Player")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_8jnht")
 
 [node name="Terrain3D" type="Terrain3D" parent="."]
 storage = ExtResource("2_ht14o")
 material = SubResource("Terrain3DMaterial_a1nkr")
 texture_list = SubResource("Terrain3DTextureList_m5fh7")
 
-[node name="Player" parent="." instance=ExtResource("3_hi1i3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.33014, 1, -2)
-
-[node name="Camera3D" type="Camera3D" parent="Player"]
-transform = Transform3D(-1, 0, -8.9407e-08, -4.47035e-08, 0.866025, 0.5, 7.74287e-08, 0.5, -0.866025, 0, 3.66423, -8.98722)
-
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.4256, 0, 27.6435)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.63032, 0, -6.89682)
 material_override = SubResource("StandardMaterial3D_2fihx")
 mesh = SubResource("BoxMesh_72boq")
+
+[node name="Player" parent="." instance=ExtResource("3_hi1i3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.76708, 4.76837e-07, 6.93287)

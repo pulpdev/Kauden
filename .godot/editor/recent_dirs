@@ -1,6 +1,11 @@
-res://scripts
-res://abstract/actors
+res://scripts/ui
 res://scenes
+res://abstract/actordata
+res://scripts/actions
+res://scripts
+res://abstract/models/test
+res://abstract/models
+res://autoloads
+res://abstract/actors
 res://abstract/terrains
 res://
-res://autoloads
