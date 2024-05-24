@@ -1,3 +1,5 @@
+Node
+Node3D
 HBoxContainer
 Label
 Control
@@ -6,10 +8,5 @@ ActionRun
 ActionSprint
 ActionStand
 SpringArm
-Node3D
 SpringArm3D
 Camera3D
-Marker3D
-AnimationTree
-Stat
-ActionAnimate

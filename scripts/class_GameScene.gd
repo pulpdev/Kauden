@@ -7,6 +7,9 @@ static var gravity : float = ProjectSettings.get_setting("physics/3d/default_gra
 
 func _init():
 	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CAPTURED)
+	
+func _ready():
+	print(get_path_to(player.States))
 
 func _physics_process(delta):
 	var fps = Engine.get_frames_per_second()

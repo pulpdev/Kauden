@@ -55,7 +55,6 @@ func _input(event):
 	vector_input = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down") 
 
 func _process(delta):
-	print(control_scheme)
 	match control_scheme:
 		CONTROL_SCHEMES.GAMEPAD:
 			SpringArm.add_pitch(vector_joystick.y * sensitivity_joystick)

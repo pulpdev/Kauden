@@ -1,0 +1,76 @@
+[gd_scene load_steps=17 format=3 uid="uid://uthrp0a0t4to"]
+
+[ext_resource type="Script" path="res://scripts/class_Actor.gd" id="1_txq24"]
+[ext_resource type="Script" path="res://scripts/mod_Pivot.gd" id="2_c04ds"]
+[ext_resource type="Script" path="res://scripts/class_ActionManager.gd" id="4_l3j5v"]
+[ext_resource type="Script" path="res://scripts/class_StateManager.gd" id="4_ri2qd"]
+[ext_resource type="Script" path="res://scripts/class_Eyes.gd" id="5_1xibh"]
+[ext_resource type="Script" path="res://scripts/actions/class_Action_Run.gd" id="6_lehut"]
+[ext_resource type="Script" path="res://scripts/actions/class_Action_Animate.gd" id="6_m6o6a"]
+[ext_resource type="Script" path="res://scripts/actions/class_Action_Sprint.gd" id="7_lw2vq"]
+[ext_resource type="Script" path="res://scripts/actions/class_Action_Stand.gd" id="7_q3nrf"]
+[ext_resource type="Script" path="res://scripts/states/class_State_Free.gd" id="9_kbtkv"]
+[ext_resource type="Script" path="res://scripts/states/class_State_ActionDynamic.gd" id="10_gpvrn"]
+[ext_resource type="Script" path="res://scripts/states/class_State_ActionStatic.gd" id="11_mwcjt"]
+[ext_resource type="Script" path="res://scripts/states/class_State_Attack.gd" id="12_p0q46"]
+[ext_resource type="Script" path="res://scripts/states/class_State_Block.gd" id="13_j18qe"]
+[ext_resource type="Script" path="res://scripts/class_Stat.gd" id="14_lktnr"]
+[ext_resource type="Script" path="res://scripts/class_StatsManager.gd" id="16_o51gy"]
+
+[node name="Actor" type="CharacterBody3D" node_paths=PackedStringArray("ActionManager", "StateManager", "Pivot", "Eyes")]
+collision_layer = 2
+collision_mask = 15
+script = ExtResource("1_txq24")
+ActionManager = NodePath("ActionManager")
+StateManager = NodePath("StateManager")
+Pivot = NodePath("Pivot")
+Eyes = NodePath("Eyes")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+
+[node name="Pivot" type="Node3D" parent="."]
+script = ExtResource("2_c04ds")
+
+[node name="Eyes" type="Node3D" parent="."]
+script = ExtResource("5_1xibh")
+
+[node name="ActionManager" type="Node" parent="."]
+script = ExtResource("4_l3j5v")
+
+[node name="Stand" type="Node" parent="ActionManager"]
+script = ExtResource("7_q3nrf")
+
+[node name="Run" type="Node" parent="ActionManager"]
+script = ExtResource("6_lehut")
+
+[node name="Sprint" type="Node" parent="ActionManager"]
+script = ExtResource("7_lw2vq")
+
+[node name="Animate" type="Node" parent="ActionManager"]
+script = ExtResource("6_m6o6a")
+
+[node name="StateManager" type="Node" parent="." node_paths=PackedStringArray("state")]
+script = ExtResource("4_ri2qd")
+state = NodePath("Free")
+
+[node name="Free" type="Node" parent="StateManager"]
+script = ExtResource("9_kbtkv")
+
+[node name="ActionDynamic" type="Node" parent="StateManager"]
+script = ExtResource("10_gpvrn")
+
+[node name="ActionStatic" type="Node" parent="StateManager"]
+script = ExtResource("11_mwcjt")
+
+[node name="Attacking" type="Node" parent="StateManager"]
+script = ExtResource("12_p0q46")
+
+[node name="Blocking" type="Node" parent="StateManager"]
+script = ExtResource("13_j18qe")
+
+[node name="Stat" type="Node" parent="."]
+script = ExtResource("14_lktnr")
+base = 33.0
+
+[node name="StatsManager" type="Node" parent="."]
+script = ExtResource("16_o51gy")

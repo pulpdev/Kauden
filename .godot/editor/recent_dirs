@@ -1,11 +1,11 @@
+res://scripts
 res://scripts/ui
 res://scenes
+res://autoloads
 res://abstract/actordata
 res://scripts/actions
-res://scripts
 res://abstract/models/test
 res://abstract/models
-res://autoloads
 res://abstract/actors
 res://abstract/terrains
 res://

@@ -10,7 +10,7 @@ func execute(params : Array = [])->void:
 		var target : float = atan2(vector.x, vector.z)
 		actor.Pivot.move(target, actor.speed_turn)
 
-	actor.vector_move = Vector2(vector.x * speed, vector.z * speed)
+	actor.vector_move = vector * speed
 	actor.Pivot.Model.play_animation(actor.data.anim_sprint)
 
 	finished.emit()
