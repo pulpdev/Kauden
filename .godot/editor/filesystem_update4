@@ -1,5 +1,4 @@
 res://autoloads/Debug.tscn
-res://scripts/class_Actor.gd
 res://abstract/terrains/new_terrain_3d_storage.res
 res://scenes/GameScene.tscn
 res://scenes/Actor.tscn
@@ -8,20 +7,5 @@ res://abstract/models/base_actor.tscn
 res://abstract/models/test/mixamo_base_03_01.tscn
 res://abstract/models/test/mixamo_base_03_02.tscn
 res://scenes/GUI.tscn
-res://scripts/class_Controller_Player.gd
-res://autoloads/auto_Game.gd
-res://scripts/actions/class_Action_Animate.gd
 res://scripts/class_StateManager.gd
-res://scripts/auto_Debug.gd
-res://scripts/ui/ui_DebugPanel.gd
-res://scenes/DebugPanel.tscn
-res://scripts/class_Stat.gd
-res://scripts/class_ActionManager.gd
-res://scripts/class_StatsManager.gd
-res://scripts/class_ParamManager.gd
-res://abstract/actordata/default.tres
-res://scripts/actions/class_Action_Run.gd
-res://scripts/actions/class_Action_Sprint.gd
-res://scripts/actions/class_Action_Stand.gd
 res://scripts/class_State.gd
-res://scripts/class_GameScene.gd

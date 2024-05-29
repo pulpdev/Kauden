@@ -1,8 +1,9 @@
 extends Node
 class_name StateManager
 
-var states : Dictionary
 @export var state : State
+var states : Dictionary
+var state_previous : State
 
 func _init():
 	child_entered_tree.connect(func(state): states[state.name] = state)
@@ -16,9 +17,9 @@ func set_state(statename : String, params : Object = null)->void:
 	if self.state:
 		self.state.exit()
 	self.state = state
-	self.state.enter(params)
+	self.state.enter()
 	Debug.set_property("state", state)
-		
+
 func get_state(state : String)->State:
 	return states[state]
 	
