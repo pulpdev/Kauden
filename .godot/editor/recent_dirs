@@ -1,9 +1,12 @@
+res://abstract/behaviors
+res://scripts/actions
+res://scripts/states
+res://scripts/modules
 res://scripts
 res://scripts/ui
 res://scenes
 res://autoloads
 res://abstract/actordata
-res://scripts/actions
 res://abstract/models/test
 res://abstract/models
 res://abstract/actors

@@ -1,7 +1,6 @@
+@icon("res://assets/editor/controller.svg")
 extends Node
 class_name Controller
-
-signal request_action_execute(action, args : Array)
 
 @export var enabled : bool
 

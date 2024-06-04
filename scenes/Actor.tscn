@@ -1,28 +1,15 @@
-[gd_scene load_steps=17 format=3 uid="uid://uthrp0a0t4to"]
+[gd_scene load_steps=6 format=3 uid="uid://uthrp0a0t4to"]
 
 [ext_resource type="Script" path="res://scripts/class_Actor.gd" id="1_txq24"]
 [ext_resource type="Script" path="res://scripts/class_Pivot.gd" id="2_gy026"]
-[ext_resource type="Script" path="res://scripts/class_ActionManager.gd" id="4_l3j5v"]
-[ext_resource type="Script" path="res://scripts/class_StateManager.gd" id="4_ri2qd"]
 [ext_resource type="Script" path="res://scripts/class_ParamManager.gd" id="4_tbehs"]
 [ext_resource type="Script" path="res://scripts/class_Eyes.gd" id="5_1xibh"]
 [ext_resource type="Script" path="res://scripts/class_Parameter.gd" id="5_ynwga"]
-[ext_resource type="Script" path="res://scripts/actions/class_Action_Run.gd" id="6_lehut"]
-[ext_resource type="Script" path="res://scripts/actions/class_Action_Animate.gd" id="6_m6o6a"]
-[ext_resource type="Script" path="res://scripts/actions/class_Action_Sprint.gd" id="7_lw2vq"]
-[ext_resource type="Script" path="res://scripts/actions/class_Action_Stand.gd" id="7_q3nrf"]
-[ext_resource type="Script" path="res://scripts/states/class_State_Free.gd" id="9_kbtkv"]
-[ext_resource type="Script" path="res://scripts/states/class_State_ActionDynamic.gd" id="10_gpvrn"]
-[ext_resource type="Script" path="res://scripts/states/class_State_ActionStatic.gd" id="11_mwcjt"]
-[ext_resource type="Script" path="res://scripts/states/class_State_Attack.gd" id="12_p0q46"]
-[ext_resource type="Script" path="res://scripts/states/class_State_Block.gd" id="13_j18qe"]
 
-[node name="Actor" type="CharacterBody3D" node_paths=PackedStringArray("Actions", "States", "Parameters", "Pivot", "Eyes")]
+[node name="Actor" type="CharacterBody3D" node_paths=PackedStringArray("Parameters", "Pivot", "Eyes")]
 collision_layer = 2
 collision_mask = 15
 script = ExtResource("1_txq24")
-Actions = NodePath("Actions")
-States = NodePath("States")
 Parameters = NodePath("Parameters")
 Pivot = NodePath("Pivot")
 Eyes = NodePath("Eyes")
@@ -67,59 +54,5 @@ script = ExtResource("5_ynwga")
 
 [node name="Lumbering" type="Node" parent="Parameters" groups=["SAVE"]]
 script = ExtResource("5_ynwga")
-
-[node name="Actions" type="Node" parent="."]
-script = ExtResource("4_l3j5v")
-
-[node name="Stand" type="Node" parent="Actions"]
-script = ExtResource("7_q3nrf")
-
-[node name="Run" type="Node" parent="Actions"]
-script = ExtResource("6_lehut")
-
-[node name="Sprint" type="Node" parent="Actions"]
-script = ExtResource("7_lw2vq")
-
-[node name="Animate" type="Node" parent="Actions"]
-script = ExtResource("6_m6o6a")
-
-[node name="States" type="Node" parent="." node_paths=PackedStringArray("state")]
-script = ExtResource("4_ri2qd")
-state = NodePath("Free")
-
-[node name="Free" type="Node" parent="States"]
-script = ExtResource("9_kbtkv")
-
-[node name="ActionDynamic" type="Node" parent="States"]
-script = ExtResource("10_gpvrn")
-
-[node name="ActionStatic" type="Node" parent="States"]
-script = ExtResource("11_mwcjt")
-
-[node name="Attacking" type="Node" parent="States"]
-script = ExtResource("12_p0q46")
-
-[node name="Blocking" type="Node" parent="States"]
-script = ExtResource("13_j18qe")
-
-[node name="StateManager" type="Node" parent="."]
-
-[node name="Idle" type="Node" parent="StateManager" node_paths=PackedStringArray("transitions")]
-script = ExtResource("9_kbtkv")
-transitions = [null]
-
-[node name="Walk" type="Node" parent="StateManager" node_paths=PackedStringArray("transitions")]
-script = ExtResource("9_kbtkv")
-transitions = [null]
-
-[node name="Run" type="Node" parent="StateManager"]
-script = ExtResource("9_kbtkv")
-
-[node name="Sprint" type="Node" parent="StateManager"]
-script = ExtResource("9_kbtkv")
-
-[node name="Attack" type="Node" parent="StateManager"]
-
-[node name="Block" type="Node" parent="StateManager"]
 
 [connection signal="child_entered_tree" from="Parameters" to="Parameters" method="_on_child_entered_tree"]

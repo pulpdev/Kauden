@@ -1,0 +1,43 @@
+[gd_scene load_steps=9 format=3 uid="uid://rasb6xdudjnp"]
+
+[ext_resource type="Script" path="res://scripts/class_BehaviorRoot.gd" id="1_ah6wc"]
+[ext_resource type="Script" path="res://scripts/class_BehaviorNode_CompositeSelector.gd" id="2_r2i0c"]
+[ext_resource type="Script" path="res://scripts/class_BehaviorNode_CompositeSequence.gd" id="3_1dmic"]
+[ext_resource type="Script" path="res://scripts/actions/action_IsPlayerInput.gd" id="4_pusy2"]
+[ext_resource type="Script" path="res://scripts/actions/action_IsPressSprint.gd" id="5_sg6i3"]
+[ext_resource type="Script" path="res://scripts/actions/action_PlayerSprint.gd" id="6_08s7r"]
+[ext_resource type="Script" path="res://scripts/actions/action_PlayerRun.gd" id="7_bo5lo"]
+[ext_resource type="Script" path="res://scripts/actions/action_Idle.gd" id="8_8gka8"]
+
+[node name="PlayerBehavior" type="Node"]
+script = ExtResource("1_ah6wc")
+
+[node name="CompositeSelector" type="Node" parent="."]
+script = ExtResource("2_r2i0c")
+
+[node name="CheckInput" type="Node" parent="CompositeSelector"]
+script = ExtResource("3_1dmic")
+
+[node name="IsPlayerInput" type="Node" parent="CompositeSelector/CheckInput"]
+script = ExtResource("4_pusy2")
+
+[node name="RunOrSprint" type="Node" parent="CompositeSelector/CheckInput"]
+script = ExtResource("2_r2i0c")
+
+[node name="Sprint" type="Node" parent="CompositeSelector/CheckInput/RunOrSprint"]
+script = ExtResource("3_1dmic")
+
+[node name="IsPressSprint" type="Node" parent="CompositeSelector/CheckInput/RunOrSprint/Sprint"]
+script = ExtResource("5_sg6i3")
+
+[node name="PlayerSprint" type="Node" parent="CompositeSelector/CheckInput/RunOrSprint/Sprint"]
+script = ExtResource("6_08s7r")
+
+[node name="Run" type="Node" parent="CompositeSelector/CheckInput/RunOrSprint"]
+script = ExtResource("3_1dmic")
+
+[node name="PlayerRun" type="Node" parent="CompositeSelector/CheckInput/RunOrSprint/Run"]
+script = ExtResource("7_bo5lo")
+
+[node name="Idle" type="Node" parent="CompositeSelector"]
+script = ExtResource("8_8gka8")

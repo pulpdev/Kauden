@@ -11,24 +11,19 @@ signal control_scheme_changed(scheme : int)
 @export var SpringArm : SpringArm
 
 var player : Actor
-
 var vector_view : Vector2
 var vector_input : Vector2
 var vector_joystick : Vector2
-
 var sensitivity_mouse : float = 0.5
 var sensitivity_joystick : float = 0.02
-
 var control_scheme : CONTROL_SCHEMES = CONTROL_SCHEMES.KEYBOARD_MOUSE:
 	set(x):
 		if not control_scheme == x:
 			control_scheme = x
 			control_scheme_changed.emit(control_scheme)
 
-var speed_move : float
-
-func initialize(parent : Actor):
-	player = parent
+func initialize(player : Actor):
+	self.player = player
 
 func _input(event):
 	if event is InputEventMouseMotion:
@@ -48,9 +43,6 @@ func _input(event):
 
 	if event is InputEventJoypadButton:
 		control_scheme = CONTROL_SCHEMES.GAMEPAD
-		
-	if event.is_action("action_jump"):
-		request_action_execute.emit(ActionAnimate, [player, player.data.anim_jump])
 
 	vector_input = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down") 
 
@@ -63,16 +55,8 @@ func _process(delta):
 			SpringArm.set_pitch(vector_view.y * sensitivity_mouse)
 			SpringArm.set_yaw(vector_view.x * sensitivity_mouse)
 
-func _physics_process(delta):
-	if not vector_input == Vector2.ZERO:
-		var vector_move : Vector3 = SpringArm.calc_input_direction(vector_input)
+func is_pressing_sprint()->bool:
+	return Input.is_action_pressed("action_sprint")
 
-		if Input.is_action_pressed("action_sprint"):
-			speed_move = player.data.speed_sprint
-			request_action_execute.emit(ActionSprint, [player, vector_move, speed_move])
-		else:
-			speed_move = player.data.speed_run
-			request_action_execute.emit(ActionRun, [player, vector_move, speed_move])
-	else:
-		speed_move = 0.0
-		request_action_execute.emit(ActionStand, [player])
+func is_pressing_jump()->bool:
+	return Input.is_action_pressed("action_jump")

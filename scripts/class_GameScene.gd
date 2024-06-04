@@ -9,7 +9,7 @@ func _init():
 	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CAPTURED)
 	
 func _ready():
-	print(get_path_to(player.States))
+	pass
 
 func _physics_process(delta):
 	var fps = Engine.get_frames_per_second()
