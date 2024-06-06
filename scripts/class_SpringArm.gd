@@ -29,6 +29,9 @@ func get_yaw()->float:
 func get_pitch()->float:
 	return Pitch.rotation.x
 	
+func get_yaw_direction()->Vector3:
+	return Yaw.global_transform.basis.z
+	
 func calc_input_direction(input : Vector2)->Vector3:
 	var vector_fwd : Vector3 = Vector3(0,0,1).rotated(Vector3.UP, Camera.global_rotation.y)
 	var vector_hor : Vector3 = Vector3(1,0,0).rotated(Vector3.UP, Camera.global_rotation.y)

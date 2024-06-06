@@ -2,6 +2,7 @@ extends CharacterBody3D
 class_name Actor
 
 const MIN_DIST_TO_LOCATION : float = 1.1
+const FRICTION_DEFAULT : float = 0.2
 
 @export var Controller : Controller
 @export var Parameters : ParamManager
@@ -9,17 +10,22 @@ const MIN_DIST_TO_LOCATION : float = 1.1
 @export var Pivot : Pivot
 @export var Eyes : Eyes
 
-var friction : float = 0.5
-var speed_turn : float = 0.1
+var friction : float = FRICTION_DEFAULT
 var vector_move : Vector3
+var vector_move_last : Vector3
 
 func _ready():
 	if Controller:
 		Controller.initialize(self)
 
 func _physics_process(delta):
-	velocity.x = move_toward(velocity.x, vector_move.x, friction)
-	velocity.z = move_toward(velocity.z, vector_move.z, friction)
+	velocity.x = lerp(velocity.x, vector_move.x, friction)
+	velocity.z = lerp(velocity.z, vector_move.z, friction)
+	vector_move.x = lerp(vector_move.x, 0.0, friction)
+	vector_move.z = lerp(vector_move.z, 0.0, friction)
+	if velocity.distance_to(Vector3.ZERO) < 0.1:
+		velocity = Vector3.ZERO
+		vector_move = Vector3.ZERO
 
 	if is_on_floor():
 		velocity.y = 0.0
@@ -35,11 +41,10 @@ func apply_gravity(gravity : float, delta : float)->void:
 	velocity.y -= GameScene.gravity * delta
 
 func is_moving()->bool:
-	return abs(velocity) > Vector3.ZERO
+	return not velocity == Vector3.ZERO
 
-func move(vector : Vector3, speed : float, animation : String)->void:
-	if not vector == Vector3.ZERO:
-		var target : float = atan2(vector.x, vector.z)
-		Pivot.move(target, speed_turn)
-	Pivot.Model.play_animation(animation)
-	vector_move = vector * speed
+func move(vector : Vector3, speed : float, friction : float = FRICTION_DEFAULT)->void:
+	Pivot.set_direction(vector)
+	self.friction = friction
+	vector_move_last = vector * speed
+	vector_move = vector_move_last

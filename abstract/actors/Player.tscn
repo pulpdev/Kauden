@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://uthrp0a0t4to" path="res://scenes/Actor.tscn" id="1_7iqmi"]
 [ext_resource type="Script" path="res://scripts/class_Controller_Player.gd" id="2_4dgli"]
-[ext_resource type="PackedScene" uid="uid://chn76vaf2qblb" path="res://abstract/models/test/mixamo_base_03_02.tscn" id="2_t3kx2"]
 [ext_resource type="Resource" uid="uid://c0nost4wy2tim" path="res://abstract/actordata/default.tres" id="2_ycimw"]
+[ext_resource type="PackedScene" uid="uid://cyi63dudfs0vg" path="res://abstract/models/test/mixamo_base_03_04.tscn" id="3_fldq4"]
 [ext_resource type="Script" path="res://scripts/class_SpringArm.gd" id="4_8ul6a"]
 [ext_resource type="PackedScene" uid="uid://rasb6xdudjnp" path="res://abstract/behaviors/PlayerBehavior.tscn" id="6_q8ly1"]
 
@@ -23,9 +23,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_bfcww")
 
 [node name="Pivot" parent="." index="1" node_paths=PackedStringArray("Model")]
-Model = NodePath("mixamo_base_03_02")
+Model = NodePath("mixamo_base_03_04")
 
-[node name="mixamo_base_03_02" parent="Pivot" index="0" instance=ExtResource("2_t3kx2")]
+[node name="mixamo_base_03_04" parent="Pivot" index="0" instance=ExtResource("3_fldq4")]
 
 [node name="SpringArm" type="Node3D" parent="." index="4" node_paths=PackedStringArray("Camera", "RayCast")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
@@ -46,9 +46,11 @@ margin = 0.5
 [node name="Camera3D" type="Camera3D" parent="SpringArm/Yaw/Pitch/SpringArm3D" index="0"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
-[node name="PlayerController" type="Node" parent="." index="5" node_paths=PackedStringArray("SpringArm")]
+[node name="PlayerController" type="Node" parent="." index="5" node_paths=PackedStringArray("SpringArm", "AttackDelay", "Behavior")]
 script = ExtResource("2_4dgli")
 SpringArm = NodePath("../SpringArm")
+AttackDelay = NodePath("../AttackDelay")
+Behavior = NodePath("../PlayerBehavior")
 enabled = true
 
 [node name="PlayerBehavior" parent="." index="6" node_paths=PackedStringArray("Actor") instance=ExtResource("6_q8ly1")]

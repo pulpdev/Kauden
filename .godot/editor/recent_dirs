@@ -1,5 +1,6 @@
-res://abstract/behaviors
+res://abstract/models/test
 res://scripts/actions
+res://abstract/behaviors
 res://scripts/states
 res://scripts/modules
 res://scripts
@@ -7,7 +8,6 @@ res://scripts/ui
 res://scenes
 res://autoloads
 res://abstract/actordata
-res://abstract/models/test
 res://abstract/models
 res://abstract/actors
 res://abstract/terrains

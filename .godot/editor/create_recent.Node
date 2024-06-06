@@ -1,7 +1,9 @@
-CompositeSequence
-CompositeSelector
+AnimationPlayer
 ActionLeaf
 DecoratorInverter
+CompositeSequence
+Timer
+CompositeSelector
 BehaviorRoot
 State
 Area3D
@@ -10,5 +12,3 @@ RigidBody3D
 CharacterBody3D
 Node
 Node3D
-HBoxContainer
-Label

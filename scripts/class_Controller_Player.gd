@@ -1,4 +1,4 @@
-extends Controller
+extends ControllerActor
 class_name ControllerPlayer
 
 enum CONTROL_SCHEMES {
@@ -10,7 +10,6 @@ signal control_scheme_changed(scheme : int)
 
 @export var SpringArm : SpringArm
 
-var player : Actor
 var vector_view : Vector2
 var vector_input : Vector2
 var vector_joystick : Vector2
@@ -60,3 +59,6 @@ func is_pressing_sprint()->bool:
 
 func is_pressing_jump()->bool:
 	return Input.is_action_pressed("action_jump")
+
+func is_pressed_attack()->bool:
+	return Input.is_action_just_pressed("action_attack")
