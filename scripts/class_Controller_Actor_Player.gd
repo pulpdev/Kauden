@@ -22,20 +22,22 @@ var control_scheme : CONTROL_SCHEMES = CONTROL_SCHEMES.KEYBOARD_MOUSE:
 			control_scheme_changed.emit(control_scheme)
 
 func initialize(player : Actor):
-	self.player = player
+	self.actor = player
 
 func _input(event):
 	if event is InputEventMouseMotion:
 		control_scheme = CONTROL_SCHEMES.KEYBOARD_MOUSE
-		vector_view.x += deg_to_rad(-event.relative.x)
-		vector_view.y += deg_to_rad(event.relative.y)
+		vector_view.x += deg_to_rad(-event.relative.x) * sensitivity_mouse
+		vector_view.y += deg_to_rad(event.relative.y) * sensitivity_mouse
+		vector_view.y = clamp(vector_view.y, -1, 1)
 
 	if event is InputEventJoypadMotion:
 		control_scheme = CONTROL_SCHEMES.GAMEPAD
 		if event.axis == 2:
-			vector_joystick.x = -event.axis_value
+			vector_joystick.x = -event.axis_value * sensitivity_joystick
 		if event.axis == 3:
-			vector_joystick.y = event.axis_value
+			vector_joystick.y = event.axis_value * sensitivity_joystick
+			vector_joystick.y = clamp(vector_joystick.y, -1, 1)
 
 	if event is InputEventKey:
 		control_scheme = CONTROL_SCHEMES.KEYBOARD_MOUSE
@@ -48,11 +50,11 @@ func _input(event):
 func _process(delta):
 	match control_scheme:
 		CONTROL_SCHEMES.GAMEPAD:
-			SpringArm.add_pitch(vector_joystick.y * sensitivity_joystick)
-			SpringArm.add_yaw(vector_joystick.x * sensitivity_joystick)
+			SpringArm.add_pitch(vector_joystick.y)
+			SpringArm.add_yaw(vector_joystick.x)
 		CONTROL_SCHEMES.KEYBOARD_MOUSE:
-			SpringArm.set_pitch(vector_view.y * sensitivity_mouse)
-			SpringArm.set_yaw(vector_view.x * sensitivity_mouse)
+			SpringArm.set_pitch(vector_view.y)
+			SpringArm.set_yaw(vector_view.x)
 
 func is_pressing_sprint()->bool:
 	return Input.is_action_pressed("action_sprint")

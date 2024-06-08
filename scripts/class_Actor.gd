@@ -1,3 +1,4 @@
+@icon("res://assets/editor/actor.svg")
 extends CharacterBody3D
 class_name Actor
 

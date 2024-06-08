@@ -1,7 +1,7 @@
 extends Node3D
 class_name SpringArm
 
-const ROTATE_SPEED : float = 0.4
+const ROTATE_SPEED : float = 0.2
 
 @export var Camera : Camera3D
 @export var RayCast : SpringArm3D

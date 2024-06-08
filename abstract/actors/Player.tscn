@@ -1,14 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://cd5jwffggrspi"]
+[gd_scene load_steps=8 format=3 uid="uid://cd5jwffggrspi"]
 
 [ext_resource type="PackedScene" uid="uid://uthrp0a0t4to" path="res://scenes/Actor.tscn" id="1_7iqmi"]
-[ext_resource type="Script" path="res://scripts/class_Controller_Player.gd" id="2_4dgli"]
 [ext_resource type="Resource" uid="uid://c0nost4wy2tim" path="res://abstract/actordata/default.tres" id="2_ycimw"]
 [ext_resource type="PackedScene" uid="uid://cyi63dudfs0vg" path="res://abstract/models/test/mixamo_base_03_04.tscn" id="3_fldq4"]
 [ext_resource type="Script" path="res://scripts/class_SpringArm.gd" id="4_8ul6a"]
+[ext_resource type="Script" path="res://scripts/class_Controller_Actor_Player.gd" id="5_qlxd5"]
 [ext_resource type="PackedScene" uid="uid://rasb6xdudjnp" path="res://abstract/behaviors/PlayerBehavior.tscn" id="6_q8ly1"]
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bfcww"]
-radius = 0.3
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_swf0b"]
 margin = 0.5
@@ -17,10 +14,6 @@ radius = 1.0
 [node name="Player" node_paths=PackedStringArray("Controller") groups=["PLAYER"] instance=ExtResource("1_7iqmi")]
 Controller = NodePath("PlayerController")
 data = ExtResource("2_ycimw")
-
-[node name="CollisionShape3D" parent="." index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CapsuleShape3D_bfcww")
 
 [node name="Pivot" parent="." index="1" node_paths=PackedStringArray("Model")]
 Model = NodePath("mixamo_base_03_04")
@@ -47,7 +40,7 @@ margin = 0.5
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="PlayerController" type="Node" parent="." index="5" node_paths=PackedStringArray("SpringArm", "AttackDelay", "Behavior")]
-script = ExtResource("2_4dgli")
+script = ExtResource("5_qlxd5")
 SpringArm = NodePath("../SpringArm")
 AttackDelay = NodePath("../AttackDelay")
 Behavior = NodePath("../PlayerBehavior")
