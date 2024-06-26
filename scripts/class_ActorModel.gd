@@ -1,7 +1,7 @@
 extends Node3D
 class_name ActorModel
 
-const ANIM_BLEND_TIME : float = 0.2
+const ANIM_BLEND_TIME : float = 1
 const ANIM_DEFAULT : String = "_default"
 
 @onready var Animations : AnimationPlayer = $AnimationPlayer

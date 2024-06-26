@@ -10,11 +10,3 @@ res://abstract/behaviors/PlayerBehavior.tscn
 res://abstract/models/test/mixamo_base_03_03.tscn
 res://abstract/models/test/mixamo_base_03_04.tscn
 res://abstract/actors/test/actor_test.tscn
-res://scripts/class_SpringArm.gd
-res://scripts/class_Controller_Actor_Player.gd
-res://scripts/class_Controller_Actor_AI.gd
-res://scripts/actions/action_IsActorVisible.gd
-res://scripts/class_BehaviorNode.gd
-res://scripts/actions/action_FollowTarget.gd
-res://scripts/class_Controller_Actor.gd
-res://scripts/class_Actor.gd

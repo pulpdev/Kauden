@@ -2,12 +2,9 @@
 extends BehaviorNode
 class_name DecoratorInverter
 
-func tick(actor : Actor, blackboard)->int:
+func tick(actor : Actor, blackboard : Blackboard)->int:
 	for c in get_children():
 		var r : int = c.tick(actor, blackboard)
-		if c is ActionLeaf:
-			actor.Controller.Behavior.action = c
-			Debug.set_property("action", actor.Controller.Behavior.action)
 		if r == SUCCESS:
 			return FAILURE
 		if r == FAILURE:

@@ -4,7 +4,6 @@ func tick(actor : Actor, blackboard : Blackboard)->int:
 	if not is_controller_player(actor.Controller):
 		return FAILURE
 	var pc : ControllerPlayer = actor.Controller
-	if not pc.vector_input == Vector2.ZERO:
+	if pc.is_pressed_dodge():
 		return SUCCESS
-	else:
-		return FAILURE
+	return FAILURE

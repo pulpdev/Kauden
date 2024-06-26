@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://c8e6y1b77csa8"]
+[gd_scene load_steps=15 format=3 uid="uid://c8e6y1b77csa8"]
 
 [ext_resource type="Script" path="res://scripts/class_GameScene.gd" id="1_1846m"]
 [ext_resource type="Terrain3DStorage" uid="uid://cw6ifmnonf44" path="res://abstract/terrains/new_terrain_3d_storage.res" id="2_ht14o"]
@@ -71,11 +71,6 @@ albedo_color = Color(1, 0, 1, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_72boq"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_fmjlc"]
-
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_1sk8l"]
-data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
-
 [node name="GameScene" type="Node3D" node_paths=PackedStringArray("player")]
 script = ExtResource("1_1846m")
 player = NodePath("Actors/Player")
@@ -83,13 +78,10 @@ player = NodePath("Actors/Player")
 [node name="Actors" type="Node3D" parent="."]
 
 [node name="Player" parent="Actors" instance=ExtResource("3_hi1i3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.76708, 4.22516, 6.93287)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.76708, 1.70325, 6.93287)
 
 [node name="actor_test" parent="Actors" instance=ExtResource("3_sn784")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5904, 2.2808, 5.67519)
-
-[node name="actor_test2" parent="Actors" instance=ExtResource("3_sn784")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.90098, 0, -20.5432)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5904, 2.2808, 10.173)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866026, -0.500003, 0.749999, -0.43301, 0, 0, 0)
@@ -107,13 +99,3 @@ texture_list = SubResource("Terrain3DTextureList_m5fh7")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.63032, 0, -6.89682)
 material_override = SubResource("StandardMaterial3D_2fihx")
 mesh = SubResource("BoxMesh_72boq")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.192762, 0, -2.78674, 0, 2.98, 0, 0.981246, 0, 0.547443, -11.5562, 1.41361, 17.8715)
-mesh = SubResource("BoxMesh_fmjlc")
-metadata/_edit_group_ = true
-
-[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D2"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D2/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_1sk8l")

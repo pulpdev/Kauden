@@ -2,6 +2,7 @@ extends Node3D
 class_name GameScene
 
 static var gravity : float = ProjectSettings.get_setting("physics/3d/default_gravity")
+static var vector_gravity : Vector3 = ProjectSettings.get_setting("physics/3d/default_gravity_vector")
 
 @export var player : Actor
 

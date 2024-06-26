@@ -1,4 +1,5 @@
 extends RefCounted
+class_name Blackboard
 
 const NAME_DEFAULT = "default"
 

@@ -23,13 +23,14 @@ var control_scheme : CONTROL_SCHEMES = CONTROL_SCHEMES.KEYBOARD_MOUSE:
 
 func initialize(player : Actor):
 	self.actor = player
+	var d = ActorTarget.new()
 
 func _input(event):
 	if event is InputEventMouseMotion:
 		control_scheme = CONTROL_SCHEMES.KEYBOARD_MOUSE
 		vector_view.x += deg_to_rad(-event.relative.x) * sensitivity_mouse
 		vector_view.y += deg_to_rad(event.relative.y) * sensitivity_mouse
-		vector_view.y = clamp(vector_view.y, -1, 1)
+		#vector_view.y = clamp(vector_view.y,  deg_to_rad(SpringArm.PITCH_MIN),  deg_to_rad(SpringArm.PITCH_MAX))
 
 	if event is InputEventJoypadMotion:
 		control_scheme = CONTROL_SCHEMES.GAMEPAD
@@ -37,7 +38,6 @@ func _input(event):
 			vector_joystick.x = -event.axis_value * sensitivity_joystick
 		if event.axis == 3:
 			vector_joystick.y = event.axis_value * sensitivity_joystick
-			vector_joystick.y = clamp(vector_joystick.y, -1, 1)
 
 	if event is InputEventKey:
 		control_scheme = CONTROL_SCHEMES.KEYBOARD_MOUSE
@@ -64,3 +64,6 @@ func is_pressing_jump()->bool:
 
 func is_pressed_attack()->bool:
 	return Input.is_action_just_pressed("action_attack")
+	
+func is_pressed_dodge()->bool:
+	return Input.is_action_just_pressed("action_dodge")

@@ -1,6 +1,6 @@
 res://scripts/actions
-res://abstract/shapes/collisions
 res://scripts
+res://abstract/shapes/collisions
 res://abstract/actors/test
 res://scenes
 res://abstract/models/test

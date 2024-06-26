@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://rasb6xdudjnp"]
+[gd_scene load_steps=16 format=3 uid="uid://rasb6xdudjnp"]
 
 [ext_resource type="Script" path="res://scripts/class_BehaviorRoot.gd" id="1_ah6wc"]
 [ext_resource type="Script" path="res://scripts/class_BehaviorNode_CompositeSelector.gd" id="2_r2i0c"]
@@ -7,11 +7,14 @@
 [ext_resource type="Script" path="res://scripts/actions/action_IsPressSprint.gd" id="5_sg6i3"]
 [ext_resource type="Script" path="res://scripts/actions/action_PlayerSprint.gd" id="6_08s7r"]
 [ext_resource type="Script" path="res://scripts/actions/action_PlayerRun.gd" id="7_bo5lo"]
+[ext_resource type="Script" path="res://scripts/actions/action_PlayerDodge.gd" id="7_l67ni"]
 [ext_resource type="Script" path="res://scripts/actions/action_Idle.gd" id="8_8gka8"]
 [ext_resource type="Script" path="res://scripts/actions/action_IsPressAttack.gd" id="8_scyih"]
 [ext_resource type="Script" path="res://scripts/actions/action_PlayerAttack.gd" id="9_a6cht"]
+[ext_resource type="Script" path="res://scripts/actions/action_IsPressDodge.gd" id="9_hngwl"]
 [ext_resource type="Script" path="res://scripts/class_BehaviorNode_DecoratorInverter.gd" id="10_o6ojd"]
 [ext_resource type="Script" path="res://scripts/actions/action_IsAttacking.gd" id="11_8hcmq"]
+[ext_resource type="Script" path="res://scripts/actions/action_IsDodging.gd" id="11_pmut8"]
 
 [node name="PlayerBehavior" type="Node"]
 script = ExtResource("1_ah6wc")
@@ -28,6 +31,15 @@ script = ExtResource("8_scyih")
 [node name="PlayerAttack" type="Node" parent="CompositeSelector/Attack"]
 script = ExtResource("9_a6cht")
 
+[node name="Dodge" type="Node" parent="CompositeSelector"]
+script = ExtResource("3_1dmic")
+
+[node name="IsPressDodge" type="Node" parent="CompositeSelector/Dodge"]
+script = ExtResource("9_hngwl")
+
+[node name="PlayerDodge" type="Node" parent="CompositeSelector/Dodge"]
+script = ExtResource("7_l67ni")
+
 [node name="Movement" type="Node" parent="CompositeSelector"]
 script = ExtResource("3_1dmic")
 
@@ -39,6 +51,12 @@ script = ExtResource("10_o6ojd")
 
 [node name="IsAttacking" type="Node" parent="CompositeSelector/Movement/IsNotAttacking"]
 script = ExtResource("11_8hcmq")
+
+[node name="IsNotDodging" type="Node" parent="CompositeSelector/Movement"]
+script = ExtResource("10_o6ojd")
+
+[node name="IsDodging" type="Node" parent="CompositeSelector/Movement/IsNotDodging"]
+script = ExtResource("11_pmut8")
 
 [node name="RunOrSprint" type="Node" parent="CompositeSelector/Movement"]
 script = ExtResource("2_r2i0c")

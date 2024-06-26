@@ -1,7 +1,6 @@
 extends ActionLeaf
 
-func tick(actor : Actor, blackboard)->int:
-	super(actor, blackboard)
+func tick(actor : Actor, blackboard : Blackboard)->int:
 	var vector_move : Vector3
 	if not actor.Controller.AttackDelay.is_stopped():
 		return FAILURE
@@ -13,7 +12,7 @@ func tick(actor : Actor, blackboard)->int:
 			vector_move = pc.SpringArm.calc_input_direction(pc.vector_input)
 	else:
 		vector_move = actor.Pivot.get_forward_direction()
-	actor.move(vector_move, 15.0)
+	actor.move(vector_move, 20.0)
 	actor.Pivot.Model.play_animation("player_attack_01", true)
 	actor.Controller.AttackDelay.start()
 	return RUNNING

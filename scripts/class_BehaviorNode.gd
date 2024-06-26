@@ -4,7 +4,7 @@ class_name BehaviorNode
 
 enum {SUCCESS, FAILURE, RUNNING}
 
-func tick(actor : Actor, blackboard)->int: return FAILURE
+func tick(actor : Actor, blackboard : Blackboard)->int: return FAILURE
 
 func is_controller_player(controller)->bool:
 	return controller is ControllerPlayer

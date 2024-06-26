@@ -21,29 +21,32 @@ Model = NodePath("mixamo_base_03_04")
 [node name="mixamo_base_03_04" parent="Pivot" index="0" instance=ExtResource("3_fldq4")]
 
 [node name="SpringArm" type="Node3D" parent="." index="4" node_paths=PackedStringArray("Camera", "RayCast")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.67696, 0)
 script = ExtResource("4_8ul6a")
 Camera = NodePath("Yaw/Pitch/SpringArm3D/Camera3D")
 RayCast = NodePath("Yaw/Pitch/SpringArm3D")
+metadata/_edit_group_ = true
 
 [node name="Yaw" type="Node3D" parent="SpringArm" index="0"]
 
 [node name="Pitch" type="Node3D" parent="SpringArm/Yaw" index="0"]
 
 [node name="SpringArm3D" type="SpringArm3D" parent="SpringArm/Yaw/Pitch" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.366632)
 shape = SubResource("SphereShape3D_swf0b")
-spring_length = -2.0
+spring_length = -3.0
 margin = 0.5
 
 [node name="Camera3D" type="Camera3D" parent="SpringArm/Yaw/Pitch/SpringArm3D" index="0"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+fov = 70.0
 
-[node name="PlayerController" type="Node" parent="." index="5" node_paths=PackedStringArray("SpringArm", "AttackDelay", "Behavior")]
+[node name="PlayerController" type="Node" parent="." index="5" node_paths=PackedStringArray("SpringArm", "AttackDelay", "DodgeDelay", "Behavior", "TargetPosition")]
 script = ExtResource("5_qlxd5")
 SpringArm = NodePath("../SpringArm")
 AttackDelay = NodePath("../AttackDelay")
+DodgeDelay = NodePath("../DodgeDelay")
 Behavior = NodePath("../PlayerBehavior")
+TargetPosition = NodePath("../TargetPosition")
 enabled = true
 
 [node name="PlayerBehavior" parent="." index="6" node_paths=PackedStringArray("Actor") instance=ExtResource("6_q8ly1")]

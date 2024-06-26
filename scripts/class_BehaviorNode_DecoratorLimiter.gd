@@ -6,7 +6,7 @@ class_name DecoratorLimiter
 
 @onready var key = "limiter_%s" % get_instance_id()
 
-func tick(actor : Actor, blackboard)->int:
+func tick(actor : Actor, blackboard : Blackboard)->int:
 	var count : int = blackboard.get_data(key)
 	if count == null:
 		count = 0

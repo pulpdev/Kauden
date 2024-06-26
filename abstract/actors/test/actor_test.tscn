@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://scripts/class_BehaviorRoot.gd" id="4_4x00e"]
 [ext_resource type="Script" path="res://scripts/class_BehaviorNode_CompositeSelector.gd" id="5_h3wpm"]
 [ext_resource type="Script" path="res://scripts/class_BehaviorNode_CompositeSequence.gd" id="6_7ni1t"]
-[ext_resource type="Script" path="res://scripts/actions/action_IsActorVisible.gd" id="7_kraca"]
+[ext_resource type="Script" path="res://scripts/actions/action_HasTarget.gd" id="8_au3im"]
 [ext_resource type="Script" path="res://scripts/actions/action_FollowTarget.gd" id="8_eowh1"]
 [ext_resource type="Script" path="res://scripts/actions/action_Idle.gd" id="8_hsc02"]
 
@@ -20,16 +20,20 @@ Model = NodePath("mixamo_base_03_04")
 
 [node name="mixamo_base_03_04" parent="Pivot" index="0" instance=ExtResource("2_vyn7m")]
 
-[node name="Controller" type="Node" parent="." index="8" node_paths=PackedStringArray("AudialArea", "VisionArea", "TargetRay", "AttackDelay", "Behavior")]
+[node name="Controller" type="Node" parent="." index="6" node_paths=PackedStringArray("AudialArea", "VisionArea", "TargetRay", "FightRay", "TargetDelay", "AttackDelay", "DodgeDelay", "Behavior", "TargetPosition")]
 script = ExtResource("3_73j23")
 AudialArea = NodePath("../AudialArea")
-VisionArea = NodePath("../VisionAreaContainer/VisionArea")
+VisionArea = NodePath("../Pivot/VisionAreaContainer/VisionArea")
 TargetRay = NodePath("../TargetRay")
+FightRay = NodePath("../Pivot/FightRay")
+TargetDelay = NodePath("../TargetDelay")
 AttackDelay = NodePath("../AttackDelay")
+DodgeDelay = NodePath("../DodgeDelay")
 Behavior = NodePath("../BehaviorRoot")
+TargetPosition = NodePath("../TargetPosition")
 enabled = true
 
-[node name="BehaviorRoot" type="Node" parent="." index="9" node_paths=PackedStringArray("Actor")]
+[node name="BehaviorRoot" type="Node" parent="." index="7" node_paths=PackedStringArray("Actor")]
 script = ExtResource("4_4x00e")
 Actor = NodePath("..")
 
@@ -39,8 +43,8 @@ script = ExtResource("5_h3wpm")
 [node name="Follow" type="Node" parent="BehaviorRoot/CompositeSelector" index="0"]
 script = ExtResource("6_7ni1t")
 
-[node name="IsActorVisible" type="Node" parent="BehaviorRoot/CompositeSelector/Follow" index="0"]
-script = ExtResource("7_kraca")
+[node name="HasTarget" type="Node" parent="BehaviorRoot/CompositeSelector/Follow" index="0"]
+script = ExtResource("8_au3im")
 
 [node name="FollowTarget" type="Node" parent="BehaviorRoot/CompositeSelector/Follow" index="1"]
 script = ExtResource("8_eowh1")
