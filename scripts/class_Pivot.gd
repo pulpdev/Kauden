@@ -22,7 +22,7 @@ func set_direction(direction : Vector3)->void:
 
 func move(rotation : float, friction : float = FRICTION_DEFAULT)->void:
 	self.friction = friction
-	global_rotation.y = lerp_angle(global_rotation.y, rotation, self.friction)
+	global_rotation.y = rotate_toward(global_rotation.y, rotation, self.friction)
 
 func is_near_rotation(rot : float, min_dist : float = MIN_DIST_TO_ANGLE)->bool:
 	return abs(global_rotation.y - rot) < min_dist
