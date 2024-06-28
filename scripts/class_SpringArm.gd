@@ -1,7 +1,7 @@
 extends Node3D
 class_name SpringArm
 
-const ROTATE_SPEED : float = 0.05
+const ROTATE_SPEED : float = 0.1
 const PITCH_MIN : float = -45
 const PITCH_MAX : float = 45
 
@@ -15,10 +15,10 @@ var destination_yaw : Vector3
 var reset : bool
 
 func set_yaw(yaw : float, speed : float = ROTATE_SPEED):
-	Yaw.rotation.y = rotate_toward(Yaw.rotation.y, yaw, speed)
+	Yaw.rotation.y = lerp_angle(Yaw.rotation.y, yaw, speed)
 
 func set_pitch(pitch : float, speed : float = ROTATE_SPEED)->void:
-	Pitch.rotation.x = rotate_toward(Pitch.rotation.x, pitch, speed)
+	Pitch.rotation.x = lerp_angle(Pitch.rotation.x, pitch, speed)
 	Pitch.rotation.x = clamp(Pitch.rotation.x, deg_to_rad(PITCH_MIN), deg_to_rad(PITCH_MAX))
 
 func add_yaw(yaw : float):

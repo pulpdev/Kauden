@@ -3,6 +3,7 @@ class_name ControllerActor
 
 @export var AttackDelay : Timer
 @export var DodgeDelay : Timer
+@export var SprintDelay : Timer
 @export var Behavior : BehaviorRoot
 @export var TargetPosition : Marker3D
 
@@ -20,5 +21,5 @@ class ActorTarget:
 func initialize(actor : Actor):
 	self.actor = actor
 
-func attack()->void:
-	pass
+func is_sprinting()->bool:
+	return not SprintDelay.is_stopped()

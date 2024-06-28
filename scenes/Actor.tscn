@@ -108,6 +108,10 @@ autostart = true
 wait_time = 0.5
 one_shot = true
 
+[node name="SprintDelay" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [node name="TargetPosition" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 

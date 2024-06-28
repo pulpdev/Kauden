@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://rasb6xdudjnp"]
+[gd_scene load_steps=21 format=3 uid="uid://rasb6xdudjnp"]
 
 [ext_resource type="Script" path="res://scripts/class_BehaviorRoot.gd" id="1_ah6wc"]
 [ext_resource type="Script" path="res://scripts/class_BehaviorNode_CompositeSelector.gd" id="2_r2i0c"]
@@ -18,6 +18,7 @@
 [ext_resource type="Script" path="res://scripts/actions/action_IsDodging.gd" id="11_pmut8"]
 [ext_resource type="Script" path="res://scripts/actions/action_PlayerStartFocus.gd" id="16_heefr"]
 [ext_resource type="Script" path="res://scripts/actions/action_IsPressFocus.gd" id="16_ia035"]
+[ext_resource type="Script" path="res://scripts/actions/action_CanSprint.gd" id="17_1vvdt"]
 [ext_resource type="Script" path="res://scripts/actions/action_PlayerStopFocus.gd" id="17_2arp8"]
 
 [node name="PlayerBehavior" type="Node"]
@@ -104,8 +105,17 @@ script = ExtResource("2_r2i0c")
 [node name="Sprint" type="Node" parent="CompositeSelector/MovementActions/InputMovement/RunOrSprint"]
 script = ExtResource("3_1dmic")
 
+[node name="IsNotPressFocus" type="Node" parent="CompositeSelector/MovementActions/InputMovement/RunOrSprint/Sprint"]
+script = ExtResource("10_o6ojd")
+
+[node name="IsPressFocus" type="Node" parent="CompositeSelector/MovementActions/InputMovement/RunOrSprint/Sprint/IsNotPressFocus"]
+script = ExtResource("16_ia035")
+
 [node name="IsPressSprint" type="Node" parent="CompositeSelector/MovementActions/InputMovement/RunOrSprint/Sprint"]
 script = ExtResource("5_sg6i3")
+
+[node name="IsSprintDelayStopped" type="Node" parent="CompositeSelector/MovementActions/InputMovement/RunOrSprint/Sprint"]
+script = ExtResource("17_1vvdt")
 
 [node name="PlayerSprint" type="Node" parent="CompositeSelector/MovementActions/InputMovement/RunOrSprint/Sprint"]
 script = ExtResource("6_08s7r")

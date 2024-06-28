@@ -40,11 +40,12 @@ margin = 0.5
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 fov = 70.0
 
-[node name="PlayerController" type="Node" parent="." index="5" node_paths=PackedStringArray("SpringArm", "AttackDelay", "DodgeDelay", "Behavior", "TargetPosition")]
+[node name="PlayerController" type="Node" parent="." index="5" node_paths=PackedStringArray("SpringArm", "AttackDelay", "DodgeDelay", "SprintDelay", "Behavior", "TargetPosition")]
 script = ExtResource("5_qlxd5")
 SpringArm = NodePath("../SpringArm")
 AttackDelay = NodePath("../AttackDelay")
 DodgeDelay = NodePath("../DodgeDelay")
+SprintDelay = NodePath("../SprintDelay")
 Behavior = NodePath("../PlayerBehavior")
 TargetPosition = NodePath("../TargetPosition")
 enabled = true

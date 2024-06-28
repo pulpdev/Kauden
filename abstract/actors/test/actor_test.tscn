@@ -20,7 +20,7 @@ Model = NodePath("mixamo_base_03_04")
 
 [node name="mixamo_base_03_04" parent="Pivot" index="0" instance=ExtResource("2_vyn7m")]
 
-[node name="Controller" type="Node" parent="." index="6" node_paths=PackedStringArray("AudialArea", "VisionArea", "TargetRay", "FightRay", "TargetDelay", "AttackDelay", "DodgeDelay", "Behavior", "TargetPosition")]
+[node name="Controller" type="Node" parent="." index="6" node_paths=PackedStringArray("AudialArea", "VisionArea", "TargetRay", "FightRay", "TargetDelay", "AttackDelay", "DodgeDelay", "SprintDelay", "Behavior", "TargetPosition")]
 script = ExtResource("3_73j23")
 AudialArea = NodePath("../AudialArea")
 VisionArea = NodePath("../Pivot/VisionAreaContainer/VisionArea")
@@ -29,6 +29,7 @@ FightRay = NodePath("../Pivot/FightRay")
 TargetDelay = NodePath("../TargetDelay")
 AttackDelay = NodePath("../AttackDelay")
 DodgeDelay = NodePath("../DodgeDelay")
+SprintDelay = NodePath("../SprintDelay")
 Behavior = NodePath("../BehaviorRoot")
 TargetPosition = NodePath("../TargetPosition")
 enabled = true

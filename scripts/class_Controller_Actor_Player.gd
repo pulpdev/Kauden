@@ -13,7 +13,7 @@ signal control_scheme_changed(scheme : int)
 var vector_view : Vector2
 var vector_input : Vector2
 var vector_joystick : Vector2
-var sensitivity_mouse : float = 0.2
+var sensitivity_mouse : float = 0.4
 var sensitivity_joystick : float = 0.02
 var control_scheme : CONTROL_SCHEMES = CONTROL_SCHEMES.KEYBOARD_MOUSE:
 	set(x):
@@ -28,8 +28,6 @@ func initialize(player : Actor):
 
 func _input(event):
 	if event is InputEventMouseMotion:
-		if is_focusing:
-			return
 		control_scheme = CONTROL_SCHEMES.KEYBOARD_MOUSE
 		vector_view.x += deg_to_rad(-event.relative.x) * sensitivity_mouse
 		vector_view.y += deg_to_rad(event.relative.y) * sensitivity_mouse
@@ -62,6 +60,11 @@ func _process(delta):
 	else:
 		SpringArm.set_yaw(actor.Pivot.global_rotation.y, 0.1)
 		SpringArm.set_pitch(deg_to_rad(23.0), 0.1)
+		vector_view.x = SpringArm.get_yaw()
+		vector_view.y = SpringArm.get_pitch()
+
+	if Input.is_action_just_released("action_sprint"):
+		SprintDelay.start()
 
 func is_pressing_sprint()->bool:
 	return Input.is_action_pressed("action_sprint")
