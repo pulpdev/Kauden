@@ -3,13 +3,11 @@
 [ext_resource type="Script" path="res://scripts/class_Actor.gd" id="1_txq24"]
 [ext_resource type="Script" path="res://scripts/class_Pivot.gd" id="2_gy026"]
 [ext_resource type="Shape3D" uid="uid://cv35eojsu3iuf" path="res://abstract/shapes/collisions/actor_default.tres" id="2_r5afm"]
+[ext_resource type="Shape3D" uid="uid://dtshbdfjmed6b" path="res://abstract/shapes/collisions/visual_default.tres" id="4_2smna"]
 [ext_resource type="Script" path="res://scripts/class_ParamManager.gd" id="4_tbehs"]
 [ext_resource type="Script" path="res://scripts/class_Eyes.gd" id="5_1xibh"]
 [ext_resource type="Script" path="res://scripts/class_Parameter.gd" id="5_ynwga"]
 [ext_resource type="Shape3D" uid="uid://cilnmtkyjrt2j" path="res://abstract/shapes/collisions/audial_default.tres" id="7_y3d05"]
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_tqphs"]
-points = PackedVector3Array(-0.5, -1, 0, -0.353563, -1, -0.353563, -0.353563, -1, 0.353465, -0.400059, -0.600039, 0, -0.212216, -0.200078, -0.212216, 0, -0.600039, -0.400059, 0, -1, -0.5, 0, -1, 0.5, -0.212216, -0.200078, 0.212118, -0.200078, 0.199883, 0, -0.0707713, 0.599843, -0.0707713, 0, 0.199883, -0.200078, 0.353465, -1, -0.353563, 0.212118, -0.200078, -0.212216, 0.353465, -1, 0.353465, 0.212118, -0.200078, 0.212118, 0, 1, 0, 0.5, -1, 0)
 
 [node name="Actor" type="CharacterBody3D" node_paths=PackedStringArray("Parameters", "Pivot", "Eyes")]
 collision_layer = 2
@@ -38,11 +36,14 @@ monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Pivot/VisionAreaContainer/VisionArea"]
 transform = Transform3D(1.91069e-15, 4.37114e-08, -1, 1, -4.37114e-08, 2.11758e-22, -4.37114e-08, -1, -4.37114e-08, 0, 0, 0)
-shape = SubResource("ConvexPolygonShape3D_tqphs")
+shape = ExtResource("4_2smna")
 
 [node name="FightRay" type="RayCast3D" parent="Pivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 target_position = Vector3(0, 0, 3)
+
+[node name="FocusPosition" type="Marker3D" parent="Pivot"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1, 1.5, -2)
 
 [node name="Eyes" type="Node3D" parent="."]
 script = ExtResource("5_1xibh")
@@ -96,7 +97,7 @@ monitorable = false
 shape = ExtResource("7_y3d05")
 
 [node name="AttackDelay" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.4
 one_shot = true
 
 [node name="TargetDelay" type="Timer" parent="."]
@@ -114,5 +115,8 @@ one_shot = true
 
 [node name="TargetPosition" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="FocusPosition" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
 
 [connection signal="child_entered_tree" from="Parameters" to="Parameters" method="_on_child_entered_tree"]

@@ -1,5 +1,4 @@
 res://autoloads/Debug.tscn
-res://scripts/actions/action_PlayerDodge.gd
 res://abstract/terrains/new_terrain_3d_storage.res
 res://scenes/GameScene.tscn
 res://scenes/Actor.tscn
@@ -11,10 +10,13 @@ res://abstract/behaviors/PlayerBehavior.tscn
 res://abstract/models/test/mixamo_base_03_03.tscn
 res://abstract/models/test/mixamo_base_03_04.tscn
 res://abstract/actors/test/actor_test.tscn
-res://scripts/actions/action_PlayerAttack.gd
-res://scripts/class_Controller_Actor_Player.gd
 res://scripts/class_SpringArm.gd
-res://scripts/actions/action_PlayerSprint.gd
+res://scripts/class_Pivot.gd
+res://scripts/actions/action_PlayerAttack.gd
+res://scripts/class_Actor.gd
+res://scripts/class_Controller_Actor_Player.gd
+res://scripts/actions/action_PlayerDodge.gd
+res://scripts/class_GameScene.gd
 res://scripts/class_Controller_Actor.gd
-res://scripts/actions/action_CanSprint.gd
-res://scripts/actions/action_PlayerSprintStop.gd
+res://scripts/class_Controller_Actor_AI.gd
+res://scripts/class_Eyes.gd

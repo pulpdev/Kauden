@@ -7,8 +7,6 @@ class_name ControllerAI
 @export var FightRay : RayCast3D
 @export var TargetDelay : Timer
 
-var target : Actor
-
 func _ready():
 	TargetDelay.timeout.connect(on_target_delay_timeout)
 

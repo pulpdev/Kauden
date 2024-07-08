@@ -13,6 +13,8 @@ const FRICTION_DEFAULT : float = 0.2
 @export var Pivot : Pivot
 @export var Eyes : Eyes
 
+@onready var FocusPosition : Marker3D = $FocusPosition
+
 var friction : float = FRICTION_DEFAULT
 var vector_move : Vector3
 var vector_move_last : Vector3
@@ -23,11 +25,8 @@ func _ready():
 		Controller.initialize(self)
 
 func _physics_process(delta):
-	var destination : Vector3
-	destination += vector_move
-
-	velocity.x = destination.x
-	velocity.z = destination.z
+	velocity.x = vector_move.x
+	velocity.z = vector_move.z
 	
 	if not is_on_floor():
 		velocity.y += GameScene.gravity * GameScene.vector_gravity.y * delta
@@ -36,9 +35,16 @@ func _physics_process(delta):
 
 	move_and_slide()
 	vector_move = lerp(vector_move, Vector3.ZERO, friction)
+	if abs(vector_move.x) < 0.1:
+		vector_move.x = 0.0
+	if abs(vector_move.z) < 0.1:
+		vector_move.z = 0.0
 
 func is_near_position(pos : Vector3, min_dist : float = MIN_DIST_TO_LOCATION):
 	return global_position.distance_to(pos) < min_dist
+	
+func get_focus_position()->Vector3:
+	return FocusPosition.global_position
 
 func is_moving()->bool:
 	return not velocity == Vector3.ZERO

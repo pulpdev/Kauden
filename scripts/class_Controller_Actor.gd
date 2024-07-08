@@ -8,6 +8,7 @@ class_name ControllerActor
 @export var TargetPosition : Marker3D
 
 var actor : Actor
+var target : Actor
 
 class ActorTarget:
 	extends RefCounted

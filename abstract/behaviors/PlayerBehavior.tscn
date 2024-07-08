@@ -27,24 +27,6 @@ script = ExtResource("1_ah6wc")
 [node name="CompositeSelector" type="Node" parent="."]
 script = ExtResource("2_r2i0c")
 
-[node name="FocusAction" type="Node" parent="CompositeSelector"]
-script = ExtResource("3_p0qkc")
-
-[node name="Actions" type="Node" parent="CompositeSelector/FocusAction"]
-script = ExtResource("2_r2i0c")
-
-[node name="StartFocus" type="Node" parent="CompositeSelector/FocusAction/Actions"]
-script = ExtResource("3_1dmic")
-
-[node name="IsPressFocus" type="Node" parent="CompositeSelector/FocusAction/Actions/StartFocus"]
-script = ExtResource("16_ia035")
-
-[node name="PlayerFocusAction" type="Node" parent="CompositeSelector/FocusAction/Actions/StartFocus"]
-script = ExtResource("16_heefr")
-
-[node name="PlayerStopFocus" type="Node" parent="CompositeSelector/FocusAction/Actions"]
-script = ExtResource("17_2arp8")
-
 [node name="MovementActions" type="Node" parent="CompositeSelector"]
 script = ExtResource("2_r2i0c")
 
@@ -149,3 +131,23 @@ script = ExtResource("4_pusy2")
 
 [node name="Idle" type="Node" parent="CompositeSelector/Idle"]
 script = ExtResource("8_8gka8")
+
+[node name="scrap" type="Node" parent="."]
+
+[node name="FocusAction" type="Node" parent="scrap"]
+script = ExtResource("3_p0qkc")
+
+[node name="Actions" type="Node" parent="scrap/FocusAction"]
+script = ExtResource("2_r2i0c")
+
+[node name="StartFocus" type="Node" parent="scrap/FocusAction/Actions"]
+script = ExtResource("3_1dmic")
+
+[node name="IsPressFocus" type="Node" parent="scrap/FocusAction/Actions/StartFocus"]
+script = ExtResource("16_ia035")
+
+[node name="PlayerFocusAction" type="Node" parent="scrap/FocusAction/Actions/StartFocus"]
+script = ExtResource("16_heefr")
+
+[node name="PlayerStopFocus" type="Node" parent="scrap/FocusAction/Actions"]
+script = ExtResource("17_2arp8")

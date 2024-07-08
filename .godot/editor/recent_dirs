@@ -1,6 +1,7 @@
+res://
+res://abstract/shapes/collisions
 res://scripts/actions
 res://scripts
-res://abstract/shapes/collisions
 res://abstract/actors/test
 res://scenes
 res://abstract/models/test
@@ -13,4 +14,3 @@ res://abstract/actordata
 res://abstract/models
 res://abstract/actors
 res://abstract/terrains
-res://

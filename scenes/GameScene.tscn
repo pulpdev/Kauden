@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://c8e6y1b77csa8"]
+[gd_scene load_steps=19 format=3 uid="uid://c8e6y1b77csa8"]
 
 [ext_resource type="Script" path="res://scripts/class_GameScene.gd" id="1_1846m"]
 [ext_resource type="Terrain3DStorage" uid="uid://cw6ifmnonf44" path="res://abstract/terrains/new_terrain_3d_storage.res" id="2_ht14o"]
@@ -17,14 +17,9 @@ background_mode = 2
 sky = SubResource("Sky_10rvc")
 ambient_light_source = 3
 ambient_light_color = Color(1, 1, 1, 1)
-reflected_light_source = 2
+reflected_light_source = 1
 tonemap_mode = 2
-ssr_enabled = true
-ssao_enabled = true
-ssil_enabled = true
-sdfgi_enabled = true
 sdfgi_use_occlusion = true
-glow_enabled = true
 glow_normalized = true
 
 [sub_resource type="Gradient" id="Gradient_quat8"]
@@ -76,6 +71,11 @@ albedo_color = Color(1, 0, 1, 1)
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_1sk8l"]
 data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
 
+[sub_resource type="BoxMesh" id="BoxMesh_fcl0g"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ydtw1"]
+data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
 [node name="GameScene" type="Node3D" node_paths=PackedStringArray("player")]
 script = ExtResource("1_1846m")
 player = NodePath("Actors/Player")
@@ -83,7 +83,7 @@ player = NodePath("Actors/Player")
 [node name="Actors" type="Node3D" parent="."]
 
 [node name="Player" parent="Actors" instance=ExtResource("3_hi1i3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.76708, 4.22516, 6.93287)
+transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, -5.76708, 1.22516, 6.93287)
 
 [node name="actor_test" parent="Actors" instance=ExtResource("3_sn784")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5904, 2.2808, 5.67519)
@@ -102,6 +102,9 @@ environment = SubResource("Environment_8jnht")
 storage = ExtResource("2_ht14o")
 material = SubResource("Terrain3DMaterial_a1nkr")
 texture_list = SubResource("Terrain3DTextureList_m5fh7")
+render_layers = 2147483648
+mesh_size = 8
+visible = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.63032, 0, -6.89682)
@@ -142,3 +145,13 @@ dodge: y
 sprint/interact: a
 "
 horizontal_alignment = 2
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(100, 0, 0, 0, 1, 0, 0, 0, 100, 0, 0, 0)
+mesh = SubResource("BoxMesh_fcl0g")
+metadata/_edit_group_ = true
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D3/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_ydtw1")

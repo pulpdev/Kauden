@@ -13,7 +13,7 @@ func _ready():
 	pass
 
 func _physics_process(delta):
-	var fps = Engine.get_frames_per_second()
+	var fps : int = Engine.get_frames_per_second()
 	if fps > 60:
 		if Engine.physics_ticks_per_second != fps:
 			Engine.physics_ticks_per_second = fps
