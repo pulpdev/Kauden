@@ -1,0 +1,166 @@
+[gd_scene load_steps=22 format=3 uid="uid://rasb6xdudjnp"]
+
+[ext_resource type="Script" path="res://scripts/class_BehaviorRoot.gd" id="1_fxn76"]
+[ext_resource type="Script" path="res://scripts/class_BehaviorNode_CompositeSelector.gd" id="2_4mkqx"]
+[ext_resource type="Script" path="res://scripts/class_BehaviorNode_CompositeSequence.gd" id="3_woeg8"]
+[ext_resource type="Script" path="res://scripts/actions/action_IsPressAttack.gd" id="4_swive"]
+[ext_resource type="Script" path="res://scripts/class_BehaviorNode_DecoratorInverter.gd" id="5_wryew"]
+[ext_resource type="Script" path="res://scripts/actions/action_IsAttacking.gd" id="6_b0p6e"]
+[ext_resource type="Script" path="res://scripts/actions/action_PlayerAttack.gd" id="7_12v1q"]
+[ext_resource type="Script" path="res://scripts/actions/action_IsPressDodge.gd" id="8_4is6p"]
+[ext_resource type="Script" path="res://scripts/actions/action_IsDodging.gd" id="9_38b7m"]
+[ext_resource type="Script" path="res://scripts/actions/action_IsPlayerInput.gd" id="10_rj2dr"]
+[ext_resource type="Script" path="res://scripts/actions/action_PlayerDodge.gd" id="11_ey6iq"]
+[ext_resource type="Script" path="res://scripts/actions/action_PlayerRun.gd" id="12_mrgkf"]
+[ext_resource type="Script" path="res://scripts/actions/action_Idle.gd" id="13_vg1pw"]
+[ext_resource type="Script" path="res://scripts/actions/action_IsPressFocus.gd" id="14_2jnhy"]
+[ext_resource type="Script" path="res://scripts/class_BehaviorNode_DecoratorFailer.gd" id="15_1pkpe"]
+[ext_resource type="Script" path="res://scripts/actions/action_PlayerStartFocus.gd" id="16_ppnkx"]
+[ext_resource type="Script" path="res://scripts/actions/action_PlayerStopFocus.gd" id="17_0234q"]
+[ext_resource type="Script" path="res://scripts/actions/action_IsFocusing.gd" id="18_uyje2"]
+[ext_resource type="Script" path="res://scripts/actions/action_IsPressSprint.gd" id="19_r6ytt"]
+[ext_resource type="Script" path="res://scripts/actions/action_CanSprint.gd" id="20_wo4ui"]
+[ext_resource type="Script" path="res://scripts/actions/action_PlayerSprint.gd" id="21_o41vj"]
+
+[node name="PlayerBehavior" type="Node"]
+script = ExtResource("1_fxn76")
+
+[node name="CompositeSelector" type="Node" parent="."]
+script = ExtResource("2_4mkqx")
+
+[node name="MovementActions" type="Node" parent="CompositeSelector"]
+script = ExtResource("2_4mkqx")
+
+[node name="Attack" type="Node" parent="CompositeSelector/MovementActions"]
+script = ExtResource("3_woeg8")
+
+[node name="IsPressAttack" type="Node" parent="CompositeSelector/MovementActions/Attack"]
+script = ExtResource("4_swive")
+
+[node name="IsNotAttacking" type="Node" parent="CompositeSelector/MovementActions/Attack"]
+script = ExtResource("5_wryew")
+
+[node name="IsAttacking" type="Node" parent="CompositeSelector/MovementActions/Attack/IsNotAttacking"]
+script = ExtResource("6_b0p6e")
+
+[node name="PlayerAttack" type="Node" parent="CompositeSelector/MovementActions/Attack"]
+script = ExtResource("7_12v1q")
+
+[node name="Dodge" type="Node" parent="CompositeSelector/MovementActions"]
+script = ExtResource("3_woeg8")
+
+[node name="IsPressDodge" type="Node" parent="CompositeSelector/MovementActions/Dodge"]
+script = ExtResource("8_4is6p")
+
+[node name="IsNotAttacking" type="Node" parent="CompositeSelector/MovementActions/Dodge"]
+script = ExtResource("5_wryew")
+
+[node name="IsAttacking" type="Node" parent="CompositeSelector/MovementActions/Dodge/IsNotAttacking"]
+script = ExtResource("6_b0p6e")
+
+[node name="IsNotDodging" type="Node" parent="CompositeSelector/MovementActions/Dodge"]
+script = ExtResource("5_wryew")
+
+[node name="IsDodging" type="Node" parent="CompositeSelector/MovementActions/Dodge/IsNotDodging"]
+script = ExtResource("9_38b7m")
+
+[node name="HasPlayerInputVector" type="Node" parent="CompositeSelector/MovementActions/Dodge"]
+script = ExtResource("10_rj2dr")
+
+[node name="PlayerDodge" type="Node" parent="CompositeSelector/MovementActions/Dodge"]
+script = ExtResource("11_ey6iq")
+
+[node name="InputMovement" type="Node" parent="CompositeSelector/MovementActions"]
+script = ExtResource("3_woeg8")
+
+[node name="IsNotAttacking" type="Node" parent="CompositeSelector/MovementActions/InputMovement"]
+script = ExtResource("5_wryew")
+
+[node name="IsAttacking" type="Node" parent="CompositeSelector/MovementActions/InputMovement/IsNotAttacking"]
+script = ExtResource("6_b0p6e")
+
+[node name="IsNotDodging" type="Node" parent="CompositeSelector/MovementActions/InputMovement"]
+script = ExtResource("5_wryew")
+
+[node name="IsDodging" type="Node" parent="CompositeSelector/MovementActions/InputMovement/IsNotDodging"]
+script = ExtResource("9_38b7m")
+
+[node name="HasPlayerInputVector" type="Node" parent="CompositeSelector/MovementActions/InputMovement"]
+script = ExtResource("10_rj2dr")
+
+[node name="RunOrSprint" type="Node" parent="CompositeSelector/MovementActions/InputMovement"]
+script = ExtResource("2_4mkqx")
+
+[node name="Run" type="Node" parent="CompositeSelector/MovementActions/InputMovement/RunOrSprint"]
+script = ExtResource("3_woeg8")
+
+[node name="PlayerRun" type="Node" parent="CompositeSelector/MovementActions/InputMovement/RunOrSprint/Run"]
+script = ExtResource("12_mrgkf")
+
+[node name="Idle" type="Node" parent="CompositeSelector"]
+script = ExtResource("3_woeg8")
+
+[node name="IsNotDodging" type="Node" parent="CompositeSelector/Idle"]
+script = ExtResource("5_wryew")
+
+[node name="IsDodging" type="Node" parent="CompositeSelector/Idle/IsNotDodging"]
+script = ExtResource("9_38b7m")
+
+[node name="IsNotAttacking" type="Node" parent="CompositeSelector/Idle"]
+script = ExtResource("5_wryew")
+
+[node name="IsAttacking" type="Node" parent="CompositeSelector/Idle/IsNotAttacking"]
+script = ExtResource("6_b0p6e")
+
+[node name="NotHasInputVector" type="Node" parent="CompositeSelector/Idle"]
+script = ExtResource("5_wryew")
+
+[node name="HasPlayerInputVector" type="Node" parent="CompositeSelector/Idle/NotHasInputVector"]
+script = ExtResource("10_rj2dr")
+
+[node name="Idle" type="Node" parent="CompositeSelector/Idle"]
+script = ExtResource("13_vg1pw")
+
+[node name="scrap" type="Node" parent="."]
+
+[node name="IsNotPressFocus" type="Node" parent="scrap"]
+script = ExtResource("5_wryew")
+
+[node name="IsPressFocus" type="Node" parent="scrap/IsNotPressFocus"]
+script = ExtResource("14_2jnhy")
+
+[node name="FocusAction" type="Node" parent="scrap"]
+script = ExtResource("15_1pkpe")
+
+[node name="Actions" type="Node" parent="scrap/FocusAction"]
+script = ExtResource("2_4mkqx")
+
+[node name="StartFocus" type="Node" parent="scrap/FocusAction/Actions"]
+script = ExtResource("3_woeg8")
+
+[node name="IsPressFocus" type="Node" parent="scrap/FocusAction/Actions/StartFocus"]
+script = ExtResource("14_2jnhy")
+
+[node name="PlayerFocusAction" type="Node" parent="scrap/FocusAction/Actions/StartFocus"]
+script = ExtResource("16_ppnkx")
+
+[node name="PlayerStopFocus" type="Node" parent="scrap/FocusAction/Actions"]
+script = ExtResource("17_0234q")
+
+[node name="Sprint" type="Node" parent="scrap"]
+script = ExtResource("3_woeg8")
+
+[node name="IsNotFocusing" type="Node" parent="scrap/Sprint"]
+script = ExtResource("5_wryew")
+
+[node name="IsFocusing" type="Node" parent="scrap/Sprint/IsNotFocusing"]
+script = ExtResource("18_uyje2")
+
+[node name="IsPressSprint" type="Node" parent="scrap/Sprint"]
+script = ExtResource("19_r6ytt")
+
+[node name="IsSprintDelayStopped" type="Node" parent="scrap/Sprint"]
+script = ExtResource("20_wo4ui")
+
+[node name="PlayerSprint" type="Node" parent="scrap/Sprint"]
+script = ExtResource("21_o41vj")

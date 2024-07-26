@@ -4,13 +4,14 @@ class_name GameScene
 static var gravity : float = ProjectSettings.get_setting("physics/3d/default_gravity")
 static var vector_gravity : Vector3 = ProjectSettings.get_setting("physics/3d/default_gravity_vector")
 
-@export var player : Actor
+@export var GameMode : GameMode
 
 func _init():
 	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CAPTURED)
-	
+
 func _ready():
-	pass
+	if self.GameMode:
+		self.GameMode.initialize(self)
 
 func _physics_process(delta):
 	var fps : int = Engine.get_frames_per_second()

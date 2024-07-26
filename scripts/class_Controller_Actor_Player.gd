@@ -12,6 +12,7 @@ signal control_scheme_changed(scheme : int)
 @export var Camera : Camera3D
 @export var TargetClearDelay : Timer
 @export var TargetSprite : Sprite2D
+@export var PartyPositions : Node3D
 
 var vector_view : Vector2
 var vector_input : Vector2
@@ -25,9 +26,6 @@ var control_scheme : CONTROL_SCHEMES = CONTROL_SCHEMES.KEYBOARD_MOUSE:
 			control_scheme_changed.emit(control_scheme)
 var is_focusing : bool
 var target_press_time : int
-
-func initialize(player : Actor):
-	self.actor = player
 
 func _input(event):
 	if event is InputEventMouseMotion:
@@ -120,7 +118,13 @@ func find_closest_target()->Actor:
 		if not ts.front() == actor:
 			return ts[0]
 	return null
-	
+
+func get_party_positions()->Array[Vector3]:
+	var a : Array[Vector3]
+	for p in PartyPositions.get_children():
+		a.append(p.global_position)
+	return a
+
 func on_TargetClearDelay_timeout()->void:
 	target = null
 	TargetClearDelay.timeout.disconnect(on_TargetClearDelay_timeout)

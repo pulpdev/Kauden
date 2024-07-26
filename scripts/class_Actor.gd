@@ -58,3 +58,11 @@ func move(vector : Vector3, speed : float, pivot_rotate : bool = true, friction 
 	vector_move_last = vector * speed
 	vector_move = vector_move_last
 
+func move_to_position(position : Vector3, pivot_rotate : bool = true, friciton : float = FRICTION_DEFAULT)->void:
+	var destination : Vector3 = to_local(position)
+	if global_position.distance_to(position) > 2.0:
+		move(destination, data.speed_run, pivot_rotate, friction)
+		Pivot.Model.play_animation(data.anim_run)
+	elif global_position.distance_to(position) > 1.0:
+		move(destination, data.speed_walk, pivot_rotate, friction)
+		Pivot.Model.play_animation(data.anim_walk)

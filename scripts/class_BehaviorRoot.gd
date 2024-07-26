@@ -9,6 +9,11 @@ class_name BehaviorRoot
 
 var action : ActionLeaf
 
+func _ready():
+	if not get_tree().current_scene is GameScene\
+	or Actor == null:
+		enabled = false
+
 func _physics_process(delta):
 	if enabled:
 		get_child(0).tick(self.Actor, blackboard)

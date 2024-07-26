@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://b7as4feoe80ne"]
+
+[ext_resource type="PackedScene" uid="uid://bbl7ibnml7ikp" path="res://scenes/ActorBase.tscn" id="1_sp55v"]
+[ext_resource type="PackedScene" uid="uid://b4rm6fcowr8gs" path="res://abstract/scenes/behaviors/PartyMemberBehavior.tscn" id="2_7a58s"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gm0rv"]
+albedo_color = Color(0.920622, 0.579289, 1, 1)
+
+[node name="Sue" instance=ExtResource("1_sp55v")]
+
+[node name="Alpha_Surface" parent="Pivot/mixamo_base_03_04/Armature/Skeleton3D" index="1"]
+material_override = SubResource("StandardMaterial3D_gm0rv")
+
+[node name="Controller" parent="." index="6" node_paths=PackedStringArray("Behavior")]
+Behavior = NodePath("PartyMemberBehavior")
+
+[node name="PartyMemberBehavior" parent="Controller" index="0" node_paths=PackedStringArray("Actor") instance=ExtResource("2_7a58s")]
+Actor = NodePath("../..")
+
+[editable path="Pivot/mixamo_base_03_04"]

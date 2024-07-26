@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://bbl7ibnml7ikp"]
+
+[ext_resource type="PackedScene" uid="uid://uthrp0a0t4to" path="res://scenes/Actor.tscn" id="1_j51dg"]
+[ext_resource type="Resource" uid="uid://c0nost4wy2tim" path="res://abstract/resources/actordata/default.tres" id="2_xgwkm"]
+[ext_resource type="PackedScene" uid="uid://cyi63dudfs0vg" path="res://abstract/scenes/models/test/mixamo_base_03_04.tscn" id="3_w0und"]
+[ext_resource type="Shape3D" uid="uid://dtshbdfjmed6b" path="res://abstract/resources/shapes/collisions/visual_default.tres" id="4_1bito"]
+[ext_resource type="Script" path="res://scripts/class_Controller_Actor_AI.gd" id="5_xfap3"]
+
+[node name="ActorBase" node_paths=PackedStringArray("Controller") instance=ExtResource("1_j51dg")]
+Controller = NodePath("Controller")
+data = ExtResource("2_xgwkm")
+
+[node name="Pivot" parent="." index="1" node_paths=PackedStringArray("Model")]
+Model = NodePath("mixamo_base_03_04")
+
+[node name="mixamo_base_03_04" parent="Pivot" index="0" instance=ExtResource("3_w0und")]
+
+[node name="VisionAreaContainer" type="Node3D" parent="Pivot" index="3"]
+transform = Transform3D(24, 0, 0, 0, 8, 0, 0, 0, 8, 0, 1, 0)
+
+[node name="VisionArea" type="Area3D" parent="Pivot/VisionAreaContainer" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+collision_layer = 0
+collision_mask = 2
+input_ray_pickable = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pivot/VisionAreaContainer/VisionArea" index="0"]
+transform = Transform3D(1.91069e-15, 4.37114e-08, -1, 1, -4.37114e-08, 2.11758e-22, -4.37114e-08, -1, -4.37114e-08, 0, 0, 0)
+shape = ExtResource("4_1bito")
+
+[node name="Controller" type="Node" parent="." index="6" node_paths=PackedStringArray("AudialArea", "VisionArea", "TargetRay", "FightRay", "TargetDelay", "AttackDelay", "DodgeDelay", "SprintDelay", "TargetPosition")]
+script = ExtResource("5_xfap3")
+AudialArea = NodePath("../AudialArea")
+VisionArea = NodePath("../Pivot/VisionAreaContainer/VisionArea")
+TargetRay = NodePath("../TargetRay")
+FightRay = NodePath("../Pivot/FightRay")
+TargetDelay = NodePath("../TargetDelay")
+AttackDelay = NodePath("../AttackDelay")
+DodgeDelay = NodePath("../DodgeDelay")
+SprintDelay = NodePath("../SprintDelay")
+TargetPosition = NodePath("../TargetPosition")
+enabled = true

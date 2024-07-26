@@ -1,0 +1,72 @@
+[gd_scene load_steps=11 format=3 uid="uid://b4rm6fcowr8gs"]
+
+[ext_resource type="Script" path="res://scripts/class_BehaviorRoot.gd" id="1_evns1"]
+[ext_resource type="Script" path="res://scripts/class_BehaviorNode_CompositeSelector.gd" id="2_ow6i0"]
+[ext_resource type="Script" path="res://scripts/class_BehaviorNode_CompositeSequence.gd" id="3_jjjro"]
+[ext_resource type="Script" path="res://scripts/actions/action_IsNearPlayer.gd" id="4_lq4i6"]
+[ext_resource type="Script" path="res://scripts/class_BehaviorNode_DecoratorInverter.gd" id="4_teavr"]
+[ext_resource type="Script" path="res://scripts/actions/action_GetActorMemberIndex.gd" id="5_jnsur"]
+[ext_resource type="Script" path="res://scripts/actions/action_Idle.gd" id="6_c4df6"]
+[ext_resource type="Script" path="res://scripts/actions/action_MoveToPartyPosition.gd" id="8_48jsy"]
+[ext_resource type="Script" path="res://scripts/actions/action_IsActorPartyMember.gd" id="8_pprju"]
+[ext_resource type="Script" path="res://scripts/actions/action_IsNearPartyPosition.gd" id="8_qon81"]
+
+[node name="PartyMemberBehavior" type="Node"]
+script = ExtResource("1_evns1")
+
+[node name="CompositeSelector" type="Node" parent="."]
+script = ExtResource("2_ow6i0")
+
+[node name="follow player" type="Node" parent="CompositeSelector"]
+script = ExtResource("3_jjjro")
+
+[node name="get member index" type="Node" parent="CompositeSelector/follow player"]
+script = ExtResource("3_jjjro")
+
+[node name="IsActorPartyMember" type="Node" parent="CompositeSelector/follow player/get member index"]
+script = ExtResource("8_pprju")
+
+[node name="GetActorMemberIndex" type="Node" parent="CompositeSelector/follow player/get member index"]
+script = ExtResource("5_jnsur")
+
+[node name="IsNotNearPlayer" type="Node" parent="CompositeSelector/follow player"]
+script = ExtResource("4_teavr")
+
+[node name="IsNearPlayer" type="Node" parent="CompositeSelector/follow player/IsNotNearPlayer"]
+script = ExtResource("4_lq4i6")
+distance = 2.0
+
+[node name="IsNotNearPartyPosition" type="Node" parent="CompositeSelector/follow player"]
+script = ExtResource("4_teavr")
+
+[node name="IsNearPartyPosition" type="Node" parent="CompositeSelector/follow player/IsNotNearPartyPosition"]
+script = ExtResource("8_qon81")
+
+[node name="MoveToPartyPosition" type="Node" parent="CompositeSelector/follow player"]
+script = ExtResource("8_48jsy")
+
+[node name="Idle" type="Node" parent="CompositeSelector"]
+script = ExtResource("6_c4df6")
+
+[node name="scrap" type="Node" parent="."]
+
+[node name="move" type="Node" parent="scrap"]
+script = ExtResource("2_ow6i0")
+
+[node name="is not near player" type="Node" parent="scrap/move"]
+script = ExtResource("3_jjjro")
+
+[node name="IsNotNearPartyPosition" type="Node" parent="scrap/move/is not near player"]
+script = ExtResource("4_teavr")
+
+[node name="IsNearPartyPosition" type="Node" parent="scrap/move/is not near player/IsNotNearPartyPosition"]
+script = ExtResource("8_qon81")
+
+[node name="MoveToPartyPosition" type="Node" parent="scrap/move/is not near player"]
+script = ExtResource("8_48jsy")
+
+[node name="is near player" type="Node" parent="scrap/move"]
+script = ExtResource("3_jjjro")
+
+[node name="IsNearPlayer" type="Node" parent="scrap/move/is near player"]
+script = ExtResource("4_lq4i6")

@@ -1,9 +1,13 @@
-[gd_scene load_steps=19 format=3 uid="uid://c8e6y1b77csa8"]
+[gd_scene load_steps=23 format=3 uid="uid://c8e6y1b77csa8"]
 
 [ext_resource type="Script" path="res://scripts/class_GameScene.gd" id="1_1846m"]
-[ext_resource type="Terrain3DStorage" uid="uid://cw6ifmnonf44" path="res://abstract/terrains/new_terrain_3d_storage.res" id="2_ht14o"]
-[ext_resource type="PackedScene" uid="uid://cd5jwffggrspi" path="res://abstract/actors/Player.tscn" id="3_hi1i3"]
-[ext_resource type="PackedScene" uid="uid://cpnbfaf8gg0ic" path="res://abstract/actors/test/actor_test.tscn" id="3_sn784"]
+[ext_resource type="Script" path="res://scripts/class_GameMode_Overworld.gd" id="2_7ud0e"]
+[ext_resource type="Script" path="res://scripts/class_ActorManager.gd" id="2_gpvff"]
+[ext_resource type="Terrain3DStorage" uid="uid://cw6ifmnonf44" path="res://abstract/resources/terrains/new_terrain_3d_storage.res" id="2_ht14o"]
+[ext_resource type="PackedScene" uid="uid://cd5jwffggrspi" path="res://abstract/scenes/actors/Player.tscn" id="3_hi1i3"]
+[ext_resource type="PackedScene" uid="uid://cpnbfaf8gg0ic" path="res://abstract/scenes/actors/test/actor_test.tscn" id="3_sn784"]
+[ext_resource type="Script" path="res://scripts/class_Party.gd" id="6_10ylc"]
+[ext_resource type="Resource" uid="uid://csq7su71cfi66" path="res://abstract/resources/PackedSceneLists/roster_party_default.tres" id="7_mp0fs"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vnnfq"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -76,20 +80,30 @@ data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ydtw1"]
 data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
 
-[node name="GameScene" type="Node3D" node_paths=PackedStringArray("player")]
+[node name="GameScene" type="Node3D" node_paths=PackedStringArray("GameMode")]
 script = ExtResource("1_1846m")
-player = NodePath("Actors/Player")
+GameMode = NodePath("Overworld")
 
-[node name="Actors" type="Node3D" parent="."]
+[node name="Overworld" type="Node" parent="." node_paths=PackedStringArray("ActorManager", "Party")]
+script = ExtResource("2_7ud0e")
+ActorManager = NodePath("ActorManager")
+Party = NodePath("Party")
 
-[node name="Player" parent="Actors" instance=ExtResource("3_hi1i3")]
-transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, -5.76708, 1.22516, 6.93287)
+[node name="ActorManager" type="Node3D" parent="Overworld"]
+script = ExtResource("2_gpvff")
 
-[node name="actor_test" parent="Actors" instance=ExtResource("3_sn784")]
+[node name="Player" parent="Overworld/ActorManager" instance=ExtResource("3_hi1i3")]
+transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, -5.76708, 5.51249, 6.93287)
+
+[node name="actor_test" parent="Overworld/ActorManager" instance=ExtResource("3_sn784")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5904, 2.2808, 5.67519)
 
-[node name="actor_test2" parent="Actors" instance=ExtResource("3_sn784")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.90098, 0, -20.5432)
+[node name="actor_test2" parent="Overworld/ActorManager" instance=ExtResource("3_sn784")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.90098, 1.3138, -20.5432)
+
+[node name="Party" type="Node" parent="Overworld"]
+script = ExtResource("6_10ylc")
+roster = ExtResource("7_mp0fs")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866026, -0.500003, 0.749999, -0.43301, 0, 0, 0)
