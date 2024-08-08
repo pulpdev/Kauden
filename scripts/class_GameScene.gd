@@ -5,6 +5,7 @@ static var gravity : float = ProjectSettings.get_setting("physics/3d/default_gra
 static var vector_gravity : Vector3 = ProjectSettings.get_setting("physics/3d/default_gravity_vector")
 
 @export var GameMode : GameMode
+@export var Background : Background
 
 func _init():
 	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CAPTURED)

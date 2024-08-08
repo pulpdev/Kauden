@@ -1,3 +1,8 @@
+SkeletonIK3D
+Button
+Control
+VBoxContainer
+PanelContainer
 Node
 CompositeSequence
 DecoratorInverter
@@ -8,7 +13,3 @@ GameModeOverworld
 GameMode
 Marker3D
 Node3D
-DecoratorFailer
-Sprite2D
-Timer
-MeshInstance3D

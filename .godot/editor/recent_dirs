@@ -1,10 +1,12 @@
+res://abstract/scenes/ui
+res://scripts/ui
+res://abstract/scenes/backgrounds
+res://scripts
 res://scripts/actions
 res://abstract/scenes/behaviors
 res://abstract/resources/PackedSceneLists
-res://scripts
 res://scenes
 res://
 res://scripts/states
 res://scripts/modules
-res://scripts/ui
 res://autoloads

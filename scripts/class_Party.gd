@@ -73,12 +73,22 @@ func get_members()->Array[Actor]:
 func set_member_positions(positions : Array[Vector3])->void:
 	positions_members.clear()
 	for m in members:
-		positions.sort_custom(func(a,b): 
-			m.global_position.distance_to(a) < m.global_position.distance_to(b))
-		var position : Vector3
-		if not positions_members.find_key(positions.front()):
-			position = positions.front()
-		else:
-			position = positions.back()
-		positions_members[m] = position
-		
+		if m.global_position.distance_to(positions[0]) < m.global_position.distance_to(positions[1]):
+			if positions_members.find_key(positions[0]):
+				positions_members[m] = positions[1]
+			else:
+				positions_members[m] = positions[0]
+		elif m.global_position.distance_to(positions[1]) < m.global_position.distance_to(positions[0]):
+			if positions_members.find_key(positions[1]):
+				positions_members[m] = positions[0]
+			else:
+				positions_members[m] = positions[1]
+		#positions.sort_custom(func(a,b): 
+			#m.global_position.distance_to(a) < m.global_position.distance_to(b))
+		#var position : Vector3
+		#if not positions_members.find_key(positions.front()):
+			#position = positions.front()
+		#else:
+			#position = positions.back()
+		#positions_members[m] = position
+		#

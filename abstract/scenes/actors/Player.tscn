@@ -27,10 +27,10 @@ Model = NodePath("mixamo_base_03_04")
 [node name="PartyPositions" type="Node3D" parent="Pivot" index="3"]
 
 [node name="Marker3D" type="Marker3D" parent="Pivot/PartyPositions" index="0"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2, 0, -1)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2, 0, 0)
 
 [node name="Marker3D2" type="Marker3D" parent="Pivot/PartyPositions" index="1"]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -2, 0, -1)
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -2, 0, 0)
 
 [node name="SpringArm" type="Node3D" parent="." index="4" node_paths=PackedStringArray("RayCast", "Camera", "TargetArea", "TargetRay")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.67696, 0)

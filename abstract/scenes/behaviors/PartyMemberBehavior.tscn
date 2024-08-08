@@ -36,12 +36,6 @@ script = ExtResource("4_teavr")
 script = ExtResource("4_lq4i6")
 distance = 2.0
 
-[node name="IsNotNearPartyPosition" type="Node" parent="CompositeSelector/follow player"]
-script = ExtResource("4_teavr")
-
-[node name="IsNearPartyPosition" type="Node" parent="CompositeSelector/follow player/IsNotNearPartyPosition"]
-script = ExtResource("8_qon81")
-
 [node name="MoveToPartyPosition" type="Node" parent="CompositeSelector/follow player"]
 script = ExtResource("8_48jsy")
 

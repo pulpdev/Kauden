@@ -1,8 +1,11 @@
 extends GameMode
 class_name  GameModeOverworld
 
+const scene_menu_command := preload("res://abstract/scenes/ui/CommandMenu.tscn")
+
 @export var ActorManager : ActorManager
 @export var Party : Party
+var CommandMenu : Control
 
 func _physics_process(delta):
 	match ActorManager.player:
@@ -25,6 +28,10 @@ func initialize(scene : GameScene)->void:
 		var positions : Array[Vector3] = pc.get_party_positions()
 		ActorManager.actor_add(Party.get_member(0), positions[0])
 		ActorManager.actor_add(Party.get_member(1), positions[1])
+
+	var cm := scene_menu_command.instantiate()
+	add_child(cm)
+	cm.command_selected.connect(cm.set_focus)
 
 func on_party_member_add(actor : Actor)->void:
 	actor
