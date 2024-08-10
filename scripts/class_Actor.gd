@@ -4,7 +4,7 @@ class_name Actor
 
 enum FACTIONS {COMMON, HOSTILE, NEUTRAL}
 
-const MIN_DIST_TO_LOCATION : float = 1.1
+const MIN_DIST_TO_LOCATION : float = 0.3
 const FRICTION_DEFAULT : float = 0.2
 
 @export var Controller : Controller
@@ -27,14 +27,16 @@ func _ready():
 func _physics_process(delta):
 	velocity.x = vector_move.x
 	velocity.z = vector_move.z
-	
+
 	if not is_on_floor():
 		velocity.y += GameScene.gravity * GameScene.vector_gravity.y * delta
 	else:
 		velocity.y = 0.0
-
+		
 	move_and_slide()
+	
 	vector_move = lerp(vector_move, Vector3.ZERO, friction)
+	
 	if abs(vector_move.x) < 0.1:
 		vector_move.x = 0.0
 	if abs(vector_move.z) < 0.1:
@@ -57,6 +59,13 @@ func move(vector : Vector3, speed : float, pivot_rotate : bool = true, friction 
 	self.speed = speed
 	vector_move_last = vector * speed
 	vector_move = vector_move_last
+	
+func tween_move(vector : Vector3, speed : float, duration : float, pivot_rotate : bool = true)->void:
+	var t = create_tween()
+	vector = vector.normalized()
+	if pivot_rotate:
+		Pivot.set_direction(vector)
+	t.tween_property(self, "vector_move", vector * speed, duration)
 
 func move_to_position(position : Vector3, pivot_rotate : bool = true, friciton : float = FRICTION_DEFAULT)->void:
 	var destination : Vector3 = to_local(position)

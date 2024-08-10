@@ -88,7 +88,6 @@ one_shot = true
 [node name="TargetDelay" type="Timer" parent="."]
 process_callback = 0
 wait_time = 0.1
-autostart = true
 
 [node name="DodgeDelay" type="Timer" parent="."]
 wait_time = 0.5

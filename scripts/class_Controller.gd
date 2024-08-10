@@ -4,4 +4,6 @@ class_name Controller
 
 @export var enabled : bool
 
+var initialized : bool
+
 func initialize(parent : Actor)->void:pass

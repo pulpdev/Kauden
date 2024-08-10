@@ -6,7 +6,7 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1xljf"]
 albedo_color = Color(0.269235, 0.671146, 3.85046e-07, 1)
 
-[node name="Jim" instance=ExtResource("1_7ol6n")]
+[node name="Jim" groups=["PARTYMEMBER"] instance=ExtResource("1_7ol6n")]
 
 [node name="Skeleton3D" parent="Pivot/mixamo_base_03_04/Armature" index="0"]
 bones/0/position = Vector3(-3.30172e-05, 5.16213e-05, -99.7919)
@@ -101,5 +101,8 @@ Behavior = NodePath("PartyMemberBehavior")
 
 [node name="PartyMemberBehavior" parent="Controller" index="0" node_paths=PackedStringArray("Actor") instance=ExtResource("2_imtmf")]
 Actor = NodePath("../..")
+
+[node name="TargetDelay" parent="." index="8"]
+autostart = true
 
 [editable path="Pivot/mixamo_base_03_04"]

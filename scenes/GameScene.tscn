@@ -24,14 +24,18 @@ Party = NodePath("Party")
 [node name="ActorManager" type="Node3D" parent="Overworld"]
 script = ExtResource("2_gpvff")
 
+[node name="ActorBase" parent="Overworld/ActorManager" instance=ExtResource("3_sn784")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.605455, -7.65)
+
+[node name="ActorBase2" parent="Overworld/ActorManager" node_paths=PackedStringArray("Controller", "Parameters", "Pivot", "Eyes") instance=ExtResource("3_sn784")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0136185, 0.605455, 2.86792)
+Controller = NodePath("../ActorBase/Controller")
+Parameters = NodePath("../ActorBase/Parameters")
+Pivot = NodePath("../ActorBase/Pivot")
+Eyes = NodePath("../ActorBase/Eyes")
+
 [node name="Player" parent="Overworld/ActorManager" instance=ExtResource("3_hi1i3")]
-transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, -5.76708, 5.51249, 6.93287)
-
-[node name="actor_test" parent="Overworld/ActorManager" instance=ExtResource("3_sn784")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5904, 2.2808, 5.67519)
-
-[node name="actor_test2" parent="Overworld/ActorManager" instance=ExtResource("3_sn784")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.90098, 1.3138, -20.5432)
+transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, -5.76708, 0.492629, 6.93287)
 
 [node name="Party" type="Node" parent="Overworld"]
 script = ExtResource("6_10ylc")

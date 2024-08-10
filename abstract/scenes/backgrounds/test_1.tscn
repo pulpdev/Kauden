@@ -1,7 +1,6 @@
-[gd_scene load_steps=17 format=3 uid="uid://clvi4g0hxe713"]
+[gd_scene load_steps=11 format=3 uid="uid://clvi4g0hxe713"]
 
 [ext_resource type="Script" path="res://scripts/class_Background.gd" id="1_sf65q"]
-[ext_resource type="Terrain3DStorage" uid="uid://cw6ifmnonf44" path="res://abstract/resources/terrains/new_terrain_3d_storage.res" id="2_86kpe"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_r1owj"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -19,45 +18,6 @@ reflected_light_source = 1
 tonemap_mode = 2
 sdfgi_use_occlusion = true
 glow_normalized = true
-
-[sub_resource type="Gradient" id="Gradient_quat8"]
-offsets = PackedFloat32Array(0.2, 1)
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_s0s52"]
-noise_type = 2
-frequency = 0.03
-cellular_jitter = 3.0
-cellular_return_type = 0
-domain_warp_enabled = true
-domain_warp_type = 1
-domain_warp_amplitude = 50.0
-domain_warp_fractal_type = 2
-domain_warp_fractal_lacunarity = 1.5
-domain_warp_fractal_gain = 1.0
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_agit6"]
-seamless = true
-color_ramp = SubResource("Gradient_quat8")
-noise = SubResource("FastNoiseLite_s0s52")
-
-[sub_resource type="Terrain3DMaterial" id="Terrain3DMaterial_q50a8"]
-_shader_parameters = {
-"_mouse_layer": 2147483648,
-"blend_sharpness": null,
-"height_blending": null,
-"macro_variation1": null,
-"macro_variation2": null,
-"noise1_angle": null,
-"noise1_offset": null,
-"noise1_scale": null,
-"noise2_scale": null,
-"noise3_scale": null,
-"noise_texture": SubResource("NoiseTexture2D_agit6")
-}
-show_checkered = true
-
-[sub_resource type="Terrain3DTextureList" id="Terrain3DTextureList_r1cbw"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3p068"]
 albedo_color = Color(1, 0, 1, 1)
@@ -83,14 +43,6 @@ shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_mpq2w")
-
-[node name="Terrain3D" type="Terrain3D" parent="."]
-storage = ExtResource("2_86kpe")
-material = SubResource("Terrain3DMaterial_q50a8")
-texture_list = SubResource("Terrain3DTextureList_r1cbw")
-render_layers = 2147483648
-mesh_size = 8
-visible = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.63032, 0, -6.89682)

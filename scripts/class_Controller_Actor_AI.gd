@@ -25,8 +25,13 @@ func get_audible_actors()->Array:
 	return a
 
 func can_target_actor(actor : Actor)->bool:
+	if actor == self.actor:
+		return false
 	if VisionArea.get_overlapping_bodies().has(actor):
-		TargetRay.look_at(actor.Controller.TargetPosition.global_position)
+		if not TargetRay.global_transform.origin.is_equal_approx(actor.Controller.TargetPosition.global_position):
+			TargetRay.look_at(actor.Controller.TargetPosition.global_position)
+		else:
+			return false
 		TargetRay.force_raycast_update()
 		return TargetRay.get_collider() == actor
 	return false

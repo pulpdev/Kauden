@@ -8,6 +8,6 @@ func tick(actor : Actor, blackboard : Blackboard)->int:
 	var i : int = blackboard.data_get("index_member")
 	var player : Actor = get_player()
 	var p : Vector3 = get_gamemode().Party.positions_members[actor]
-	if actor.is_near_position(p, distance):
+	if actor.is_near_position(p):
 		return SUCCESS
 	return FAILURE

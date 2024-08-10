@@ -8,6 +8,7 @@ func tick(actor : Actor, blackboard : Blackboard)->int:
 	var i = blackboard.data_get("index_member")
 	var position : Vector3 = gm.Party.positions_members[actor]
 	if not actor.is_near_position(position):
-		actor.move_to_position(position)
+		actor.move(actor.to_local(position), actor.data.speed_run)
+		actor.Pivot.Model.play_animation(actor.data.anim_run)
 		return RUNNING
 	return FAILURE

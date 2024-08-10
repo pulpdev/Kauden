@@ -29,12 +29,11 @@ script = ExtResource("8_pprju")
 [node name="GetActorMemberIndex" type="Node" parent="CompositeSelector/follow player/get member index"]
 script = ExtResource("5_jnsur")
 
-[node name="IsNotNearPlayer" type="Node" parent="CompositeSelector/follow player"]
+[node name="IsNotNearPartyPosition" type="Node" parent="CompositeSelector/follow player"]
 script = ExtResource("4_teavr")
 
-[node name="IsNearPlayer" type="Node" parent="CompositeSelector/follow player/IsNotNearPlayer"]
-script = ExtResource("4_lq4i6")
-distance = 2.0
+[node name="IsNearPartyPosition" type="Node" parent="CompositeSelector/follow player/IsNotNearPartyPosition"]
+script = ExtResource("8_qon81")
 
 [node name="MoveToPartyPosition" type="Node" parent="CompositeSelector/follow player"]
 script = ExtResource("8_48jsy")
@@ -49,12 +48,6 @@ script = ExtResource("2_ow6i0")
 
 [node name="is not near player" type="Node" parent="scrap/move"]
 script = ExtResource("3_jjjro")
-
-[node name="IsNotNearPartyPosition" type="Node" parent="scrap/move/is not near player"]
-script = ExtResource("4_teavr")
-
-[node name="IsNearPartyPosition" type="Node" parent="scrap/move/is not near player/IsNotNearPartyPosition"]
-script = ExtResource("8_qon81")
 
 [node name="MoveToPartyPosition" type="Node" parent="scrap/move/is not near player"]
 script = ExtResource("8_48jsy")

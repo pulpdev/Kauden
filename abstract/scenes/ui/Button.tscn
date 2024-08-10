@@ -6,6 +6,8 @@
 anchors_preset = -1
 anchor_right = 0.00416667
 anchor_bottom = 0.00740741
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("1_rhjl1")
 metadata/_edit_use_anchors_ = true
 

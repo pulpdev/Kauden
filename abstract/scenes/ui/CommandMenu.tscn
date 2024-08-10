@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://owlmlg0ojsx6"]
+[gd_scene load_steps=3 format=3 uid="uid://owlmlg0ojsx6"]
 
 [ext_resource type="Script" path="res://scripts/ui/ui_CommandMenu.gd" id="1_ftsn1"]
+[ext_resource type="PackedScene" uid="uid://dhl21aail73wk" path="res://abstract/scenes/ui/Button.tscn" id="2_juj1o"]
 
 [node name="CommandMenu" type="Control"]
 layout_mode = 3
@@ -25,20 +26,26 @@ metadata/_edit_group_ = true
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="Button" type="Button" parent="PanelContainer/list"]
+[node name="Button" parent="PanelContainer/list" node_paths=PackedStringArray("caller") instance=ExtResource("2_juj1o")]
 layout_mode = 2
-size_flags_vertical = 3
 focus_mode = 1
 text = "Attack"
+caller = NodePath("../../..")
+callable = "on_command_pressed"
+arguments = [1]
 
-[node name="Button2" type="Button" parent="PanelContainer/list"]
+[node name="Button2" parent="PanelContainer/list" node_paths=PackedStringArray("caller") instance=ExtResource("2_juj1o")]
 layout_mode = 2
-size_flags_vertical = 3
 focus_mode = 1
 text = "Magic"
+caller = NodePath("../../..")
+callable = "on_command_pressed"
+arguments = [2]
 
-[node name="Button3" type="Button" parent="PanelContainer/list"]
+[node name="Button3" parent="PanelContainer/list" node_paths=PackedStringArray("caller") instance=ExtResource("2_juj1o")]
 layout_mode = 2
-size_flags_vertical = 3
 focus_mode = 1
 text = "Item"
+caller = NodePath("../../..")
+callable = "on_command_pressed"
+arguments = [3]

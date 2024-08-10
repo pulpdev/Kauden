@@ -24,6 +24,10 @@ class ActorTarget:
 		return actor.is_in_group("PLAYER")
 
 func initialize(actor : Actor):
+	if not self.initialized:
+		self.initialized = true
+	else:
+		return
 	self.actor = actor
 
 	DodgeDelay.timeout.connect(on_DodgeDelay_timeout)
