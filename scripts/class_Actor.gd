@@ -5,7 +5,7 @@ class_name Actor
 enum FACTIONS {COMMON, HOSTILE, NEUTRAL}
 
 const MIN_DIST_TO_LOCATION : float = 0.3
-const FRICTION_DEFAULT : float = 0.2
+const FRICTION_DEFAULT : float = 20
 
 @export var Controller : Controller
 @export var Parameters : ParamManager
@@ -24,7 +24,7 @@ func _ready():
 	if Controller:
 		Controller.initialize(self)
 
-func _physics_process(delta):
+func _process(delta):
 	velocity.x = vector_move.x
 	velocity.z = vector_move.z
 
@@ -35,7 +35,7 @@ func _physics_process(delta):
 		
 	move_and_slide()
 	
-	vector_move = lerp(vector_move, Vector3.ZERO, friction)
+	vector_move = lerp(vector_move, Vector3.ZERO, friction * delta)
 	
 	if abs(vector_move.x) < 0.1:
 		vector_move.x = 0.0

@@ -12,9 +12,7 @@
 height = 16.0
 radius = 3.0
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_swf0b"]
-margin = 0.5
-radius = 1.0
+[sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_jlmlq"]
 
 [node name="Player" node_paths=PackedStringArray("Controller") groups=["PLAYER"] instance=ExtResource("1_7iqmi")]
 Controller = NodePath("PlayerController")
@@ -61,12 +59,12 @@ shape = SubResource("CylinderShape3D_770xo")
 target_position = Vector3(0, 0, 16)
 
 [node name="SpringArm3D" type="SpringArm3D" parent="SpringArm" index="2"]
-shape = SubResource("SphereShape3D_swf0b")
+collision_mask = 524289
+shape = SubResource("SeparationRayShape3D_jlmlq")
 spring_length = -4.0
-margin = 0.5
 
 [node name="CameraPosition" type="Marker3D" parent="SpringArm/SpringArm3D" index="0"]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
+transform = Transform3D(-1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 0, 0, 0)
 
 [node name="PlayerController" type="Node" parent="." index="5" node_paths=PackedStringArray("SpringArm", "Camera", "TargetClearDelay", "TargetSprite", "PartyPositions", "AttackDelay", "DodgeDelay", "SprintDelay", "Behavior", "TargetPosition")]
 script = ExtResource("5_qlxd5")

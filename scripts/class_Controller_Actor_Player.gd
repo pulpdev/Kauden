@@ -63,31 +63,34 @@ func _input(event):
 	if event is InputEventJoypadButton:
 		control_scheme = CONTROL_SCHEMES.GAMEPAD
 
-	vector_input = Input.get_vector("action_left", "action_right", "action_up", "action_down") 
+	vector_input = Input.get_vector("action_left", "action_right", "action_up", "action_down")
 
-func _process(delta):
+	if Input.is_action_just_pressed("action_view_reset") and not is_focusing:
+		SpringArm.view_reset(actor.Pivot.global_rotation)
+
+func _physics_process(delta):
 	if target:
 		is_focusing = true
 		TargetSprite.visible = true
 		TargetSprite.position = Camera.unproject_position(target.FocusPosition.global_position)
-		#actor.Pivot.set_direction(actor.Eyes.get_look_vector_direction(target.global_position))
-		SpringArm.move(actor.Eyes.get_look_vector_rotation(target.global_position))
-		SpringArm.CameraPosition.rotation_degrees.x = -8
-		SpringArm.get_node("SpringArm3D").position.y = 0.5
-		SpringArm.get_node("SpringArm3D").position.x = -1
-
-
+		var v1 = SpringArm.global_rotation
+		SpringArm.look_at(target.global_position, Vector3.UP, true)
+		var v2 = SpringArm.global_rotation
+		SpringArm.global_rotation = v1
+		SpringArm.move(v2, delta)
+		SpringArm.position.y = 1.0
+		SpringArm.get_node("SpringArm3D").position.x = -0
 	else:
 		TargetSprite.visible = false
 		is_focusing = false
 		match control_scheme:
 			CONTROL_SCHEMES.GAMEPAD:
-				SpringArm.move_add(Vector3(vector_joystick.y, vector_joystick.x, 0))
+				SpringArm.move_add(Vector3(vector_joystick.y, vector_joystick.x, 0), delta)
 			CONTROL_SCHEMES.KEYBOARD_MOUSE:
-				SpringArm.move(Vector3(vector_view.y, vector_view.x, 0))
+				SpringArm.move(Vector3(vector_view.y, vector_view.x, 0), delta)
+
 		SpringArm.get_node("SpringArm3D").position.x = 0.0
-		SpringArm.get_node("SpringArm3D").position.y = 0.0
-		SpringArm.CameraPosition.rotation_degrees.x = 0
+		SpringArm.position.y = 1.5
 
 	if Input.is_action_just_released("action_sprint"):
 		SprintDelay.start()
@@ -103,7 +106,7 @@ func _process(delta):
 		if TargetClearDelay.timeout.is_connected(on_TargetClearDelay_timeout):
 			TargetClearDelay.timeout.disconnect(on_TargetClearDelay_timeout)
 		TargetClearDelay.stop()
-		
+
 	process_state()
 
 func process_state()->void:
@@ -139,9 +142,12 @@ func get_state()->STATES:
 func attack()->void:
 	actor.vector_move = Vector3.ZERO
 	AttackDelay.start()
-	var vector_move : Vector3 = actor.Eyes.get_look_vector_direction(target.get_focus_position())
-	if is_focusing and target:
-		actor.Pivot.set_direction(vector_move)
+	var vector_move : Vector3
+	if target:
+		vector_move = actor.Eyes.get_look_vector_direction(target.get_focus_position())
+	else:
+		vector_move = actor.Pivot.get_forward_direction()
+	actor.Pivot.set_direction(vector_move)
 	actor.tween_move(vector_move, 8.0, AttackDelay.wait_time / 2, not is_focusing)
 	actor.Pivot.Model.play_animation("player_attack_01", true)
 
