@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cud15tdjufutn"]
 
 [ext_resource type="PackedScene" uid="uid://dfbmwde82byqn" path="res://assets/mixamo_base_03_03.glb" id="1_6blu6"]
-[ext_resource type="Script" path="res://scripts/class_ActorModel.gd" id="2_yf1ll"]
+[ext_resource type="Script" path="res://scripts/classes/class_ActorModel.gd" id="2_yf1ll"]
 
 [node name="mixamo_base_03_03" instance=ExtResource("1_6blu6")]
 script = ExtResource("2_yf1ll")

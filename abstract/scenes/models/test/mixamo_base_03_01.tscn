@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=3 uid="uid://cgy8ln8ntprhx"]
 
 [ext_resource type="PackedScene" uid="uid://cioe5xv1bdkqv" path="res://assets/mixamo_base_03_01.glb" id="1_2m5i6"]
-[ext_resource type="Script" path="res://scripts/class_ActorModel.gd" id="2_okya6"]
+[ext_resource type="Script" path="res://scripts/classes/class_ActorModel.gd" id="2_okya6"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hlx8f"]
 animation = &"sprint"

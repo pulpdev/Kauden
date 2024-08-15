@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://1eskjnt1arq"]
+
+[ext_resource type="Script" path="res://scripts/classes/class_BehaviorRoot.gd" id="1_6k21m"]
+[ext_resource type="Script" path="res://scripts/actions/action_MoveForward.gd" id="2_s6465"]
+
+[node name="EnemyBehavior" type="Node"]
+script = ExtResource("1_6k21m")
+
+[node name="ActionLeaf" type="Node" parent="."]
+script = ExtResource("2_s6465")

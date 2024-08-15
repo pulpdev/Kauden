@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://cyi63dudfs0vg"]
 
 [ext_resource type="PackedScene" uid="uid://bdnvd3a8ujxrk" path="res://assets/mixamo_base_03_04.glb" id="1_2wf7x"]
-[ext_resource type="Script" path="res://scripts/class_ActorModel.gd" id="2_wqrff"]
+[ext_resource type="Script" path="res://scripts/classes/class_ActorModel.gd" id="2_6dq8d"]
 
 [node name="mixamo_base_03_04" instance=ExtResource("1_2wf7x")]
-script = ExtResource("2_wqrff")
+script = ExtResource("2_6dq8d")
 
 [node name="Skeleton3D" parent="Armature" index="0"]
 bones/0/position = Vector3(-0.0660981, 0.747008, -84.7163)

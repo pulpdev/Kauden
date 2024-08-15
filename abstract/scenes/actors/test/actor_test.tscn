@@ -1,20 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://cpnbfaf8gg0ic"]
+[gd_scene load_steps=6 format=3 uid="uid://cpnbfaf8gg0ic"]
 
 [ext_resource type="PackedScene" uid="uid://uthrp0a0t4to" path="res://scenes/Actor.tscn" id="1_a8e3t"]
 [ext_resource type="PackedScene" uid="uid://cyi63dudfs0vg" path="res://abstract/scenes/models/test/mixamo_base_03_04.tscn" id="2_vyn7m"]
-[ext_resource type="Resource" uid="uid://c0nost4wy2tim" path="res://abstract/resources/actordata/default.tres" id="2_yi7tm"]
-[ext_resource type="Script" path="res://scripts/class_Controller_Actor_AI.gd" id="3_73j23"]
-[ext_resource type="Script" path="res://scripts/class_BehaviorRoot.gd" id="4_4x00e"]
+[ext_resource type="Script" path="res://scripts/classes/class_Controller_Actor_AI.gd" id="3_73j23"]
 [ext_resource type="Shape3D" uid="uid://dtshbdfjmed6b" path="res://abstract/resources/shapes/collisions/visual_default.tres" id="4_y8g1o"]
-[ext_resource type="Script" path="res://scripts/class_BehaviorNode_CompositeSelector.gd" id="5_h3wpm"]
-[ext_resource type="Script" path="res://scripts/class_BehaviorNode_CompositeSequence.gd" id="6_7ni1t"]
-[ext_resource type="Script" path="res://scripts/actions/action_HasTarget.gd" id="8_au3im"]
-[ext_resource type="Script" path="res://scripts/actions/action_FollowTarget.gd" id="8_eowh1"]
-[ext_resource type="Script" path="res://scripts/actions/action_Idle.gd" id="8_hsc02"]
+[ext_resource type="PackedScene" uid="uid://1eskjnt1arq" path="res://abstract/scenes/behaviors/EnemyBehavior.tscn" id="5_dpcey"]
 
-[node name="ActorBase" node_paths=PackedStringArray("Controller") instance=ExtResource("1_a8e3t")]
+[node name="actor_test" node_paths=PackedStringArray("Controller") instance=ExtResource("1_a8e3t")]
 Controller = NodePath("Controller")
-data = ExtResource("2_yi7tm")
 
 [node name="Pivot" parent="." index="1" node_paths=PackedStringArray("Model")]
 Model = NodePath("mixamo_base_03_04")
@@ -35,7 +28,10 @@ monitorable = false
 transform = Transform3D(1.91069e-15, 4.37114e-08, -1, 1, -4.37114e-08, 2.11758e-22, -4.37114e-08, -1, -4.37114e-08, 0, 0, 0)
 shape = ExtResource("4_y8g1o")
 
-[node name="Controller" type="Node" parent="." index="6" node_paths=PackedStringArray("AudialArea", "VisionArea", "TargetRay", "FightRay", "TargetDelay", "AttackDelay", "DodgeDelay", "SprintDelay", "Behavior", "TargetPosition")]
+[node name="EnemyBehavior" parent="." index="6" node_paths=PackedStringArray("Actor") instance=ExtResource("5_dpcey")]
+Actor = NodePath("..")
+
+[node name="Controller" type="Node" parent="." index="7" node_paths=PackedStringArray("AudialArea", "VisionArea", "TargetRay", "FightRay", "TargetDelay", "AttackDelay", "DodgeDelay", "SprintDelay", "Behavior", "TargetPosition")]
 script = ExtResource("3_73j23")
 AudialArea = NodePath("../AudialArea")
 VisionArea = NodePath("../Pivot/VisionAreaContainer/VisionArea")
@@ -45,27 +41,6 @@ TargetDelay = NodePath("../TargetDelay")
 AttackDelay = NodePath("../AttackDelay")
 DodgeDelay = NodePath("../DodgeDelay")
 SprintDelay = NodePath("../SprintDelay")
-Behavior = NodePath("../BehaviorRoot")
+Behavior = NodePath("../EnemyBehavior")
 TargetPosition = NodePath("../TargetPosition")
 enabled = true
-
-[node name="BehaviorRoot" type="Node" parent="." index="7" node_paths=PackedStringArray("Actor")]
-script = ExtResource("4_4x00e")
-Actor = NodePath("..")
-
-[node name="CompositeSelector" type="Node" parent="BehaviorRoot" index="0"]
-script = ExtResource("5_h3wpm")
-
-[node name="Idle" type="Node" parent="BehaviorRoot/CompositeSelector" index="0"]
-script = ExtResource("8_hsc02")
-
-[node name="scrap" type="Node" parent="BehaviorRoot" index="1"]
-
-[node name="Follow" type="Node" parent="BehaviorRoot/scrap" index="0"]
-script = ExtResource("6_7ni1t")
-
-[node name="HasTarget" type="Node" parent="BehaviorRoot/scrap/Follow" index="0"]
-script = ExtResource("8_au3im")
-
-[node name="FollowTarget" type="Node" parent="BehaviorRoot/scrap/Follow" index="1"]
-script = ExtResource("8_eowh1")

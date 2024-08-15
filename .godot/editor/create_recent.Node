@@ -1,3 +1,7 @@
+TargetManager
+Node2D
+ActionLeaf
+BehaviorRoot
 CollisionShape3D
 CharacterBody3D
 ShapeCast3D
@@ -9,6 +13,3 @@ CompositeSequence
 CompositeSelector
 Camera3D
 SkeletonIK3D
-Button
-Control
-VBoxContainer

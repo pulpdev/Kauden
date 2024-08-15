@@ -31,7 +31,6 @@ var control_scheme : CONTROL_SCHEMES = CONTROL_SCHEMES.KEYBOARD_MOUSE:
 			control_scheme = x
 			control_scheme_changed.emit(control_scheme)
 var is_focusing : bool
-var target_press_time : int
 var state : STATES = STATES.FREE
 
 func _ready():
@@ -68,18 +67,19 @@ func _input(event):
 	if Input.is_action_just_pressed("action_view_reset") and not is_focusing:
 		SpringArm.view_reset(actor.Pivot.global_rotation)
 
-func _physics_process(delta):
+func _process(delta):
 	if target:
 		is_focusing = true
 		TargetSprite.visible = true
-		TargetSprite.position = Camera.unproject_position(target.FocusPosition.global_position)
+		TargetSprite.position = SpringArm.unproject_position(target.FocusPosition.global_position)
 		var v1 = SpringArm.global_rotation
 		SpringArm.look_at(target.global_position, Vector3.UP, true)
 		var v2 = SpringArm.global_rotation
 		SpringArm.global_rotation = v1
-		SpringArm.move(v2, delta)
-		SpringArm.position.y = 1.0
-		SpringArm.get_node("SpringArm3D").position.x = -0
+		SpringArm.move(v2, -12, 12)
+		SpringArm.get_node("SpringArm3D").position.x = -0.5
+		SpringArm.weight_camera.x = 24
+		SpringArm.weight_camera.y = 24
 	else:
 		TargetSprite.visible = false
 		is_focusing = false
@@ -87,11 +87,11 @@ func _physics_process(delta):
 			CONTROL_SCHEMES.GAMEPAD:
 				SpringArm.move_add(Vector3(vector_joystick.y, vector_joystick.x, 0), delta)
 			CONTROL_SCHEMES.KEYBOARD_MOUSE:
-				SpringArm.move(Vector3(vector_view.y, vector_view.x, 0), delta)
-
+				SpringArm.move(Vector3(vector_view.y, vector_view.x, 0))
 		SpringArm.get_node("SpringArm3D").position.x = 0.0
-		SpringArm.position.y = 1.5
-
+		SpringArm.weight_camera.x = 8
+		SpringArm.weight_camera.y = 24
+		
 	if Input.is_action_just_released("action_sprint"):
 		SprintDelay.start()
 

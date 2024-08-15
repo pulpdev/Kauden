@@ -105,4 +105,7 @@ Actor = NodePath("../..")
 [node name="TargetDelay" parent="." index="8"]
 autostart = true
 
+[node name="TargetPosition" parent="." index="11"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
 [editable path="Pivot/mixamo_base_03_04"]

@@ -1,7 +1,6 @@
 res://autoloads/Debug.tscn
 res://theme.tres
 res://abstract/resources/PackedSceneLists/roster_party_default.tres
-res://abstract/resources/terrains/new_terrain_3d_storage.res
 res://scenes/GameScene.tscn
 res://scenes/Actor.tscn
 res://abstract/scenes/actors/Player.tscn
@@ -15,16 +14,5 @@ res://abstract/scenes/ui/CommandMenu.tscn
 res://abstract/scenes/backgrounds/test_1.tscn
 res://abstract/scenes/ui/Button.tscn
 res://abstract/scenes/models/test/mixamo_base_03_04.tscn
-res://scripts/class_Controller_Actor_Player.gd
-res://scripts/ui/ui_CommandMenu.gd
-res://scripts/class_Actor.gd
-res://scripts/class_SpringArm.gd
-res://scripts/class_GameScene.gd
-res://scripts/actions/action_MoveToPartyPosition.gd
-res://scripts/class_Party.gd
-res://scripts/actions/action_IsNearPartyPosition.gd
-res://scripts/class_Eyes.gd
-res://scripts/class_Controller_Actor.gd
-res://scripts/class_Controller_Actor_AI.gd
-res://scripts/class_Controller.gd
-res://abstract/resources/shapes/collisions/actor_default.tres
+res://abstract/scenes/behaviors/EnemyBehavior.tscn
+res://abstract/scenes/actors/test/actor_test.tscn

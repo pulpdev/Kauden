@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bibtxfuwies2l" path="res://abstract/scenes/actors/members/Jim.tscn" id="1_u4pfk"]
 [ext_resource type="PackedScene" uid="uid://b7as4feoe80ne" path="res://abstract/scenes/actors/members/Sue.tscn" id="2_v12v5"]
-[ext_resource type="Script" path="res://scripts/class_PackedSceneList.gd" id="3_b5ldm"]
+[ext_resource type="Script" path="res://scripts/classes/class_PackedSceneList.gd" id="3_b5ldm"]
 
 [resource]
 script = ExtResource("3_b5ldm")

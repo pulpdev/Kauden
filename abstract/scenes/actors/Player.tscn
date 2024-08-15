@@ -1,10 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://cd5jwffggrspi"]
+[gd_scene load_steps=9 format=3 uid="uid://cd5jwffggrspi"]
 
 [ext_resource type="PackedScene" uid="uid://uthrp0a0t4to" path="res://scenes/Actor.tscn" id="1_7iqmi"]
-[ext_resource type="Resource" uid="uid://c0nost4wy2tim" path="res://abstract/resources/actordata/default.tres" id="2_ycimw"]
 [ext_resource type="PackedScene" uid="uid://cyi63dudfs0vg" path="res://abstract/scenes/models/test/mixamo_base_03_04.tscn" id="3_bl5n5"]
-[ext_resource type="Script" path="res://scripts/class_SpringArm.gd" id="4_8ul6a"]
-[ext_resource type="Script" path="res://scripts/class_Controller_Actor_Player.gd" id="5_qlxd5"]
+[ext_resource type="Script" path="res://scripts/classes/class_SpringArm.gd" id="4_8ul6a"]
+[ext_resource type="Script" path="res://scripts/classes/class_Controller_Actor_Player.gd" id="5_qlxd5"]
 [ext_resource type="PackedScene" uid="uid://rasb6xdudjnp" path="res://abstract/scenes/behaviors/PlayerBehavior.tscn" id="6_q8ly1"]
 [ext_resource type="Texture2D" uid="uid://dr71psnrikn6m" path="res://icon.svg" id="7_exr85"]
 
@@ -16,7 +15,6 @@ radius = 3.0
 
 [node name="Player" node_paths=PackedStringArray("Controller") groups=["PLAYER"] instance=ExtResource("1_7iqmi")]
 Controller = NodePath("PlayerController")
-data = ExtResource("2_ycimw")
 
 [node name="Pivot" parent="." index="1" node_paths=PackedStringArray("Model")]
 Model = NodePath("mixamo_base_03_04")
@@ -61,7 +59,7 @@ target_position = Vector3(0, 0, 16)
 [node name="SpringArm3D" type="SpringArm3D" parent="SpringArm" index="2"]
 collision_mask = 524289
 shape = SubResource("SeparationRayShape3D_jlmlq")
-spring_length = -4.0
+spring_length = -5.0
 
 [node name="CameraPosition" type="Marker3D" parent="SpringArm/SpringArm3D" index="0"]
 transform = Transform3D(-1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 0, 0, 0)
@@ -78,7 +76,6 @@ DodgeDelay = NodePath("../DodgeDelay")
 SprintDelay = NodePath("../SprintDelay")
 Behavior = NodePath("../PlayerBehavior")
 TargetPosition = NodePath("../TargetPosition")
-enabled = true
 
 [node name="PlayerBehavior" parent="." index="6" node_paths=PackedStringArray("Actor") instance=ExtResource("6_q8ly1")]
 Actor = NodePath("..")

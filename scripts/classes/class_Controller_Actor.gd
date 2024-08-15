@@ -10,6 +10,7 @@ signal delay_attack_finished
 @export var SprintDelay : Timer
 @export var Behavior : BehaviorRoot
 @export var TargetPosition : Marker3D
+@export var TargetManager : TargetManager
 
 var actor : Actor
 var target : Actor
