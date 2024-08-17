@@ -19,7 +19,7 @@ signal control_scheme_changed(scheme : int)
 
 @onready var CameraPosition = $SpringArm3D/CameraPosition
 
-var vector_view : Vector2
+var vector_mouse : Vector2
 var vector_joystick : Vector2
 var sensitivity_mouse : float = 0.4
 var sensitivity_joystick : float = 0.03
@@ -32,54 +32,34 @@ var control_scheme : CONTROL_SCHEMES = CONTROL_SCHEMES.KEYBOARD_MOUSE:
 var vector_reset : Vector3
 var resetting : bool
 var resettimer : Timer
-
 var weight_camera : Vector2 = Vector2(8,24)
 
 func _ready():
 	resettimer = Timer.new()
 	resettimer.autostart = false
 	resettimer.one_shot = true
-	resettimer.wait_time = 0.5
+	resettimer.wait_time = 0.2
 	resettimer.timeout.connect(func(): resetting = false)
 	add_child(resettimer)
+	
+	vector_mouse = get_rotation_view()
 
 func _process(delta):
 	Camera.global_position = lerp(Camera.global_position, CameraPosition.global_position, delta * weight_camera.x)
 	Camera.global_rotation.x = lerp_angle(Camera.global_rotation.x, CameraPosition.global_rotation.x, delta * weight_camera.y)
 	Camera.global_rotation.y = lerp_angle(Camera.global_rotation.y, CameraPosition.global_rotation.y, delta * weight_camera.y)
 	Camera.global_rotation.z = lerp_angle(Camera.global_rotation.z, CameraPosition.global_rotation.z, delta * weight_camera.y)
-	
+
 	if resetting:
 		global_rotation.x = lerp_angle(global_rotation.x, vector_reset.x, delta * 20)
 		global_rotation.y = lerp_angle(global_rotation.y, vector_reset.y, delta * 20)
 		if is_near_rotation(vector_reset) and resettimer.is_stopped():
 			resettimer.start()
 
-func _input(event):
-	if event is InputEventMouseMotion:
-		control_scheme = CONTROL_SCHEMES.KEYBOARD_MOUSE
-		var ex : float = event.relative.x / 1
-		var ey : float = event.relative.y / 1
-		vector_view.x += deg_to_rad(-event.relative.x) * sensitivity_mouse
-		vector_view.y += deg_to_rad(event.relative.y) * sensitivity_mouse
-		vector_view.y = clamp(vector_view.y, deg_to_rad(SpringArm.PITCH_MIN), deg_to_rad(SpringArm.PITCH_MAX))
-
-	if event is InputEventJoypadMotion:
-		control_scheme = CONTROL_SCHEMES.GAMEPAD
-		if event.axis == 2:
-			vector_joystick.x = -event.axis_value * sensitivity_joystick
-		if event.axis == 3:
-			vector_joystick.y = event.axis_value * sensitivity_joystick
-
-	if event is InputEventKey:
-		control_scheme = CONTROL_SCHEMES.KEYBOARD_MOUSE
-
-	if event is InputEventJoypadButton:
-		control_scheme = CONTROL_SCHEMES.GAMEPAD
-
 func view_reset(rotation : Vector3)->void:
-	vector_reset = rotation
-	resetting = true
+	if resettimer.is_stopped():
+		vector_reset = rotation
+		resetting = true
 	
 func is_resetting()->bool:
 	return resetting

@@ -13,8 +13,9 @@ radius = 3.0
 
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_jlmlq"]
 
-[node name="Player" node_paths=PackedStringArray("Controller") groups=["PLAYER"] instance=ExtResource("1_7iqmi")]
+[node name="Player" node_paths=PackedStringArray("Controller", "Stats") groups=["PLAYER"] instance=ExtResource("1_7iqmi")]
 Controller = NodePath("PlayerController")
+Stats = NodePath("StatManager")
 
 [node name="Pivot" parent="." index="1" node_paths=PackedStringArray("Model")]
 Model = NodePath("mixamo_base_03_04")
@@ -64,9 +65,9 @@ spring_length = -5.0
 [node name="CameraPosition" type="Marker3D" parent="SpringArm/SpringArm3D" index="0"]
 transform = Transform3D(-1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 0, 0, 0)
 
-[node name="PlayerController" type="Node" parent="." index="5" node_paths=PackedStringArray("SpringArm", "Camera", "TargetClearDelay", "TargetSprite", "PartyPositions", "AttackDelay", "DodgeDelay", "SprintDelay", "Behavior", "TargetPosition")]
+[node name="PlayerController" type="Node" parent="." index="5" node_paths=PackedStringArray("springarm", "Camera", "TargetClearDelay", "TargetSprite", "PartyPositions", "AttackDelay", "DodgeDelay", "SprintDelay", "Behavior", "TargetPosition", "manager_target", "TargetArea")]
 script = ExtResource("5_qlxd5")
-SpringArm = NodePath("../SpringArm")
+springarm = NodePath("../SpringArm")
 Camera = NodePath("../SpringArm/Camera3D")
 TargetClearDelay = NodePath("../TargetClearDelay")
 TargetSprite = NodePath("../TargetSprite")
@@ -76,10 +77,15 @@ DodgeDelay = NodePath("../DodgeDelay")
 SprintDelay = NodePath("../SprintDelay")
 Behavior = NodePath("../PlayerBehavior")
 TargetPosition = NodePath("../TargetPosition")
+manager_target = NodePath("../TargetManager")
+TargetArea = NodePath("../TargetArea")
 
 [node name="PlayerBehavior" parent="." index="6" node_paths=PackedStringArray("Actor") instance=ExtResource("6_q8ly1")]
 Actor = NodePath("..")
 enabled = false
+
+[node name="TargetManager" parent="." index="14" node_paths=PackedStringArray("actor")]
+actor = NodePath("..")
 
 [node name="TargetClearDelay" type="Timer" parent="." index="15"]
 wait_time = 0.5

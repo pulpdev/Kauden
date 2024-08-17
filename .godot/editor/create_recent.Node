@@ -1,6 +1,11 @@
+CompositeSelector
+ActionLeaf
+DecoratorCooldown
+Node
+DecoratorLimiter
+StatManager
 TargetManager
 Node2D
-ActionLeaf
 BehaviorRoot
 CollisionShape3D
 CharacterBody3D
@@ -8,8 +13,3 @@ ShapeCast3D
 SpringArm3D
 Marker3D
 MeshInstance3D
-DecoratorFailer
-CompositeSequence
-CompositeSelector
-Camera3D
-SkeletonIK3D

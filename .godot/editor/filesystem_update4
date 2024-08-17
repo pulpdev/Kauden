@@ -1,7 +1,8 @@
-res://autoloads/Debug.tscn
+res://scenes/GameScene.tscn
 res://theme.tres
 res://abstract/resources/PackedSceneLists/roster_party_default.tres
-res://scenes/GameScene.tscn
+res://scripts/classes/class_Controller_Actor.gd
+res://autoloads/Debug.tscn
 res://scenes/Actor.tscn
 res://abstract/scenes/actors/Player.tscn
 res://scenes/GUI.tscn
@@ -16,3 +17,8 @@ res://abstract/scenes/ui/Button.tscn
 res://abstract/scenes/models/test/mixamo_base_03_04.tscn
 res://abstract/scenes/behaviors/EnemyBehavior.tscn
 res://abstract/scenes/actors/test/actor_test.tscn
+res://scripts/classes/class_TargetManager.gd
+res://abstract/resources/shapes/collisions/audial_default.tres
+res://scripts/classes/class_Controller_Actor_AI.gd
+res://scripts/classes/class_BehaviorNode_DecoratorCooldown.gd
+res://scripts/actions/action_PlayerAttack.gd

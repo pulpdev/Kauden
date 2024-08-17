@@ -13,23 +13,14 @@ const scene_menu_command := preload("res://abstract/scenes/ui/CommandMenu.tscn")
 signal control_scheme_changed(scheme : int)
 signal attack_pressed()
 
-@export var SpringArm : SpringArm
+@export var springarm : SpringArm
 @export var Camera : Camera3D
 @export var TargetClearDelay : Timer
 @export var TargetSprite : Sprite2D
 @export var PartyPositions : Node3D
-var CommandMenu : Control
 
-var vector_view : Vector2
+var CommandMenu : Control
 var vector_input : Vector2
-var vector_joystick : Vector2
-var sensitivity_mouse : float = 0.4
-var sensitivity_joystick : float = 0.03
-var control_scheme : CONTROL_SCHEMES = CONTROL_SCHEMES.KEYBOARD_MOUSE:
-	set(x):
-		if not control_scheme == x:
-			control_scheme = x
-			control_scheme_changed.emit(control_scheme)
 var is_focusing : bool
 var state : STATES = STATES.FREE
 
@@ -37,60 +28,57 @@ func _ready():
 	CommandMenu = scene_menu_command.instantiate()
 	CommandMenu.command_pressed.connect(process_command_menu)
 	add_child(CommandMenu)
-	
-	vector_view = SpringArm.get_rotation_view()
 
 func _input(event):
 	if event is InputEventMouseMotion:
-		control_scheme = CONTROL_SCHEMES.KEYBOARD_MOUSE
-		var ex : float = event.relative.x / 1
-		var ey : float = event.relative.y / 1
-		vector_view.x += deg_to_rad(-event.relative.x) * sensitivity_mouse
-		vector_view.y += deg_to_rad(event.relative.y) * sensitivity_mouse
-		vector_view.y = clamp(vector_view.y, deg_to_rad(SpringArm.PITCH_MIN), deg_to_rad(SpringArm.PITCH_MAX))
+		springarm.control_scheme = springarm.CONTROL_SCHEMES.KEYBOARD_MOUSE
+		var ex : float = event.relative.x
+		var ey : float = event.relative.y
+		springarm.vector_mouse.x += deg_to_rad(-event.relative.x) * springarm.sensitivity_mouse
+		springarm.vector_mouse.y += deg_to_rad(event.relative.y) * springarm.sensitivity_mouse
+		springarm.vector_mouse.y = clamp(springarm.vector_mouse.y, deg_to_rad(springarm.PITCH_MIN), deg_to_rad(springarm.PITCH_MAX))
 
 	if event is InputEventJoypadMotion:
-		control_scheme = CONTROL_SCHEMES.GAMEPAD
+		springarm.control_scheme = springarm.CONTROL_SCHEMES.GAMEPAD
 		if event.axis == 2:
-			vector_joystick.x = -event.axis_value * sensitivity_joystick
+			springarm.vector_joystick.x = -event.axis_value * springarm.sensitivity_joystick
 		if event.axis == 3:
-			vector_joystick.y = event.axis_value * sensitivity_joystick
+			springarm.vector_joystick.y = event.axis_value * springarm.sensitivity_joystick
 
 	if event is InputEventKey:
-		control_scheme = CONTROL_SCHEMES.KEYBOARD_MOUSE
+		springarm.control_scheme = springarm.CONTROL_SCHEMES.KEYBOARD_MOUSE
 
 	if event is InputEventJoypadButton:
-		control_scheme = CONTROL_SCHEMES.GAMEPAD
-
+		springarm.control_scheme = springarm.CONTROL_SCHEMES.GAMEPAD
 	vector_input = Input.get_vector("action_left", "action_right", "action_up", "action_down")
 
 	if Input.is_action_just_pressed("action_view_reset") and not is_focusing:
-		SpringArm.view_reset(actor.Pivot.global_rotation)
+		springarm.view_reset(actor.Pivot.global_rotation + Vector3(0.2,0,0))
 
 func _process(delta):
 	if target:
 		is_focusing = true
 		TargetSprite.visible = true
-		TargetSprite.position = SpringArm.unproject_position(target.FocusPosition.global_position)
-		var v1 = SpringArm.global_rotation
-		SpringArm.look_at(target.global_position, Vector3.UP, true)
-		var v2 = SpringArm.global_rotation
-		SpringArm.global_rotation = v1
-		SpringArm.move(v2, -12, 12)
-		SpringArm.get_node("SpringArm3D").position.x = -0.5
-		SpringArm.weight_camera.x = 24
-		SpringArm.weight_camera.y = 24
+		TargetSprite.position = springarm.Camera.unproject_position(target.FocusPosition.global_position)
+		var v1 = springarm.global_rotation
+		springarm.look_at(target.global_position, Vector3.UP, true)
+		var v2 = springarm.global_rotation
+		springarm.global_rotation = v1
+		springarm.move(v2, -12, 12)
+		springarm.get_node("SpringArm3D").position.x = -0.5
+		springarm.weight_camera.x = 24
+		springarm.weight_camera.y = 24
 	else:
 		TargetSprite.visible = false
 		is_focusing = false
-		match control_scheme:
-			CONTROL_SCHEMES.GAMEPAD:
-				SpringArm.move_add(Vector3(vector_joystick.y, vector_joystick.x, 0), delta)
+		springarm.get_node("SpringArm3D").position.x = 0.0
+		springarm.weight_camera.x = 8
+		springarm.weight_camera.y = 24
+		match springarm.control_scheme:
+			springarm.CONTROL_SCHEMES.GAMEPAD:
+				springarm.move_add(Vector3(springarm.vector_joystick.y, springarm.vector_joystick.x, 0), delta)
 			CONTROL_SCHEMES.KEYBOARD_MOUSE:
-				SpringArm.move(Vector3(vector_view.y, vector_view.x, 0))
-		SpringArm.get_node("SpringArm3D").position.x = 0.0
-		SpringArm.weight_camera.x = 8
-		SpringArm.weight_camera.y = 24
+				springarm.move(Vector3(springarm.vector_mouse.y, springarm.vector_mouse.x, 0))
 		
 	if Input.is_action_just_released("action_sprint"):
 		SprintDelay.start()
@@ -113,7 +101,7 @@ func process_state()->void:
 	match state:
 		STATES.FREE:
 			if not vector_input == Vector2.ZERO:
-				actor.move(SpringArm.calc_input_direction(vector_input), actor.data.speed_run)
+				actor.move(springarm.calc_input_direction(vector_input), actor.data.speed_run)
 				actor.Pivot.Model.play_animation(actor.data.anim_run)
 			else:
 				actor.move(Vector3.ZERO, 0.0)
@@ -187,8 +175,8 @@ func is_dodging()->bool:
 	return not DodgeDelay.is_stopped()
 
 func find_closest_target()->Actor:
-	if SpringArm.TargetArea.get_overlapping_bodies().size() > 0:
-		var ts : Array = SpringArm.TargetArea.get_overlapping_bodies()
+	if springarm.TargetArea.get_overlapping_bodies().size() > 0:
+		var ts : Array = springarm.TargetArea.get_overlapping_bodies()
 		for t in ts:
 			if t == actor:
 				ts.pop_at(ts.find(t))
@@ -218,5 +206,5 @@ func get_party_positions()->Array[Vector3]:
 
 func on_TargetClearDelay_timeout()->void:
 	target = null
-	vector_view = SpringArm.get_rotation_view()
+	springarm.vector_mouse = springarm.get_rotation_view()
 	TargetClearDelay.timeout.disconnect(on_TargetClearDelay_timeout)

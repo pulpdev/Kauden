@@ -1,13 +1,13 @@
 extends ControllerActor
 class_name ControllerAI
 
-@export var AudialArea : Area3D
 @export var VisionArea : Area3D
 @export var TargetRay : RayCast3D
 @export var FightRay : RayCast3D
 @export var TargetDelay : Timer
 
 func _ready():
+	return
 	TargetDelay.timeout.connect(on_target_delay_timeout)
 
 func get_visible_actors()->Array:
@@ -19,7 +19,7 @@ func get_visible_actors()->Array:
 
 func get_audible_actors()->Array:
 	var a : Array
-	for b in AudialArea.get_overlapping_bodies():
+	for b in TargetArea.get_overlapping_bodies():
 		if not b == actor:
 			a.append(b)
 	return a

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://qn31518dftgy"]
+
+[ext_resource type="Script" path="res://scripts/classes/class_Item.gd" id="1_1emf1"]
+
+[resource]
+script = ExtResource("1_1emf1")
+name = ""
+type = 1
+type_weapon = 1
+parameter_heal = 0
+parameter_heal_amount = 0
+stats = {
+"AP_MAX": 0,
+"ATTACK": 0,
+"CRITICAL": 0,
+"DEFENSE": 0,
+"HP_MAX": 0,
+"MP_MAX": 0,
+"TP_MAX": 0
+}

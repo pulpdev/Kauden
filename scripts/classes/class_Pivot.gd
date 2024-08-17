@@ -29,3 +29,4 @@ func is_near_rotation(rot : float, min_dist : float = MIN_DIST_TO_ANGLE)->bool:
 
 func get_forward_direction()->Vector3:
 	return global_transform.basis.z
+	

@@ -2,89 +2,108 @@
 extends Node
 class_name TargetManager
 
-const DICT_TARGET : Dictionary = {
-	"target_distance" : float(), #distance from self.actor to this target
-	"target_damage" : int(), #damage dealt to self.actor by this target
-	"target_time_known" : int() #time this target has been in the list
-}
-
 @export var actor : Actor
 
-var targets : Dictionary
-var target : Actor
+var targets : Array[Target]
+var target : Target
+
+class Target:
+	extends RefCounted
+	
+	func _init(actor : Actor):
+		target_actor = actor
+	
+	var target_actor : Actor
+	var target_distance : float
+	var target_time_known : int
+	var target_damage : int
 
 func _physics_process(delta):
-	for t in targets.keys():
-		targets[t]["target_distance"] = self.actor.global_position.distance_to(t.global_position)
-		targets[t]["target_time_known"] += 1
+	for t in targets:
+		t.target_distance = actor.global_position.distance_to(t.target_actor.global_position)
+		t.target_time_known += 1
 
-func target_add(actor : Actor)->void:
-	if not targets.has(actor):
-		var d : Dictionary = DICT_TARGET
-		d.target_distance = actor.global_position.distance_to(self.actor.global_position)
-		targets[actor] = d
+func add_target(actor : Actor)->void:
+	if not has_target(actor):
+		var t : Target = Target.new(actor)
+		t.target_distance = actor.global_position.distance_to(self.actor.global_position)
+		targets.append(t)
 
-func target_remove(actor : Actor)->void:
-	targets.erase(actor)
+func has_target(actor : Actor)->bool:
+	for t in targets:
+		if t.target_actor == actor:
+			return true
+	return false
 	
-func target_set(actor : Actor)->void:
-	if targets.has(actor):
-		target = actor
+func get_target(actor : Actor)->Target:
+	for t in targets:
+		if t.target_actor == actor:
+			return t
+	return null
 
-func target_find_distance_least()->Actor:
-	var ts : Array[Actor] = targets.keys()
+func remove_target(actor : Actor)->void:
+	for t in range(targets.size() - 1):
+		if targets[t].target_actor == actor:
+			targets.pop_at(t)
+	
+func set_target(actor : Actor)->void:
+	var t : Target = get_target(actor)
+	if t:
+		target = t
+
+func get_player_target()->Target:
+	for t in targets:
+		if t.target_actor.is_in_group("PLAYER"):
+			return t
+	return null
+
+func target_find_distance_least()->Target:
+	var ts : Array[Target] = targets.duplicate(true)
 	if ts.size() == 0:
 		return null
 	ts.sort_custom(
-		func(a : Actor, b : Actor): 
-			return targets[a]["target_distance"] < targets[b]["target_distance"])
+		func(a : Target, b : Target): return a.target_distance < b.target_distance)
 	return ts.front()
 
-func target_find_distance_most()->Actor:
-	var ts : Array[Actor] = targets.keys()
+func target_find_distance_most()->Target:
+	var ts : Array[Target] = targets.duplicate(true)
 	if ts.size() == 0:
 		return null
 	ts.sort_custom(
-		func(a : Actor, b : Actor): 
-			return targets[a]["target_distance"] > targets[b]["target_distance"])
+		func(a : Target, b : Target): return a.target_distance > b.target_distance)
 	return ts.front()
 
-func target_find_damage_most()->Actor:
-	var ts : Array[Actor] = targets.keys()
+func target_find_damage_most()->Target:
+	var ts : Array[Target] = targets.duplicate(true)
 	if ts.size() == 0:
 		return null
 	ts.sort_custom(
-		func(a : Actor, b : Actor): 
-			return targets[a]["target_damage"] > targets[b]["target_damage"])
+		func(a : Target, b : Target): return a.target_damage > b.target_damage)
 	return ts.front()
 
-func target_find_damage_least()->Actor:
-	var ts : Array[Actor] = targets.keys()
+func target_find_damage_least()->Target:
+	var ts : Array[Target] = targets.duplicate(true)
 	if ts.size() == 0:
 		return null
 	ts.sort_custom(
-		func(a : Actor, b : Actor): 
-			return targets[a]["target_damage"] < targets[b]["target_damage"])
+		func(a : Target, b : Target): return a.target_damage < b.target_damage)
 	return ts.front()
 
-func target_find_known_least()->Actor:
-	var ts : Array[Actor] = targets.keys()
+func target_find_known_least()->Target:
+	var ts : Array[Target] = targets.duplicate(true)
 	if ts.size() == 0:
 		return null
 	ts.sort_custom(
-		func(a : Actor, b : Actor): 
-			return targets[a]["target_time_known"] < targets[b]["target_time_known"])
+		func(a : Target, b : Target): return a.target_time_known < b.target_time_known)
 	return ts.front()
 
-func target_find_known_most()->Actor:
-	var ts : Array[Actor] = targets.keys()
+func target_find_known_most()->Target:
+	var ts : Array[Target] = targets.duplicate(true)
 	if ts.size() == 0:
 		return null
 	ts.sort_custom(
-		func(a : Actor, b : Actor): 
-			return targets[a]["target_time_known"] > targets[b]["target_time_known"])
+		func(a : Target, b : Target): return a.target_time_known > b.target_time_known)
 	return ts.front()
 
-func target_set_damage(actor : Actor, damage : int)->void:
-	if targets.has(actor):
-		targets[actor]["target_damage"] = damage
+func target_set_damage(target : Target, damage : int)->void:
+	target.target_damage = damage

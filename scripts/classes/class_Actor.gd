@@ -8,7 +8,7 @@ const MIN_DIST_TO_LOCATION : float = 0.3
 const FRICTION_DEFAULT : float = 20
 
 @export var Controller : Controller
-@export var Parameters : ParamManager
+@export var Stats : StatManager
 @export var data : ActorData
 @export var Pivot : Pivot
 @export var Eyes : Eyes

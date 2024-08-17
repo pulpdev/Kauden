@@ -27,13 +27,12 @@ monitorable = false
 transform = Transform3D(1.91069e-15, 4.37114e-08, -1, 1, -4.37114e-08, 2.11758e-22, -4.37114e-08, -1, -4.37114e-08, 0, 0, 0)
 shape = ExtResource("4_1bito")
 
-[node name="TargetRay" parent="." index="4"]
+[node name="TargetRay" parent="." index="3"]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 1, 0)
 target_position = Vector3(0, 0, 24)
 
-[node name="Controller" type="Node" parent="." index="6" node_paths=PackedStringArray("AudialArea", "VisionArea", "TargetRay", "FightRay", "TargetDelay", "AttackDelay", "DodgeDelay", "SprintDelay", "TargetPosition")]
+[node name="Controller" type="Node" parent="." index="6" node_paths=PackedStringArray("VisionArea", "TargetRay", "FightRay", "TargetDelay", "AttackDelay", "DodgeDelay", "SprintDelay", "TargetPosition", "manager_target", "TargetArea")]
 script = ExtResource("5_xfap3")
-AudialArea = NodePath("../AudialArea")
 VisionArea = NodePath("../Pivot/VisionAreaContainer/VisionArea")
 TargetRay = NodePath("../TargetRay")
 FightRay = NodePath("../Pivot/FightRay")
@@ -42,7 +41,9 @@ AttackDelay = NodePath("../AttackDelay")
 DodgeDelay = NodePath("../DodgeDelay")
 SprintDelay = NodePath("../SprintDelay")
 TargetPosition = NodePath("../TargetPosition")
+manager_target = NodePath("../TargetManager")
+TargetArea = NodePath("../TargetArea")
 enabled = true
 
-[node name="TargetManager" parent="." index="13" node_paths=PackedStringArray("actor")]
+[node name="TargetManager" parent="." index="12" node_paths=PackedStringArray("actor")]
 actor = NodePath("..")

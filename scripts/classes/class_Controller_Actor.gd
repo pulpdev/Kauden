@@ -10,7 +10,8 @@ signal delay_attack_finished
 @export var SprintDelay : Timer
 @export var Behavior : BehaviorRoot
 @export var TargetPosition : Marker3D
-@export var TargetManager : TargetManager
+@export var manager_target : TargetManager
+@export var TargetArea : Area3D
 
 var actor : Actor
 var target : Actor
@@ -34,6 +35,14 @@ func initialize(actor : Actor):
 	DodgeDelay.timeout.connect(on_DodgeDelay_timeout)
 	AttackDelay.timeout.connect(on_AttackDelay_timeout)
 	SprintDelay.timeout.connect(on_SprintDelay_timeout)
+	
+	TargetArea.body_entered.connect(func(b):
+		if b is Actor:
+			manager_target.add_target(b))
+	TargetArea.body_exited.connect(func(b):
+		if b is Actor:
+			manager_target.remove_target(b))
+var d : float = 10.0
 
 func is_sprinting()->bool:
 	return not SprintDelay.is_stopped()

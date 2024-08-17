@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bibtxfuwies2l"]
+[gd_scene load_steps=6 format=3 uid="uid://bibtxfuwies2l"]
 
 [ext_resource type="PackedScene" uid="uid://bbl7ibnml7ikp" path="res://scenes/ActorBase.tscn" id="1_7ol6n"]
 [ext_resource type="PackedScene" uid="uid://b4rm6fcowr8gs" path="res://abstract/scenes/behaviors/PartyMemberBehavior.tscn" id="2_imtmf"]
+[ext_resource type="Script" path="res://scripts/classes/class_ParamManager.gd" id="2_nsids"]
+[ext_resource type="Script" path="res://scripts/classes/class_Parameter.gd" id="3_kqowv"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1xljf"]
 albedo_color = Color(0.269235, 0.671146, 3.85046e-07, 1)
@@ -96,8 +98,45 @@ bones/63/rotation = Quaternion(0.227709, 0.0321196, 0.0152578, 0.97308)
 [node name="Alpha_Surface" parent="Pivot/mixamo_base_03_04/Armature/Skeleton3D" index="1"]
 material_override = SubResource("StandardMaterial3D_1xljf")
 
-[node name="Controller" parent="." index="6" node_paths=PackedStringArray("Behavior")]
+[node name="FocusPosition" parent="Pivot" index="2"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1, 1.5, -2)
+
+[node name="Parameters" type="Node" parent="." index="3"]
+script = ExtResource("2_nsids")
+
+[node name="Strength" type="Node" parent="Parameters" index="0" groups=["SAVE"]]
+script = ExtResource("3_kqowv")
+
+[node name="Endurance" type="Node" parent="Parameters" index="1" groups=["SAVE"]]
+script = ExtResource("3_kqowv")
+
+[node name="Dexterity" type="Node" parent="Parameters" index="2" groups=["SAVE"]]
+script = ExtResource("3_kqowv")
+
+[node name="Stamina" type="Node" parent="Parameters" index="3" groups=["SAVE"]]
+script = ExtResource("3_kqowv")
+
+[node name="Power" type="Node" parent="Parameters" index="4" groups=["SAVE"]]
+script = ExtResource("3_kqowv")
+
+[node name="Farming" type="Node" parent="Parameters" index="5" groups=["SAVE"]]
+script = ExtResource("3_kqowv")
+
+[node name="Fishing" type="Node" parent="Parameters" index="6" groups=["SAVE"]]
+script = ExtResource("3_kqowv")
+
+[node name="Crafting" type="Node" parent="Parameters" index="7" groups=["SAVE"]]
+script = ExtResource("3_kqowv")
+
+[node name="Building" type="Node" parent="Parameters" index="8" groups=["SAVE"]]
+script = ExtResource("3_kqowv")
+
+[node name="Lumbering" type="Node" parent="Parameters" index="9" groups=["SAVE"]]
+script = ExtResource("3_kqowv")
+
+[node name="Controller" parent="." index="7" node_paths=PackedStringArray("Behavior", "manager_target")]
 Behavior = NodePath("PartyMemberBehavior")
+manager_target = NodePath("../TargetManager")
 
 [node name="PartyMemberBehavior" parent="Controller" index="0" node_paths=PackedStringArray("Actor") instance=ExtResource("2_imtmf")]
 Actor = NodePath("../..")
@@ -107,5 +146,7 @@ autostart = true
 
 [node name="TargetPosition" parent="." index="11"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[connection signal="child_entered_tree" from="Parameters" to="Parameters" method="_on_child_entered_tree"]
 
 [editable path="Pivot/mixamo_base_03_04"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://uthrp0a0t4to"]
+[gd_scene load_steps=9 format=3 uid="uid://uthrp0a0t4to"]
 
 [ext_resource type="Script" path="res://scripts/classes/class_Actor.gd" id="1_r7p2s"]
 [ext_resource type="Shape3D" uid="uid://cv35eojsu3iuf" path="res://abstract/resources/shapes/collisions/actor_default.tres" id="2_345jp"]
@@ -6,15 +6,13 @@
 [ext_resource type="Script" path="res://scripts/classes/class_Pivot.gd" id="3_f3tj7"]
 [ext_resource type="Script" path="res://scripts/classes/class_Eyes.gd" id="4_nvbls"]
 [ext_resource type="Script" path="res://scripts/classes/class_ParamManager.gd" id="5_yb1ou"]
-[ext_resource type="Script" path="res://scripts/classes/class_Parameter.gd" id="6_ktwen"]
 [ext_resource type="Shape3D" uid="uid://cilnmtkyjrt2j" path="res://abstract/resources/shapes/collisions/audial_default.tres" id="7_xeqtm"]
 [ext_resource type="Script" path="res://scripts/classes/class_TargetManager.gd" id="8_rsihq"]
 
-[node name="Actor" type="CharacterBody3D" node_paths=PackedStringArray("Parameters", "Pivot", "Eyes")]
+[node name="Actor" type="CharacterBody3D" node_paths=PackedStringArray("Pivot", "Eyes")]
 collision_layer = 2
 collision_mask = 15
 script = ExtResource("1_r7p2s")
-Parameters = NodePath("Parameters")
 data = ExtResource("2_y2r5h")
 Pivot = NodePath("Pivot")
 Eyes = NodePath("Eyes")
@@ -31,43 +29,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 target_position = Vector3(0, 0, 3)
 
 [node name="FocusPosition" type="Marker3D" parent="Pivot"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1, 1.5, -2)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.5, 0)
 
 [node name="Eyes" type="Node3D" parent="."]
 script = ExtResource("4_nvbls")
-
-[node name="Parameters" type="Node" parent="."]
-script = ExtResource("5_yb1ou")
-
-[node name="Strength" type="Node" parent="Parameters" groups=["SAVE"]]
-script = ExtResource("6_ktwen")
-
-[node name="Endurance" type="Node" parent="Parameters" groups=["SAVE"]]
-script = ExtResource("6_ktwen")
-
-[node name="Dexterity" type="Node" parent="Parameters" groups=["SAVE"]]
-script = ExtResource("6_ktwen")
-
-[node name="Stamina" type="Node" parent="Parameters" groups=["SAVE"]]
-script = ExtResource("6_ktwen")
-
-[node name="Power" type="Node" parent="Parameters" groups=["SAVE"]]
-script = ExtResource("6_ktwen")
-
-[node name="Farming" type="Node" parent="Parameters" groups=["SAVE"]]
-script = ExtResource("6_ktwen")
-
-[node name="Fishing" type="Node" parent="Parameters" groups=["SAVE"]]
-script = ExtResource("6_ktwen")
-
-[node name="Crafting" type="Node" parent="Parameters" groups=["SAVE"]]
-script = ExtResource("6_ktwen")
-
-[node name="Building" type="Node" parent="Parameters" groups=["SAVE"]]
-script = ExtResource("6_ktwen")
-
-[node name="Lumbering" type="Node" parent="Parameters" groups=["SAVE"]]
-script = ExtResource("6_ktwen")
 
 [node name="TargetRay" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -75,13 +40,13 @@ target_position = Vector3(0, 0, -24)
 collision_mask = 3
 debug_shape_custom_color = Color(1, 0, 0.478431, 1)
 
-[node name="AudialArea" type="Area3D" parent="."]
+[node name="TargetArea" type="Area3D" parent="."]
 collision_layer = 0
 collision_mask = 2
 input_ray_pickable = false
 monitorable = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="AudialArea"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TargetArea"]
 shape = ExtResource("7_xeqtm")
 
 [node name="AttackDelay" type="Timer" parent="."]
@@ -109,4 +74,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, 0)
 [node name="TargetManager" type="Node" parent="."]
 script = ExtResource("8_rsihq")
 
-[connection signal="child_entered_tree" from="Parameters" to="Parameters" method="_on_child_entered_tree"]
+[node name="StatManager" type="Node" parent="."]
+script = ExtResource("5_yb1ou")
