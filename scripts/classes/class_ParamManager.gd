@@ -22,6 +22,7 @@ class Stat:
 		set(x):
 			base = clamp(x, 0, VALUE_MAX)
 			base_changed.emit(base)
+			value = value
 
 	var value : int:
 		set(x):
@@ -44,24 +45,27 @@ class Stat:
 		
 	func modifier_add(modifier : int)->void:
 		modifiers.append(modifier)
+		value = value
 		
 	func modifier_remove(modifier : int)->void:
-		for i in range(modifiers.size()):
-			if modifiers[i] == modifier:
-				modifiers.pop_at(i)
+		for m in modifiers:
+			if m == modifier:
+				modifiers.pop_at(modifiers.find(m))
+				value = value
+				return
 
 var hp : int :
 	set(x):
 		hp = clamp(x, 0, get_stat(STATS.HP_MAX).value)
 var tp : int :
 	set(x):
-		hp = clamp(x, 0, get_stat(STATS.TP_MAX).value)
+		tp = clamp(x, 0, get_stat(STATS.TP_MAX).value)
 var mp : int :
 	set(x):
-		hp = clamp(x, 0, get_stat(STATS.MP_MAX).value)
+		mp = clamp(x, 0, get_stat(STATS.MP_MAX).value)
 var ap : int :
 	set(x):
-		hp = clamp(x, 0, get_stat(STATS.AP_MAX).value)
+		ap = clamp(x, 0, get_stat(STATS.AP_MAX).value)
 
 func get_stat(stat : int)->Stat:
 	var s : Stat = get_node(STATS.keys()[stat])
@@ -71,8 +75,7 @@ func _ready() -> void:
 	for s in STATS.keys():
 		var stat : Stat = Stat.new(s)
 		add_child(stat)
-	get_stat(STATS.HP_MAX).value_changed.connect(func(v): hp = clamp(hp, 0, v))
-	get_stat(STATS.MP_MAX).value_changed.connect(func(v): mp = clamp(mp, 0, v))
-	get_stat(STATS.TP_MAX).value_changed.connect(func(v): tp = clamp(tp, 0, v))
-	get_stat(STATS.AP_MAX).value_changed.connect(func(v): ap = clamp(ap, 0, v))
-	
+	get_stat(STATS.HP_MAX).value_changed.connect(func(v): hp = hp)
+	get_stat(STATS.MP_MAX).value_changed.connect(func(v): mp = mp)
+	get_stat(STATS.TP_MAX).value_changed.connect(func(v): tp = tp)
+	get_stat(STATS.AP_MAX).value_changed.connect(func(v): ap = ap)

@@ -14,7 +14,9 @@ var actors : Array[Actor]
 var positions_members : Dictionary
 
 func get_roster()->Array[PackedScene]:
-	return roster.scenes
+	if roster:
+		return roster.scenes
+	return []
 	
 func set_actor_list(list : Array[Actor])->void:
 	actors = list

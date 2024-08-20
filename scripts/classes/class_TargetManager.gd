@@ -24,6 +24,8 @@ func _physics_process(delta):
 		t.target_time_known += 1
 
 func add_target(actor : Actor)->void:
+	if actor == self.actor:
+		return
 	if not has_target(actor):
 		var t : Target = Target.new(actor)
 		t.target_distance = actor.global_position.distance_to(self.actor.global_position)
@@ -34,7 +36,7 @@ func has_target(actor : Actor)->bool:
 		if t.target_actor == actor:
 			return true
 	return false
-	
+
 func get_target(actor : Actor)->Target:
 	for t in targets:
 		if t.target_actor == actor:
@@ -42,10 +44,10 @@ func get_target(actor : Actor)->Target:
 	return null
 
 func remove_target(actor : Actor)->void:
-	for t in range(targets.size() - 1):
-		if targets[t].target_actor == actor:
-			targets.pop_at(t)
-	
+	for t in targets:
+		if t.target_actor == actor:
+			targets.pop_at(targets.find(t))
+
 func set_target(actor : Actor)->void:
 	var t : Target = get_target(actor)
 	if t:
@@ -57,7 +59,7 @@ func get_player_target()->Target:
 			return t
 	return null
 
-func target_find_distance_least()->Target:
+func target_find_distance_least(targets : Array[Target])->Target:
 	var ts : Array[Target] = targets.duplicate(true)
 	if ts.size() == 0:
 		return null
@@ -65,7 +67,7 @@ func target_find_distance_least()->Target:
 		func(a : Target, b : Target): return a.target_distance < b.target_distance)
 	return ts.front()
 
-func target_find_distance_most()->Target:
+func target_find_distance_most(targets : Array[Target])->Target:
 	var ts : Array[Target] = targets.duplicate(true)
 	if ts.size() == 0:
 		return null
@@ -73,7 +75,7 @@ func target_find_distance_most()->Target:
 		func(a : Target, b : Target): return a.target_distance > b.target_distance)
 	return ts.front()
 
-func target_find_damage_most()->Target:
+func target_find_damage_most(targets : Array[Target])->Target:
 	var ts : Array[Target] = targets.duplicate(true)
 	if ts.size() == 0:
 		return null
@@ -81,7 +83,7 @@ func target_find_damage_most()->Target:
 		func(a : Target, b : Target): return a.target_damage > b.target_damage)
 	return ts.front()
 
-func target_find_damage_least()->Target:
+func target_find_damage_least(targets : Array[Target])->Target:
 	var ts : Array[Target] = targets.duplicate(true)
 	if ts.size() == 0:
 		return null
@@ -89,7 +91,7 @@ func target_find_damage_least()->Target:
 		func(a : Target, b : Target): return a.target_damage < b.target_damage)
 	return ts.front()
 
-func target_find_known_least()->Target:
+func target_find_known_least(targets : Array[Target])->Target:
 	var ts : Array[Target] = targets.duplicate(true)
 	if ts.size() == 0:
 		return null
@@ -97,7 +99,7 @@ func target_find_known_least()->Target:
 		func(a : Target, b : Target): return a.target_time_known < b.target_time_known)
 	return ts.front()
 
-func target_find_known_most()->Target:
+func target_find_known_most(targets : Array[Target])->Target:
 	var ts : Array[Target] = targets.duplicate(true)
 	if ts.size() == 0:
 		return null

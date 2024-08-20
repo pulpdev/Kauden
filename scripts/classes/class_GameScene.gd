@@ -6,15 +6,21 @@ static var vector_gravity : Vector3 = ProjectSettings.get_setting("physics/3d/de
 
 @export var GameMode : GameMode
 @export var Background : Background
-
+var a : Ability
 func _init():
 	DisplayServer.mouse_set_mode(DisplayServer.MOUSE_MODE_CAPTURED)
 
 func _ready():
 	if self.GameMode:
 		self.GameMode.initialize(self)
+		
+	var p : Ability.AbilityParams = Ability.AbilityParams.new(get_tree().get_first_node_in_group("PLAYER"))
+	a = Ability.new()
+	a.execute(p)
 
 func _physics_process(delta):
+	a.tick()
+	return
 	var fps : int = Engine.get_frames_per_second()
 	if fps > 60:
 		if Engine.physics_ticks_per_second != fps:

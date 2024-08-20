@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://1eskjnt1arq"]
+[gd_scene load_steps=9 format=3 uid="uid://1eskjnt1arq"]
 
 [ext_resource type="Script" path="res://scripts/classes/class_BehaviorRoot.gd" id="1_6k21m"]
 [ext_resource type="Script" path="res://scripts/classes/class_BehaviorNode_CompositeSelector.gd" id="2_e42ql"]
-[ext_resource type="Script" path="res://scripts/actions/action_MoveForward.gd" id="2_s6465"]
-[ext_resource type="Script" path="res://scripts/classes/class_BehaviorNode_DecoratorCooldown.gd" id="2_upjcx"]
+[ext_resource type="Script" path="res://scripts/classes/class_BehaviorNode_CompositeSequence.gd" id="3_6h7f1"]
+[ext_resource type="Script" path="res://scripts/classes/class_BehaviorNode_DecoratorInverter.gd" id="4_lramk"]
 [ext_resource type="Script" path="res://scripts/actions/action_Idle.gd" id="4_tjqcm"]
+[ext_resource type="Script" path="res://scripts/actions/action_GetTarget.gd" id="4_x11vu"]
+[ext_resource type="Script" path="res://scripts/actions/action_HasTarget.gd" id="5_xupy5"]
+[ext_resource type="Script" path="res://scripts/actions/action_FollowTarget.gd" id="7_i08ll"]
 
 [node name="EnemyBehavior" type="Node"]
 script = ExtResource("1_6k21m")
@@ -12,14 +15,37 @@ script = ExtResource("1_6k21m")
 [node name="CompositeSelector" type="Node" parent="."]
 script = ExtResource("2_e42ql")
 
-[node name="DecoratorCooldown" type="Node" parent="CompositeSelector"]
-script = ExtResource("2_upjcx")
-cooldown = 1.0
+[node name="FollowPlayer" type="Node" parent="CompositeSelector"]
+script = ExtResource("3_6h7f1")
 
-[node name="ActionLeaf" type="Node" parent="CompositeSelector/DecoratorCooldown"]
-script = ExtResource("2_s6465")
+[node name="GetTarget" type="Node" parent="CompositeSelector/FollowPlayer"]
+script = ExtResource("4_x11vu")
+faction = 2
+
+[node name="HasTarget" type="Node" parent="CompositeSelector/FollowPlayer"]
+script = ExtResource("5_xupy5")
+
+[node name="FollowTarget" type="Node" parent="CompositeSelector/FollowPlayer"]
+script = ExtResource("7_i08ll")
 
 [node name="Idle" type="Node" parent="CompositeSelector"]
 script = ExtResource("4_tjqcm")
 
 [node name="trash" type="Node" parent="."]
+
+[node name="GetTarget" type="Node" parent="trash"]
+script = ExtResource("4_x11vu")
+faction = 2
+type = 2
+
+[node name="NotHasTarget" type="Node" parent="trash"]
+script = ExtResource("4_lramk")
+
+[node name="HasTarget" type="Node" parent="trash/NotHasTarget"]
+script = ExtResource("5_xupy5")
+
+[node name="CompositeSelector" type="Node" parent="trash"]
+script = ExtResource("2_e42ql")
+
+[node name="FindPlayer" type="Node" parent="trash/CompositeSelector"]
+script = ExtResource("3_6h7f1")

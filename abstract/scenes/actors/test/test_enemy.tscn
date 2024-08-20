@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://ci1vgn1ompclw"]
+
+[ext_resource type="PackedScene" uid="uid://bbl7ibnml7ikp" path="res://scenes/ActorBase.tscn" id="1_yfott"]
+[ext_resource type="PackedScene" uid="uid://1eskjnt1arq" path="res://abstract/scenes/behaviors/EnemyBehavior.tscn" id="2_8s5a4"]
+
+[node name="test_enemy" instance=ExtResource("1_yfott")]
+faction = 1
+
+[node name="Pivot" parent="." index="1" node_paths=PackedStringArray("model")]
+model = NodePath("mixamo_base_03_04")
+
+[node name="AttackDelay" parent="." index="5"]
+process_callback = 1
+
+[node name="DodgeDelay" parent="." index="7"]
+process_callback = 1
+
+[node name="SprintDelay" parent="." index="8"]
+process_callback = 1
+
+[node name="ControllerActor" parent="." index="12" node_paths=PackedStringArray("behavior")]
+behavior = NodePath("../EnemyBehavior")
+
+[node name="EnemyBehavior" parent="." index="13" node_paths=PackedStringArray("actor") instance=ExtResource("2_8s5a4")]
+actor = NodePath("..")

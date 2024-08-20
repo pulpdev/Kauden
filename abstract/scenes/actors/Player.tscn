@@ -1,10 +1,10 @@
 [gd_scene load_steps=9 format=3 uid="uid://cd5jwffggrspi"]
 
 [ext_resource type="PackedScene" uid="uid://uthrp0a0t4to" path="res://scenes/Actor.tscn" id="1_7iqmi"]
+[ext_resource type="Resource" uid="uid://c0nost4wy2tim" path="res://abstract/resources/actordata/default.tres" id="2_o6y47"]
 [ext_resource type="PackedScene" uid="uid://cyi63dudfs0vg" path="res://abstract/scenes/models/test/mixamo_base_03_04.tscn" id="3_bl5n5"]
 [ext_resource type="Script" path="res://scripts/classes/class_SpringArm.gd" id="4_8ul6a"]
 [ext_resource type="Script" path="res://scripts/classes/class_Controller_Actor_Player.gd" id="5_qlxd5"]
-[ext_resource type="PackedScene" uid="uid://rasb6xdudjnp" path="res://abstract/scenes/behaviors/PlayerBehavior.tscn" id="6_q8ly1"]
 [ext_resource type="Texture2D" uid="uid://dr71psnrikn6m" path="res://icon.svg" id="7_exr85"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_770xo"]
@@ -13,16 +13,17 @@ radius = 3.0
 
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_jlmlq"]
 
-[node name="Player" node_paths=PackedStringArray("Controller", "Stats") groups=["PLAYER"] instance=ExtResource("1_7iqmi")]
-Controller = NodePath("PlayerController")
-Stats = NodePath("StatManager")
+[node name="Player" node_paths=PackedStringArray("controller") groups=["PLAYER"] instance=ExtResource("1_7iqmi")]
+controller = NodePath("PlayerController")
+data = ExtResource("2_o6y47")
+faction = 0
 
-[node name="Pivot" parent="." index="1" node_paths=PackedStringArray("Model")]
-Model = NodePath("mixamo_base_03_04")
+[node name="Pivot" parent="." index="1" node_paths=PackedStringArray("model")]
+model = NodePath("mixamo_base_03_04")
 
 [node name="mixamo_base_03_04" parent="Pivot" index="0" instance=ExtResource("3_bl5n5")]
 
-[node name="PartyPositions" type="Node3D" parent="Pivot" index="3"]
+[node name="PartyPositions" type="Node3D" parent="Pivot" index="1"]
 
 [node name="Marker3D" type="Marker3D" parent="Pivot/PartyPositions" index="0"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2, 0, 0)
@@ -30,13 +31,12 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 2, 0, 
 [node name="Marker3D2" type="Marker3D" parent="Pivot/PartyPositions" index="1"]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -2, 0, 0)
 
-[node name="SpringArm" type="Node3D" parent="." index="4" node_paths=PackedStringArray("RayCast", "Camera", "TargetArea", "TargetRay")]
+[node name="SpringArm" type="Node3D" parent="." index="4" node_paths=PackedStringArray("camera", "target_area", "target_ray")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 script = ExtResource("4_8ul6a")
-RayCast = NodePath("SpringArm3D")
-Camera = NodePath("Camera3D")
-TargetArea = NodePath("TargetArea")
-TargetRay = NodePath("TargetArea/RayCast3D")
+camera = NodePath("Camera3D")
+target_area = NodePath("TargetArea")
+target_ray = NodePath("../TargetRay")
 metadata/_edit_group_ = true
 
 [node name="Camera3D" type="Camera3D" parent="SpringArm" index="0"]
@@ -65,32 +65,22 @@ spring_length = -5.0
 [node name="CameraPosition" type="Marker3D" parent="SpringArm/SpringArm3D" index="0"]
 transform = Transform3D(-1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 0, 0, 0)
 
-[node name="PlayerController" type="Node" parent="." index="5" node_paths=PackedStringArray("springarm", "Camera", "TargetClearDelay", "TargetSprite", "PartyPositions", "AttackDelay", "DodgeDelay", "SprintDelay", "Behavior", "TargetPosition", "manager_target", "TargetArea")]
+[node name="PlayerController" type="Node" parent="." index="5" node_paths=PackedStringArray("springarm", "target_clear_delay", "target_sprite", "party_positions", "attack_delay", "dodge_delay", "sprint_delay", "target_manager", "target_area")]
 script = ExtResource("5_qlxd5")
 springarm = NodePath("../SpringArm")
-Camera = NodePath("../SpringArm/Camera3D")
-TargetClearDelay = NodePath("../TargetClearDelay")
-TargetSprite = NodePath("../TargetSprite")
-PartyPositions = NodePath("../Pivot/PartyPositions")
-AttackDelay = NodePath("../AttackDelay")
-DodgeDelay = NodePath("../DodgeDelay")
-SprintDelay = NodePath("../SprintDelay")
-Behavior = NodePath("../PlayerBehavior")
-TargetPosition = NodePath("../TargetPosition")
-manager_target = NodePath("../TargetManager")
-TargetArea = NodePath("../TargetArea")
+target_clear_delay = NodePath("../TargetClearDelay")
+target_sprite = NodePath("../TargetSprite")
+party_positions = NodePath("../Pivot/PartyPositions")
+attack_delay = NodePath("../AttackDelay")
+dodge_delay = NodePath("../DodgeDelay")
+sprint_delay = NodePath("../SprintDelay")
+target_manager = NodePath("../TargetManager")
+target_area = NodePath("../TargetArea")
 
-[node name="PlayerBehavior" parent="." index="6" node_paths=PackedStringArray("Actor") instance=ExtResource("6_q8ly1")]
-Actor = NodePath("..")
-enabled = false
-
-[node name="TargetManager" parent="." index="14" node_paths=PackedStringArray("actor")]
-actor = NodePath("..")
-
-[node name="TargetClearDelay" type="Timer" parent="." index="15"]
+[node name="TargetClearDelay" type="Timer" parent="." index="14"]
 wait_time = 0.5
 one_shot = true
 
-[node name="TargetSprite" type="Sprite2D" parent="." index="16"]
+[node name="TargetSprite" type="Sprite2D" parent="." index="15"]
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("7_exr85")

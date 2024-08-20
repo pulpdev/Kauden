@@ -12,16 +12,15 @@ enum CONTROL_SCHEMES {
 
 signal control_scheme_changed(scheme : int)
 
-@export var RayCast : SpringArm3D
-@export var Camera : Camera3D
-@export var TargetArea : Area3D
-@export var TargetRay : RayCast3D
+@export var camera : Camera3D
+@export var target_area : Area3D
+@export var target_ray : RayCast3D
 
-@onready var CameraPosition = $SpringArm3D/CameraPosition
+@onready var camera_position = $SpringArm3D/CameraPosition
 
 var vector_mouse : Vector2
 var vector_joystick : Vector2
-var sensitivity_mouse : float = 0.4
+var sensitivity_mouse : float = 0.1
 var sensitivity_joystick : float = 0.03
 var control_scheme : CONTROL_SCHEMES = CONTROL_SCHEMES.KEYBOARD_MOUSE:
 	set(x):
@@ -45,10 +44,10 @@ func _ready():
 	vector_mouse = get_rotation_view()
 
 func _process(delta):
-	Camera.global_position = lerp(Camera.global_position, CameraPosition.global_position, delta * weight_camera.x)
-	Camera.global_rotation.x = lerp_angle(Camera.global_rotation.x, CameraPosition.global_rotation.x, delta * weight_camera.y)
-	Camera.global_rotation.y = lerp_angle(Camera.global_rotation.y, CameraPosition.global_rotation.y, delta * weight_camera.y)
-	Camera.global_rotation.z = lerp_angle(Camera.global_rotation.z, CameraPosition.global_rotation.z, delta * weight_camera.y)
+	camera.global_position = lerp(camera.global_position, camera_position.global_position, delta * weight_camera.x)
+	camera.global_rotation.x = lerp_angle(camera.global_rotation.x, camera_position.global_rotation.x, delta * weight_camera.y)
+	camera.global_rotation.y = lerp_angle(camera.global_rotation.y, camera_position.global_rotation.y, delta * weight_camera.y)
+	camera.global_rotation.z = lerp_angle(camera.global_rotation.z, camera_position.global_rotation.z, delta * weight_camera.y)
 
 	if resetting:
 		global_rotation.x = lerp_angle(global_rotation.x, vector_reset.x, delta * 20)
@@ -82,13 +81,13 @@ func get_rotation_view()->Vector2:
 	return Vector2(global_rotation.y, global_rotation.x)
 	
 func get_camera_position()->Vector3:
-	return CameraPosition.global_position
+	return camera_position.global_position
 	
 func get_camera_rotation()->Vector3:
-	return CameraPosition.global_rotation
+	return camera_position.global_rotation
 
 func calc_input_direction(input : Vector2)->Vector3:
-	var vector_fwd : Vector3 = Vector3(0,0,1).rotated(Vector3.UP, CameraPosition.global_rotation.y)
-	var vector_hor : Vector3 = Vector3(1,0,0).rotated(Vector3.UP, CameraPosition.global_rotation.y)
+	var vector_fwd : Vector3 = Vector3(0,0,1).rotated(Vector3.UP, camera_position.global_rotation.y)
+	var vector_hor : Vector3 = Vector3(1,0,0).rotated(Vector3.UP, camera_position.global_rotation.y)
 	return (vector_fwd * input.y + vector_hor * input.x)
 	

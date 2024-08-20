@@ -4,7 +4,7 @@ class_name Pivot
 const MIN_DIST_TO_ANGLE : float = 0.01
 const FRICTION_DEFAULT : float = 0.1
 
-@export var Model : ActorModel
+@export var model : ActorModel
 
 var direction_y : float
 var can_rotate : bool

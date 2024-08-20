@@ -1,11 +1,14 @@
 res://scripts/classes
-res://abstract/resources/items/weapons
-res://abstract/resources/actordata
+res://scripts/abilities
+res://abstract/resources/abilities
+res://scripts/actions
+res://abstract/scenes/actors/test
 res://scenes
+res://abstract/resources/actordata
+res://abstract/resources/items/weapons
 res://scripts
 F:/Steam/steamapps/common/Blender
 F:/Steam/steamapps/common/Blender/4.2
-res://scripts/actions
 res://abstract/scenes/behaviors
 res://abstract/scenes/ui
 res://scripts/ui

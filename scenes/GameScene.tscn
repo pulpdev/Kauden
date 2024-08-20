@@ -1,13 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://c8e6y1b77csa8"]
+[gd_scene load_steps=8 format=3 uid="uid://c8e6y1b77csa8"]
 
 [ext_resource type="Script" path="res://scripts/classes/class_GameScene.gd" id="1_1846m"]
 [ext_resource type="Script" path="res://scripts/classes/class_GameMode_Overworld.gd" id="2_7ud0e"]
 [ext_resource type="PackedScene" uid="uid://clvi4g0hxe713" path="res://abstract/scenes/backgrounds/test_1.tscn" id="2_cnamn"]
 [ext_resource type="Script" path="res://scripts/classes/class_ActorManager.gd" id="2_gpvff"]
 [ext_resource type="PackedScene" uid="uid://cd5jwffggrspi" path="res://abstract/scenes/actors/Player.tscn" id="3_hi1i3"]
-[ext_resource type="PackedScene" uid="uid://cpnbfaf8gg0ic" path="res://abstract/scenes/actors/test/actor_test.tscn" id="3_sn784"]
 [ext_resource type="Script" path="res://scripts/classes/class_Party.gd" id="6_10ylc"]
-[ext_resource type="Resource" uid="uid://csq7su71cfi66" path="res://abstract/resources/PackedSceneLists/roster_party_default.tres" id="7_mp0fs"]
+[ext_resource type="PackedScene" uid="uid://ci1vgn1ompclw" path="res://abstract/scenes/actors/test/test_enemy.tscn" id="6_usi14"]
 
 [node name="GameScene" type="Node3D" node_paths=PackedStringArray("GameMode", "Background")]
 script = ExtResource("1_1846m")
@@ -27,12 +26,14 @@ script = ExtResource("2_gpvff")
 [node name="Player" parent="Overworld/ActorManager" instance=ExtResource("3_hi1i3")]
 transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, -5.76708, 0.492629, -36.3174)
 
-[node name="actor_test" parent="Overworld/ActorManager" instance=ExtResource("3_sn784")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6789, 0.463865, -41.6526)
+[node name="test_enemy" parent="Overworld/ActorManager" instance=ExtResource("6_usi14")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -32.5606)
+
+[node name="test_enemy2" parent="Overworld/ActorManager" instance=ExtResource("6_usi14")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.07703, 0.5, -27.7117)
 
 [node name="Party" type="Node" parent="Overworld"]
 script = ExtResource("6_10ylc")
-roster = ExtResource("7_mp0fs")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
