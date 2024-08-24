@@ -1,6 +1,6 @@
-BehaviorNode
-Resource
-GameMode
 RefCounted
+Resource
+BehaviorNode
+GameMode
 State
 Node3D

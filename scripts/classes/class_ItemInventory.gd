@@ -5,16 +5,16 @@ class_name ItemInventory
 
 func item_add(item)->void:
 	if items.has(item):
-		if item.size_stack >= items[item].size_stack:
-			return
-	items[item] += 1
+		if not item.stack_size >= items[item]:
+			items[item] += 1
 	
-func item_remove(item)->Object:
+func item_remove(item)->Item:
 	if items.has(item):
 		items[item] -= 1
 		if items[item] <= 0:
 			items.erase(item)
-	return item
+		return item
+	return null
 	
 func item_has(item)->bool:
 	return items.has(item)

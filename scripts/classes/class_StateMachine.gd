@@ -2,6 +2,16 @@
 extends Node
 class_name StateMachine
 
+enum STATES {
+	BATTLE_BEGIN,
+	IDLE,
+	TURN_BEGIN,
+	TURN_COMMAND,
+	TURN_COMBAT,
+	TURN_END,
+	BATTLE_END
+}
+
 @export var state : State
 @export var enabled : bool
 var states : Dictionary

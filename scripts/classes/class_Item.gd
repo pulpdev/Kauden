@@ -12,6 +12,7 @@ enum TYPES_WEAPON {NONE, LONGSWORD, RAPIER, XBOW, SHIELD, STAFF}
 @export var parameter_heal : PARAM_HEALS
 @export var parameter_heal_amount : int
 @export var stats : Dictionary = StatManager.STATS
+@export var stack_size : int
 
 func is_weapon()->bool:
 	return type == TYPES.WEAPON and type_weapon > 0

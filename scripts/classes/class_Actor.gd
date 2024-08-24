@@ -17,22 +17,21 @@ const FRICTION_DEFAULT : float = 20
 
 var friction : float = FRICTION_DEFAULT
 var vector_move : Vector3
-var vector_move_last : Vector3
 var speed : float
 
 func _ready():
 	if controller:
 		controller.initialize(self)
+	return
 
-func _process(delta):
+func _physics_process(delta):
 	velocity.x = vector_move.x
-	velocity.z = vector_move.z
-
 	if not is_on_floor():
 		velocity.y += GameScene.gravity * GameScene.vector_gravity.y * delta
 	else:
-		velocity.y = 0.0
-		
+		velocity.y = 0
+	velocity.z = vector_move.z
+
 	move_and_slide()
 	
 	vector_move = lerp(vector_move, Vector3.ZERO, friction * delta)
@@ -59,8 +58,7 @@ func move(vector : Vector3, speed : float, pivot_rotate : bool = true, friction 
 		pivot.set_direction(vector)
 	self.friction = friction
 	self.speed = speed
-	vector_move_last = vector * speed
-	vector_move = vector_move_last
+	vector_move = vector * speed
 
 func tween_move(vector : Vector3, speed : float, duration : float, pivot_rotate : bool = true)->void:
 	var t = create_tween()
@@ -68,7 +66,7 @@ func tween_move(vector : Vector3, speed : float, duration : float, pivot_rotate 
 	if pivot_rotate:
 		pivot.set_direction(vector)
 	t.tween_property(self, "vector_move", vector * speed, duration)
-	
+
 func can_see_actor(actor : Actor)->bool:
 	if controller:
 		controller

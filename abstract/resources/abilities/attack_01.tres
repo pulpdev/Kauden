@@ -1,7 +1,9 @@
-[gd_resource type="Resource" load_steps=2 format=3 uid="uid://db6mc6ggc0mkr"]
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://x4uv5nq8l1v1"]
 
-[ext_resource type="Script" path="res://scripts/abilities/ability_attack_01.gd" id="1_ijt6m"]
+[ext_resource type="Script" path="res://scripts/abilities/ability_attack_01.gd" id="1_ihxry"]
+[ext_resource type="Script" path="res://scripts/classes/class_AbilitySequence.gd" id="2_rblhk"]
 
 [resource]
-script = ExtResource("1_ijt6m")
-name = "attack"
+script = ExtResource("1_ihxry")
+name = ""
+sequences = Array[ExtResource("2_rblhk")]([])
