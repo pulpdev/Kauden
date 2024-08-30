@@ -7,19 +7,33 @@ enum FACTIONS {GOOD, EVIL, NEUTRAL}
 const MIN_DIST_TO_LOCATION : float = 0.3
 const FRICTION_DEFAULT : float = 20.0
 
-@export var controller : ControllerActor
-@export var stats : StatManager
 @export var data : ActorData
+@export var faction : FACTIONS = FACTIONS.NEUTRAL
+
+@export_category("Components")
+@export var controller : ControllerActor
 @export var pivot : Pivot
 @export var eyes : Eyes
 @export var target_position : Marker3D
-@export var faction : FACTIONS = FACTIONS.NEUTRAL
-@export var ability_manager : AbilityManager
+@export var behavior : BehaviorRoot
+@export var springarm : SpringArm
+
+@export_category("Timers")
+@export var timer_attack : Timer
+
+@export_category("Managers")
+@export var manager_ability : AbilityManager
+@export var manager_target : TargetManager
+@export var manager_stats : StatManager
+@export var manager_input : InputManager
+
+@export_category("Areas")
+@export var area_target : Area3D
+
+var service_movement : ServiceActorMovement = ServiceActorMovement.new(self)
 
 var friction : float = FRICTION_DEFAULT
 var velocity_last : Vector3
-
-var service_movement : ServiceActorMovement = ServiceActorMovement.new(self)
 
 func _ready():
 	if controller:
@@ -48,6 +62,12 @@ func _physics_process(delta):
 		velocity.x= 0.0
 	if abs(velocity.z) < 0.1:
 		velocity.z = 0.0
+
+func initialize()->void:
+	if manager_input:
+		manager_input.enabled = true
+	if manager_target:
+		manager_target.initialize(self)
 
 func is_near_position(pos : Vector3, min_dist : float = MIN_DIST_TO_LOCATION):
 	return global_position.distance_to(pos) < min_dist

@@ -5,6 +5,8 @@ const scene_menu_command := preload("res://abstract/scenes/ui/CommandMenu.tscn")
 
 @export var ActorManager : ActorManager
 @export var Party : Party
+@export var ui : UIOverworld
+
 var CommandMenu : Control
 
 func _physics_process(delta):
@@ -31,10 +33,13 @@ func initialize(scene : GameScene)->void:
 			var positions : Array[Vector3] = pc.get_party_positions()
 			ActorManager.actor_add(Party.get_member(0), positions[0])
 			ActorManager.actor_add(Party.get_member(1), positions[1])
+			
+	if ui:
+		ui.command_menu.command_selected.connect(ui.command_menu.set_focus)
 
-	var cm := scene_menu_command.instantiate()
-	add_child(cm)
-	cm.command_selected.connect(cm.set_focus)
+	#var cm := scene_menu_command.instantiate()
+	#add_child(cm)
+	#cm.command_selected.connect(cm.set_focus)
 
 func on_party_member_add(actor : Actor)->void:
 	actor

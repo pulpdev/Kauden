@@ -2,30 +2,35 @@
 extends Node
 class_name StateMachine
 
-enum STATES {
-	BATTLE_BEGIN,
-	IDLE,
-	TURN_BEGIN,
-	TURN_COMMAND,
-	TURN_COMBAT,
-	TURN_END,
-	BATTLE_END
-}
-
-@export var state : State
+var state : State
 @export var enabled : bool
 var states : Dictionary
+
+class State:
+	extends RefCounted
+
+	var actor : Actor
+
+	func initialize(actor : Actor)->void: self.actor = actor
+	func can_enter()->bool:return true
+	func can_exit()->bool:return true
+	func on_enter()->void:pass
+	func on_exit()->void:pass
+	func tick()->void:pass
+
+class StateFree:
+	extends State
+	
+	func tick()->void:
+		if not vector_input == Vector2.ZERO:
+			actor.service_movement.move(springarm.calc_input_direction(vector_input), actor.data.speed_run)
+			actor.pivot.model.play_animation(actor.data.anim_run)
+		else:
+			actor.pivot.model.play_animation(actor.data.anim_idle)
 
 func initialize(controller : ControllerPlayer)->void:
 	if not enabled:
 		return
-	for c in get_children():
-		if c is State:
-			states[c.name] = c
-			c.controller = controller
-			c.transition.connect(set_state)
-	if state:
-		state.enter()
 
 func set_state(statename : String)->void:
 	if not enabled:
@@ -42,16 +47,6 @@ func set_state(statename : String)->void:
 func _process(delta):
 	if not enabled:
 		return
-	if state == null:
-		for s in get_children():
-			if s.enter() == State.RUN:
-				if not state == s:
-					state = s
-				break
-
-	if state:
-		if state.process(delta) == State.EXIT:
-			state = null
 
 	Debug.set_property("state", state)
 

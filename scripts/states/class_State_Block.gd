@@ -1,2 +1,2 @@
-extends State
-class_name StateBlock
+#extends State
+#class_name StateBlock

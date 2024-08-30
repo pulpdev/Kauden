@@ -1,4 +1,5 @@
 extends Control
+class_name UICommandMenu
 
 enum COMMANDS {NONE, ATTACK, MAGIC, ITEM}
 

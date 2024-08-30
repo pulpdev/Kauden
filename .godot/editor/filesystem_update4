@@ -19,3 +19,16 @@ res://abstract/scenes/models/test/mixamo_base_03_04.tscn
 res://abstract/scenes/behaviors/EnemyBehavior.tscn
 res://abstract/scenes/actors/test/test_enemy.tscn
 res://scripts/abilities/ability_attack_01.gd
+res://scripts/classes/class_StatsManager.gd
+res://scripts/classes/class_InputManager.gd
+res://scenes/OverworldGUI.tscn
+res://scripts/ui/ui_OverworldGUI.gd
+res://scripts/classes/class_GameMode_Overworld.gd
+res://scripts/ui/ui_CommandMenu.gd
+res://scripts/classes/class_BehaviorRoot.gd
+res://scripts/classes/class_TargetManager.gd
+res://scripts/classes/class_State.gd
+res://scripts/classes/class_StateMachine.gd
+res://scripts/states/class_State_Attack.gd
+res://scripts/states/class_State_Block.gd
+res://scripts/states/class_State_Free.gd

@@ -2,8 +2,7 @@
 extends Node
 class_name TargetManager
 
-@export var actor : Actor
-
+var actor : Actor
 var targets : Array[Target]
 var target : Target
 
@@ -22,6 +21,9 @@ func _physics_process(delta):
 	for t in targets:
 		t.target_distance = actor.global_position.distance_to(t.target_actor.global_position)
 		t.target_time_known += 1
+		
+func initialize(actor : Actor)->void:
+	self.actor = actor
 
 func add_target(actor : Actor)->void:
 	if actor == self.actor:

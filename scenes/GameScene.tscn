@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c8e6y1b77csa8"]
+[gd_scene load_steps=9 format=3 uid="uid://c8e6y1b77csa8"]
 
 [ext_resource type="Script" path="res://scripts/classes/class_GameScene.gd" id="1_1846m"]
 [ext_resource type="Script" path="res://scripts/classes/class_GameMode_Overworld.gd" id="2_7ud0e"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cd5jwffggrspi" path="res://abstract/scenes/actors/Player.tscn" id="3_hi1i3"]
 [ext_resource type="Script" path="res://scripts/classes/class_Party.gd" id="6_10ylc"]
 [ext_resource type="PackedScene" uid="uid://ci1vgn1ompclw" path="res://abstract/scenes/actors/test/test_enemy.tscn" id="6_usi14"]
+[ext_resource type="PackedScene" uid="uid://cy18g0t3n5hsf" path="res://scenes/OverworldGUI.tscn" id="8_bole3"]
 
 [node name="GameScene" type="Node3D" node_paths=PackedStringArray("GameMode", "Background")]
 script = ExtResource("1_1846m")
@@ -15,47 +16,28 @@ Background = NodePath("Background")
 
 [node name="Background" parent="." instance=ExtResource("2_cnamn")]
 
-[node name="Overworld" type="Node" parent="." node_paths=PackedStringArray("ActorManager", "Party")]
+[node name="Overworld" type="Node" parent="." node_paths=PackedStringArray("ActorManager", "Party", "ui")]
 script = ExtResource("2_7ud0e")
 ActorManager = NodePath("ActorManager")
 Party = NodePath("Party")
+ui = NodePath("OverworldGUI")
+
+[node name="OverworldGUI" parent="Overworld" instance=ExtResource("8_bole3")]
 
 [node name="ActorManager" type="Node3D" parent="Overworld"]
 script = ExtResource("2_gpvff")
 
 [node name="Player" parent="Overworld/ActorManager" instance=ExtResource("3_hi1i3")]
 transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, -11.1767, 7.18892, -12.6395)
+faction = 2
 
 [node name="test_enemy" parent="Overworld/ActorManager" instance=ExtResource("6_usi14")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -32.5606)
+faction = 2
 
 [node name="test_enemy2" parent="Overworld/ActorManager" instance=ExtResource("6_usi14")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.07703, 0.5, -27.7117)
+faction = 2
 
 [node name="Party" type="Node" parent="Overworld"]
 script = ExtResource("6_10ylc")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="Label" type="Label" parent="CanvasLayer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "KEYBOARD CONTROLS:
-focus - ctrl
-attack: -m1
-block: m2
-dodge: space
-sprint: shift
-interact: e
-
-XBOX/STEAMDECK CONTROLS:
-focus - rt
-attack: - x
-block: b
-dodge: y
-sprint/interact: a
-"
-horizontal_alignment = 2

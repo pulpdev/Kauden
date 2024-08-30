@@ -1,7 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://cd5jwffggrspi"]
+[gd_scene load_steps=8 format=3 uid="uid://cd5jwffggrspi"]
 
 [ext_resource type="PackedScene" uid="uid://uthrp0a0t4to" path="res://scenes/Actor.tscn" id="1_7iqmi"]
-[ext_resource type="Resource" uid="uid://c0nost4wy2tim" path="res://abstract/resources/actordata/default.tres" id="2_o6y47"]
 [ext_resource type="PackedScene" uid="uid://cyi63dudfs0vg" path="res://abstract/scenes/models/test/mixamo_base_03_04.tscn" id="3_bl5n5"]
 [ext_resource type="Script" path="res://scripts/classes/class_SpringArm.gd" id="4_8ul6a"]
 [ext_resource type="Script" path="res://scripts/classes/class_Controller_Actor_Player.gd" id="5_qlxd5"]
@@ -15,8 +14,6 @@ radius = 3.0
 
 [node name="Player" node_paths=PackedStringArray("controller") groups=["PLAYER"] instance=ExtResource("1_7iqmi")]
 controller = NodePath("PlayerController")
-data = ExtResource("2_o6y47")
-faction = 0
 
 [node name="Pivot" parent="." index="1" node_paths=PackedStringArray("model")]
 model = NodePath("mixamo_base_03_04")
@@ -65,13 +62,12 @@ spring_length = -5.0
 [node name="CameraPosition" type="Marker3D" parent="SpringArm/SpringArm3D" index="0"]
 transform = Transform3D(-1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 0, 0, 0)
 
-[node name="PlayerController" type="Node" parent="." index="5" node_paths=PackedStringArray("springarm", "target_clear_delay", "target_sprite", "party_positions", "attack_delay", "dodge_delay", "sprint_delay", "target_manager", "target_area")]
+[node name="PlayerController" type="Node" parent="." index="5" node_paths=PackedStringArray("springarm", "target_clear_delay", "target_sprite", "party_positions", "dodge_delay", "sprint_delay", "target_manager", "target_area")]
 script = ExtResource("5_qlxd5")
 springarm = NodePath("../SpringArm")
 target_clear_delay = NodePath("../TargetClearDelay")
 target_sprite = NodePath("../TargetSprite")
 party_positions = NodePath("../Pivot/PartyPositions")
-attack_delay = NodePath("../AttackDelay")
 dodge_delay = NodePath("../DodgeDelay")
 sprint_delay = NodePath("../SprintDelay")
 target_manager = NodePath("../TargetManager")

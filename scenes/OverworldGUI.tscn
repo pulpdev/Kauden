@@ -1,9 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://cy18g0t3n5hsf"]
+[gd_scene load_steps=4 format=3 uid="uid://cy18g0t3n5hsf"]
 
-[ext_resource type="Script" path="res://scripts/ui/ui_GUI.gd" id="1_o5ruq"]
+[ext_resource type="Script" path="res://scripts/ui/ui_OverworldGUI.gd" id="1_20fi5"]
+[ext_resource type="Texture2D" uid="uid://dr71psnrikn6m" path="res://icon.svg" id="2_5r4mw"]
+[ext_resource type="PackedScene" uid="uid://owlmlg0ojsx6" path="res://abstract/scenes/ui/CommandMenu.tscn" id="3_lipec"]
 
-[node name="GUI" type="CanvasLayer"]
-script = ExtResource("1_o5ruq")
+[node name="OverworldGUI" type="CanvasLayer" node_paths=PackedStringArray("target_sprite", "command_menu")]
+script = ExtResource("1_20fi5")
+target_sprite = NodePath("TargetSprite")
+command_menu = NodePath("CommandMenu")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -37,3 +41,9 @@ text = "/"
 unique_name_in_owner = true
 layout_mode = 2
 text = "5"
+
+[node name="TargetSprite" type="Sprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("2_5r4mw")
+
+[node name="CommandMenu" parent="." instance=ExtResource("3_lipec")]

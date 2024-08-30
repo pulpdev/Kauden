@@ -1,23 +1,27 @@
-[gd_scene load_steps=9 format=3 uid="uid://uthrp0a0t4to"]
+[gd_scene load_steps=10 format=3 uid="uid://uthrp0a0t4to"]
 
 [ext_resource type="Script" path="res://scripts/classes/class_Actor.gd" id="1_r7p2s"]
 [ext_resource type="Shape3D" uid="uid://cv35eojsu3iuf" path="res://abstract/resources/shapes/collisions/actor_default.tres" id="2_345jp"]
+[ext_resource type="Resource" uid="uid://c0nost4wy2tim" path="res://abstract/resources/actordata/default.tres" id="2_n8cae"]
 [ext_resource type="Script" path="res://scripts/classes/class_Pivot.gd" id="3_f3tj7"]
 [ext_resource type="Script" path="res://scripts/classes/class_Eyes.gd" id="4_nvbls"]
-[ext_resource type="Script" path="res://scripts/classes/class_ParamManager.gd" id="5_yb1ou"]
+[ext_resource type="Script" path="res://scripts/classes/class_StatManager.gd" id="5_yb1ou"]
 [ext_resource type="Shape3D" uid="uid://cilnmtkyjrt2j" path="res://abstract/resources/shapes/collisions/audial_default.tres" id="7_xeqtm"]
 [ext_resource type="Script" path="res://scripts/classes/class_AbilityManager.gd" id="8_1hbmi"]
 [ext_resource type="Script" path="res://scripts/classes/class_TargetManager.gd" id="8_rsihq"]
 
-[node name="Actor" type="CharacterBody3D" node_paths=PackedStringArray("stats", "pivot", "eyes", "target_position", "ability_manager")]
+[node name="Actor" type="CharacterBody3D" node_paths=PackedStringArray("pivot", "eyes", "target_position", "timer_attack", "manager_ability", "manager_target", "manager_stats")]
 collision_layer = 2
 collision_mask = 15
 script = ExtResource("1_r7p2s")
-stats = NodePath("StatManager")
+data = ExtResource("2_n8cae")
 pivot = NodePath("Pivot")
 eyes = NodePath("Eyes")
 target_position = NodePath("TargetPosition")
-ability_manager = NodePath("AbilityManager")
+timer_attack = NodePath("AttackTimer")
+manager_ability = NodePath("AbilityManager")
+manager_target = NodePath("TargetManager")
+manager_stats = NodePath("StatManager")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -44,7 +48,7 @@ monitorable = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TargetArea"]
 shape = ExtResource("7_xeqtm")
 
-[node name="AttackDelay" type="Timer" parent="."]
+[node name="AttackTimer" type="Timer" parent="."]
 process_callback = 0
 wait_time = 0.4
 one_shot = true
