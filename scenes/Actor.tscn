@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://scripts/classes/class_AbilityManager.gd" id="8_1hbmi"]
 [ext_resource type="Script" path="res://scripts/classes/class_TargetManager.gd" id="8_rsihq"]
 
-[node name="Actor" type="CharacterBody3D" node_paths=PackedStringArray("stats", "pivot", "eyes", "target_position")]
+[node name="Actor" type="CharacterBody3D" node_paths=PackedStringArray("stats", "pivot", "eyes", "target_position", "ability_manager")]
 collision_layer = 2
 collision_mask = 15
 script = ExtResource("1_r7p2s")
@@ -17,6 +17,7 @@ stats = NodePath("StatManager")
 pivot = NodePath("Pivot")
 eyes = NodePath("Eyes")
 target_position = NodePath("TargetPosition")
+ability_manager = NodePath("AbilityManager")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

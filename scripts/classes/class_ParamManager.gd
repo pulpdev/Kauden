@@ -67,7 +67,7 @@ var ap : int :
 	set(x):
 		ap = clamp(x, 0, get_stat(STATS.AP_MAX).value)
 
-func get_stat(stat : int)->Stat:
+func get_stat(stat : STATS)->Stat:
 	var s : Stat = get_node(STATS.keys()[stat])
 	return s
 

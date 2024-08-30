@@ -1,3 +1,4 @@
+res://
 res://scripts/abilities
 res://abstract/resources/abilities
 res://scripts/classes
@@ -13,7 +14,6 @@ res://abstract/scenes/behaviors
 res://abstract/scenes/ui
 res://scripts/ui
 res://abstract/scenes/backgrounds
-res://
 res://scripts/states
 res://scripts/modules
 res://autoloads

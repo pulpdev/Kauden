@@ -6,19 +6,7 @@ const FRICTION_DEFAULT : float = 0.1
 
 @export var model : ActorModel
 
-var direction_y : float
-var can_rotate : bool
 var friction : float = FRICTION_DEFAULT
-
-func _process(delta):
-	if can_rotate:
-		move(direction_y, friction)
-		if is_near_rotation(direction_y):
-			can_rotate = false
-
-func set_direction(direction : Vector3)->void:
-	can_rotate = not direction == Vector3.ZERO
-	direction_y = atan2(direction.x, direction.z)
 
 func move(rotation : float, friction : float = FRICTION_DEFAULT)->void:
 	self.friction = friction
@@ -29,4 +17,3 @@ func is_near_rotation(rot : float, min_dist : float = MIN_DIST_TO_ANGLE)->bool:
 
 func get_forward_direction()->Vector3:
 	return global_transform.basis.z
-	

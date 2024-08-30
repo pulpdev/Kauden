@@ -3,11 +3,6 @@ class_name ControllerPlayer
 
 enum STATES {FREE, ATTACK, ACTION_STATIC, ACTION_DYNAMIC, CLIMB, HURT}
 
-enum CONTROL_SCHEMES {
-	KEYBOARD_MOUSE = 0,
-	GAMEPAD = 1
-}
-
 const scene_menu_command := preload("res://abstract/scenes/ui/CommandMenu.tscn")
 
 signal control_scheme_changed(scheme : int)
@@ -56,7 +51,7 @@ func _input(event):
 		springarm.view_reset(actor.pivot.global_rotation + Vector3(0.2,0,0))
 
 func _process(delta):
-	if target:
+	if target_manager.target:
 		is_focusing = true
 		target_sprite.visible = true
 		target_sprite.position = springarm.camera.unproject_position(target.get_target_position())
@@ -78,7 +73,7 @@ func _process(delta):
 			springarm.CONTROL_SCHEMES.GAMEPAD:
 				if not springarm.vector_joystick == Vector2.ZERO:
 					springarm.move_add(Vector3(springarm.vector_joystick.y, springarm.vector_joystick.x, 0), delta)
-			CONTROL_SCHEMES.KEYBOARD_MOUSE:
+			springarm.CONTROL_SCHEMES.KEYBOARD_MOUSE:
 				springarm.move(Vector3(springarm.vector_mouse.y, springarm.vector_mouse.x, 0))
 		
 	if Input.is_action_just_released("action_sprint"):
@@ -103,8 +98,8 @@ func _process(delta):
 func process_state()->void:
 	match state:
 		STATES.FREE:
-			actor.move(springarm.calc_input_direction(vector_input), actor.data.speed_run)
 			if not vector_input == Vector2.ZERO:
+				actor.service_movement.move(springarm.calc_input_direction(vector_input), actor.data.speed_run)
 				actor.pivot.model.play_animation(actor.data.anim_run)
 			else:
 				actor.pivot.model.play_animation(actor.data.anim_idle)
@@ -130,19 +125,24 @@ func get_state()->STATES:
 		return STATES.FREE
 
 func attack()->void:
-	actor.vector_move = Vector3.ZERO
+	if actor.ability_manager:
+		var p : Ability.AbilityParams = Ability.AbilityParams.new(actor)
+		actor.ability_manager.magic[0].execute(p)
+	return
+	actor.velocity = Vector3.ZERO
 	attack_delay.start()
 	var vector_move : Vector3
 	if target:
 		vector_move = actor.eyes.get_look_vector_direction(target.get_target_position())
-		actor.pivot.set_direction(vector_move)
+		vector_move.y = 0.0
+		actor.pivot.move(atan2(-vector_move.z, -vector_move.x))
 	else:
 		if not vector_input == Vector2.ZERO:
 			vector_move = springarm.calc_input_direction(vector_input)
-			actor.pivot.set_direction(vector_move)
+			actor.pivot.move(atan2(-vector_move.y, -vector_move.x))
 		else:
 			vector_move = actor.pivot.get_forward_direction()
-	actor.tween_move(vector_move, 8.0, attack_delay.wait_time / 2, false)
+	actor.service_movement.tween_move(vector_move, 8.0, attack_delay.wait_time / 2)
 	actor.pivot.model.play_animation("player_attack_01", true)
 
 func set_state(state : STATES)->bool:

@@ -198,3 +198,7 @@ action_view_reset={
 3d_physics/layer_2="Actors"
 3d_physics/layer_3="Hurt"
 3d_physics/layer_4="Trigger"
+
+[physics]
+
+3d/default_gravity=15.0

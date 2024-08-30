@@ -24,7 +24,7 @@ Party = NodePath("Party")
 script = ExtResource("2_gpvff")
 
 [node name="Player" parent="Overworld/ActorManager" instance=ExtResource("3_hi1i3")]
-transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, -11.3417, 1.32851, -12.1809)
+transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, -11.1767, 7.18892, -12.6395)
 
 [node name="test_enemy" parent="Overworld/ActorManager" instance=ExtResource("6_usi14")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -32.5606)

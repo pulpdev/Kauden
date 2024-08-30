@@ -8,3 +8,9 @@ class_name AbilityManager
 	5 : Ability,
 	6 : Ability
 }
+
+func _ready() -> void:
+	add_magic(load("res://abstract/resources/abilities/attack_01.tres"))
+
+func add_magic(magic : Ability)->void:
+	self.magic.append(magic)
