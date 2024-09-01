@@ -1,3 +1,6 @@
+StateMachine
+PlayerControllerOverworld
+InputManager
 Node
 CompositeSelector
 CompositeSequence
@@ -10,5 +13,3 @@ StatManager
 TargetManager
 Node2D
 BehaviorRoot
-CollisionShape3D
-CharacterBody3D

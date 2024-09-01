@@ -10,18 +10,20 @@
 [ext_resource type="Script" path="res://scripts/classes/class_AbilityManager.gd" id="8_1hbmi"]
 [ext_resource type="Script" path="res://scripts/classes/class_TargetManager.gd" id="8_rsihq"]
 
-[node name="Actor" type="CharacterBody3D" node_paths=PackedStringArray("pivot", "eyes", "target_position", "timer_attack", "manager_ability", "manager_target", "manager_stats")]
+[node name="Actor" type="CharacterBody3D" node_paths=PackedStringArray("_pivot", "_eyes", "_target_position", "_attack_timer", "_ability_manager", "_target_manager", "_stats_manager", "area_target", "_ray_target")]
 collision_layer = 2
 collision_mask = 15
 script = ExtResource("1_r7p2s")
 data = ExtResource("2_n8cae")
-pivot = NodePath("Pivot")
-eyes = NodePath("Eyes")
-target_position = NodePath("TargetPosition")
-timer_attack = NodePath("AttackTimer")
-manager_ability = NodePath("AbilityManager")
-manager_target = NodePath("TargetManager")
-manager_stats = NodePath("StatManager")
+_pivot = NodePath("Pivot")
+_eyes = NodePath("Eyes")
+_target_position = NodePath("TargetPosition")
+_attack_timer = NodePath("AttackTimer")
+_ability_manager = NodePath("AbilityManager")
+_target_manager = NodePath("TargetManager")
+_stats_manager = NodePath("StatManager")
+area_target = NodePath("TargetArea")
+_ray_target = NodePath("TargetRay")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -70,9 +72,8 @@ one_shot = true
 [node name="TargetPosition" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 
-[node name="TargetManager" type="Node" parent="." node_paths=PackedStringArray("actor")]
+[node name="TargetManager" type="Node" parent="."]
 script = ExtResource("8_rsihq")
-actor = NodePath("..")
 
 [node name="StatManager" type="Node" parent="."]
 script = ExtResource("5_yb1ou")

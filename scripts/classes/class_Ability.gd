@@ -7,6 +7,7 @@ signal wait_finished
 
 @export var name : String
 @export var sequences : Array[AbilitySequence]
+@export_range(0.1, 1000) var length : float = 0.1
 
 var running : bool
 var wait_time_left: int ##Time left of delay() wait time

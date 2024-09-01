@@ -5,29 +5,13 @@ const ROTATE_SPEED : float = 1.0
 const PITCH_MIN : float = -12
 const PITCH_MAX : float = 45
 
-enum CONTROL_SCHEMES {
-	KEYBOARD_MOUSE = 0,
-	GAMEPAD = 1
-}
-
-signal control_scheme_changed(scheme : int)
-
 @export var camera : Camera3D
 @export var target_area : Area3D
 @export var target_ray : RayCast3D
 
 @onready var camera_position = $SpringArm3D/CameraPosition
 
-var vector_mouse : Vector2
-var vector_joystick : Vector2
-var sensitivity_mouse : float = 0.1
-var sensitivity_joystick : float = 0.03
-var control_scheme : CONTROL_SCHEMES = CONTROL_SCHEMES.KEYBOARD_MOUSE:
-	set(x):
-		if not control_scheme == x:
-			control_scheme = x
-			control_scheme_changed.emit(control_scheme)
-
+var enabled : bool
 var vector_reset : Vector3
 var resetting : bool
 var resettimer : Timer
@@ -40,10 +24,10 @@ func _ready():
 	resettimer.wait_time = 0.2
 	resettimer.timeout.connect(func(): resetting = false)
 	add_child(resettimer)
-	
-	vector_mouse = get_rotation_view()
 
 func _process(delta):
+	if not enabled:
+		return
 	camera.global_position = lerp(camera.global_position, camera_position.global_position, delta * weight_camera.x)
 	camera.global_rotation.x = lerp_angle(camera.global_rotation.x, camera_position.global_rotation.x, delta * weight_camera.y)
 	camera.global_rotation.y = lerp_angle(camera.global_rotation.y, camera_position.global_rotation.y, delta * weight_camera.y)
@@ -55,7 +39,12 @@ func _process(delta):
 		if is_near_rotation(vector_reset) and resettimer.is_stopped():
 			resettimer.start()
 
+func initialize()->void:
+	enabled = true
+
 func view_reset(rotation : Vector3)->void:
+	if not enabled:
+		return
 	if resettimer.is_stopped():
 		vector_reset = rotation
 		resetting = true
@@ -64,11 +53,15 @@ func is_resetting()->bool:
 	return resetting
 
 func move(rotation : Vector3, min : float = PITCH_MIN, max : float = PITCH_MAX)->void:
+	if not enabled:
+		return
 	if not resetting:
 		global_rotation = rotation
 		global_rotation.x = clamp(global_rotation.x, deg_to_rad(min), deg_to_rad(max))
 	
 func move_add(rotation : Vector3, delta : float, min : float = PITCH_MIN, max : float = PITCH_MAX)->void:
+	if not enabled:
+		return
 	if not resetting:
 		global_rotation.x += rotation.x * delta * 100
 		global_rotation.y += rotation.y * delta * 100

@@ -1,2 +1,2 @@
-extends State
-class_name StateActionStatic
+#extends State
+#class_name StateActionStatic

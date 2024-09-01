@@ -1,22 +1,16 @@
 extends Node
 class_name InputManager
 
-enum CONTROL_SCHEMES {
+enum ControlScheme {
 	KEYBOARD_MOUSE = 0,
 	GAMEPAD = 1
 }
 
-enum FOCUS_MODES {
-	NONE = 0,
-	STATIC = 1,
-	DYNAMIC = 2
-}
-
-signal control_scheme_changed(scheme : CONTROL_SCHEMES)
-signal focus_mode_changed(mode : FOCUS_MODES)
+signal control_scheme_changed(scheme : ControlScheme)
 signal vector_mouse_changed(vector : Vector2)
 signal vector_joystick_changed(vector : Vector2)
-signal action_pressed(action : InputEventAction)
+signal action_pressed(action)
+signal vector_look_changed(vector : Vector2)
 
 var enabled : bool
 var vector_input : Vector2
@@ -25,47 +19,38 @@ var vector_joystick : Vector2
 var sensitivity_mouse : float = 0.1
 var sensitivity_joystick : float = 0.03
 
-var control_scheme : CONTROL_SCHEMES = CONTROL_SCHEMES.KEYBOARD_MOUSE:
+var control_scheme : ControlScheme = ControlScheme.KEYBOARD_MOUSE:
 	set = set_control_scheme
-
-var focus_mode : FOCUS_MODES = FOCUS_MODES.NONE:
-	set = set_focus_mode
 
 func _input(event):
 	if not enabled:
 		return
 	if event is InputEventMouseMotion:
-		control_scheme = CONTROL_SCHEMES.KEYBOARD_MOUSE
-		var ex : float = event.relative.x
-		var ey : float = event.relative.y
+		control_scheme = ControlScheme.KEYBOARD_MOUSE
 		vector_mouse.x += deg_to_rad(-event.relative.x) * sensitivity_mouse
 		vector_mouse.y += deg_to_rad(event.relative.y) * sensitivity_mouse
-		vector_mouse_changed.emit(vector_mouse)
+		vector_look_changed.emit(vector_mouse)
 
 	if event is InputEventJoypadMotion:
-		control_scheme = CONTROL_SCHEMES.GAMEPAD
+		control_scheme = ControlScheme.GAMEPAD
 		if event.axis == 2:
 			vector_joystick.x = -event.axis_value * sensitivity_joystick
 		if event.axis == 3:
 			vector_joystick.y = event.axis_value * sensitivity_joystick
-		vector_joystick_changed.emit(vector_joystick)
+		vector_look_changed.emit(vector_joystick)
 
 	if event is InputEventKey:
-		control_scheme = CONTROL_SCHEMES.KEYBOARD_MOUSE
+		control_scheme = ControlScheme.KEYBOARD_MOUSE
 
 	if event is InputEventJoypadButton:
-		control_scheme = CONTROL_SCHEMES.GAMEPAD
+		control_scheme = ControlScheme.GAMEPAD
 
-	if event is InputEventAction:
-		vector_input = Input.get_vector("action_left", "action_right", "action_up", "action_down")
+	if event.is_action_type():
 		action_pressed.emit(event)
 
-func set_focus_mode(mode : FOCUS_MODES)->void:
-	if not focus_mode == mode:
-		focus_mode = mode
-		focus_mode_changed.emit(focus_mode)
-		
-func set_control_scheme(scheme : CONTROL_SCHEMES)->void:
+	vector_input = Input.get_vector("action_left", "action_right", "action_up", "action_down")
+
+func set_control_scheme(scheme : ControlScheme)->void:
 		if not control_scheme == scheme:
 			control_scheme = scheme
 			control_scheme_changed.emit(control_scheme)

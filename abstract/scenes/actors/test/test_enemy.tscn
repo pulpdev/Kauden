@@ -4,22 +4,21 @@
 [ext_resource type="PackedScene" uid="uid://1eskjnt1arq" path="res://abstract/scenes/behaviors/EnemyBehavior.tscn" id="2_8s5a4"]
 
 [node name="test_enemy" instance=ExtResource("1_yfott")]
-faction = 1
 
 [node name="Pivot" parent="." index="1" node_paths=PackedStringArray("model")]
 model = NodePath("mixamo_base_03_04")
 
-[node name="AttackDelay" parent="." index="5"]
+[node name="AttackDelay" type="Timer" parent="." index="5"]
+wait_time = 0.4
+one_shot = true
+
+[node name="DodgeDelay" parent="." index="8"]
 process_callback = 1
 
-[node name="DodgeDelay" parent="." index="7"]
+[node name="SprintDelay" parent="." index="9"]
 process_callback = 1
 
-[node name="SprintDelay" parent="." index="8"]
-process_callback = 1
+[node name="EnemyBehavior" parent="." index="13" instance=ExtResource("2_8s5a4")]
 
-[node name="ControllerActor" parent="." index="12" node_paths=PackedStringArray("behavior")]
+[node name="ControllerActor" parent="." index="14" node_paths=PackedStringArray("behavior")]
 behavior = NodePath("../EnemyBehavior")
-
-[node name="EnemyBehavior" parent="." index="13" node_paths=PackedStringArray("actor") instance=ExtResource("2_8s5a4")]
-actor = NodePath("..")

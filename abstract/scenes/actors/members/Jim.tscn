@@ -53,21 +53,22 @@ bones/63/rotation = Quaternion(0.227709, 0.0321196, 0.0152578, 0.97308)
 [node name="Alpha_Surface" parent="Pivot/mixamo_base_03_04/Armature/Skeleton3D" index="1"]
 material_override = SubResource("StandardMaterial3D_1xljf")
 
-[node name="AttackDelay" parent="." index="5"]
-process_callback = 1
+[node name="AttackDelay" type="Timer" parent="." index="5"]
+wait_time = 0.4
+one_shot = true
 
 [node name="PartyMemberBehavior" parent="." index="6" instance=ExtResource("2_imtmf")]
 
-[node name="TargetDelay" parent="." index="7"]
+[node name="TargetDelay" parent="." index="8"]
 autostart = true
 
-[node name="DodgeDelay" parent="." index="8"]
+[node name="DodgeDelay" parent="." index="9"]
 process_callback = 1
 
-[node name="SprintDelay" parent="." index="9"]
+[node name="SprintDelay" parent="." index="10"]
 process_callback = 1
 
-[node name="ControllerActor" parent="." index="13" node_paths=PackedStringArray("behavior")]
+[node name="ControllerActor" parent="." index="14" node_paths=PackedStringArray("behavior")]
 behavior = NodePath("../PartyMemberBehavior")
 
 [editable path="Pivot/mixamo_base_03_04"]

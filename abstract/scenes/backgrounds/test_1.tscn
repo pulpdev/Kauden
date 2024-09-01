@@ -60,13 +60,23 @@ metadata/_edit_group_ = true
 shape = SubResource("ConcavePolygonShape3D_dvsbt")
 
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
-transform = Transform3D(-4.37114e-08, 2.98, 0, -1, -1.3026e-07, 0, 0, 0, 2.84, -11.5562, 5.79089, -12.324)
+transform = Transform3D(-4.37114e-08, 4.81, 0, -1, -2.10252e-07, 0, 0, 0, 4.74, -11.5562, 5.79089, -13.0842)
 mesh = SubResource("BoxMesh_ovo3d")
 metadata/_edit_group_ = true
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D4"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D4/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_dvsbt")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 2.98, -9.5684e-15, -0.74091, -9.65109e-08, -6.29965, -0.671604, -8.74831e-08, 6.94974, -11.5562, 2.82812, -7.50732)
+mesh = SubResource("BoxMesh_ovo3d")
+metadata/_edit_group_ = true
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D5"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D5/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_dvsbt")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="."]

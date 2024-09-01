@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://c8e6y1b77csa8"]
+[gd_scene load_steps=10 format=3 uid="uid://c8e6y1b77csa8"]
 
 [ext_resource type="Script" path="res://scripts/classes/class_GameScene.gd" id="1_1846m"]
 [ext_resource type="Script" path="res://scripts/classes/class_GameMode_Overworld.gd" id="2_7ud0e"]
 [ext_resource type="PackedScene" uid="uid://clvi4g0hxe713" path="res://abstract/scenes/backgrounds/test_1.tscn" id="2_cnamn"]
 [ext_resource type="Script" path="res://scripts/classes/class_ActorManager.gd" id="2_gpvff"]
 [ext_resource type="PackedScene" uid="uid://cd5jwffggrspi" path="res://abstract/scenes/actors/Player.tscn" id="3_hi1i3"]
+[ext_resource type="Script" path="res://scripts/classes/class_PlayerController_Overworld.gd" id="4_4rrsh"]
 [ext_resource type="Script" path="res://scripts/classes/class_Party.gd" id="6_10ylc"]
 [ext_resource type="PackedScene" uid="uid://ci1vgn1ompclw" path="res://abstract/scenes/actors/test/test_enemy.tscn" id="6_usi14"]
 [ext_resource type="PackedScene" uid="uid://cy18g0t3n5hsf" path="res://scenes/OverworldGUI.tscn" id="8_bole3"]
@@ -16,11 +17,15 @@ Background = NodePath("Background")
 
 [node name="Background" parent="." instance=ExtResource("2_cnamn")]
 
-[node name="Overworld" type="Node" parent="." node_paths=PackedStringArray("ActorManager", "Party", "ui")]
+[node name="Overworld" type="Node" parent="." node_paths=PackedStringArray("actor_manager", "party", "ui", "player_controller")]
 script = ExtResource("2_7ud0e")
-ActorManager = NodePath("ActorManager")
-Party = NodePath("Party")
+actor_manager = NodePath("ActorManager")
+party = NodePath("Party")
 ui = NodePath("OverworldGUI")
+player_controller = NodePath("PlayerControllerOverworld")
+
+[node name="PlayerControllerOverworld" type="Node" parent="Overworld"]
+script = ExtResource("4_4rrsh")
 
 [node name="OverworldGUI" parent="Overworld" instance=ExtResource("8_bole3")]
 
@@ -29,15 +34,12 @@ script = ExtResource("2_gpvff")
 
 [node name="Player" parent="Overworld/ActorManager" instance=ExtResource("3_hi1i3")]
 transform = Transform3D(-0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, -0.258819, -11.1767, 7.18892, -12.6395)
-faction = 2
 
 [node name="test_enemy" parent="Overworld/ActorManager" instance=ExtResource("6_usi14")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -32.5606)
-faction = 2
 
 [node name="test_enemy2" parent="Overworld/ActorManager" instance=ExtResource("6_usi14")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.07703, 0.5, -27.7117)
-faction = 2
 
 [node name="Party" type="Node" parent="Overworld"]
 script = ExtResource("6_10ylc")

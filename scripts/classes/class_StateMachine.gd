@@ -3,38 +3,90 @@ extends Node
 class_name StateMachine
 
 var state : State
-@export var enabled : bool
-var states : Dictionary
-
+var states : Dictionary = {
+	StateFree : StateFree.new(),
+	StateAttack : StateAttack.new()
+}
 class State:
 	extends RefCounted
 
 	var actor : Actor
+	var statemachine : StateMachine
 
 	func initialize(actor : Actor)->void: self.actor = actor
 	func can_enter()->bool:return true
 	func can_exit()->bool:return true
 	func on_enter()->void:pass
 	func on_exit()->void:pass
-	func tick()->void:pass
+	func tick(delta : float)->void:pass
 
 class StateFree:
 	extends State
-	
-	func tick()->void:
-		if not vector_input == Vector2.ZERO:
-			actor.service_movement.move(springarm.calc_input_direction(vector_input), actor.data.speed_run)
-			actor.pivot.model.play_animation(actor.data.anim_run)
-		else:
-			actor.pivot.model.play_animation(actor.data.anim_idle)
 
-func initialize(controller : ControllerPlayer)->void:
-	if not enabled:
-		return
+	func can_enter()->bool:
+		if not actor._attack_timer.is_stopped():
+			return false
+		return true
+
+	func tick(delta : float)->void:
+		var im : InputManager = actor.get_input_manager()
+		var sa : SpringArm = actor.get_springarm()
+
+		if not im.vector_input == Vector2.ZERO:
+			actor.service_movement.move(sa.calc_input_direction(im.vector_input), actor.data.speed_run)
+			actor.service_animation.play(actor.data.anim_run)
+		else:
+			actor.service_animation.play(actor.data.anim_idle)
+
+class StateAttack:
+	extends State
+
+	func can_enter()->bool:
+		if not Input.is_action_just_pressed("action_attack"):
+			return false
+		if not actor._attack_timer.is_stopped():
+			return false
+		return true
+		
+	func on_enter()->void:
+		var p : Ability.AbilityParams = Ability.AbilityParams.new(actor)
+		var a : Ability = actor._ability_manager.magic[0]
+		a.execute(p)
+		actor._attack_timer.start(a.length)
+		
+	func tick(delta : float)->void:
+		if actor._attack_timer.is_stopped():
+			statemachine.try_state(StateFree)
+		
+func initialize(actor : Actor):
+	for s in states.values():
+		s.initialize(actor)
+		s.statemachine = self
+
+func get_state(state):
+	return states[state]
+
+func try_state(state)->bool:
+	var s
+	if states.has(state):
+		s = get_state(state)
+	else:
+		return false
+	if s.can_enter():
+		if self.state:
+			if self.state.can_exit():
+				self.state.on_exit()
+			else:
+				return false
+		self.state = s
+		self.state.on_enter()
+		Debug.set_property("state", state)
+	else:
+		return false
+
+	return true
 
 func set_state(statename : String)->void:
-	if not enabled:
-		return
 	if states.has(statename):
 		if state:
 			state.exit()
@@ -44,14 +96,6 @@ func set_state(statename : String)->void:
 		Debug.error(self, "state not found, '%s'" % statename)
 	Debug.set_property("state", state)
 
-func _process(delta):
-	if not enabled:
-		return
-
-	Debug.set_property("state", state)
-
 func _physics_process(delta):
-	if not enabled:
-		return
 	if state:
-		state.physics_process(delta)
+		state.tick(delta)

@@ -3,8 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://uthrp0a0t4to" path="res://scenes/Actor.tscn" id="1_7iqmi"]
 [ext_resource type="PackedScene" uid="uid://cyi63dudfs0vg" path="res://abstract/scenes/models/test/mixamo_base_03_04.tscn" id="3_bl5n5"]
 [ext_resource type="Script" path="res://scripts/classes/class_SpringArm.gd" id="4_8ul6a"]
-[ext_resource type="Script" path="res://scripts/classes/class_Controller_Actor_Player.gd" id="5_qlxd5"]
-[ext_resource type="Texture2D" uid="uid://dr71psnrikn6m" path="res://icon.svg" id="7_exr85"]
+[ext_resource type="Script" path="res://scripts/classes/class_StateMachine.gd" id="5_kw22v"]
+[ext_resource type="Script" path="res://scripts/classes/class_InputManager.gd" id="5_tbkvl"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_770xo"]
 height = 16.0
@@ -12,8 +12,10 @@ radius = 3.0
 
 [sub_resource type="SeparationRayShape3D" id="SeparationRayShape3D_jlmlq"]
 
-[node name="Player" node_paths=PackedStringArray("controller") groups=["PLAYER"] instance=ExtResource("1_7iqmi")]
-controller = NodePath("PlayerController")
+[node name="Player" node_paths=PackedStringArray("_springarm", "_statemachine", "_input_manager") groups=["PLAYER"] instance=ExtResource("1_7iqmi")]
+_springarm = NodePath("SpringArm")
+_statemachine = NodePath("StateMachine")
+_input_manager = NodePath("InputManager")
 
 [node name="Pivot" parent="." index="1" node_paths=PackedStringArray("model")]
 model = NodePath("mixamo_base_03_04")
@@ -62,21 +64,12 @@ spring_length = -5.0
 [node name="CameraPosition" type="Marker3D" parent="SpringArm/SpringArm3D" index="0"]
 transform = Transform3D(-1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 0, 0, 0)
 
-[node name="PlayerController" type="Node" parent="." index="5" node_paths=PackedStringArray("springarm", "target_clear_delay", "target_sprite", "party_positions", "dodge_delay", "sprint_delay", "target_manager", "target_area")]
-script = ExtResource("5_qlxd5")
-springarm = NodePath("../SpringArm")
-target_clear_delay = NodePath("../TargetClearDelay")
-target_sprite = NodePath("../TargetSprite")
-party_positions = NodePath("../Pivot/PartyPositions")
-dodge_delay = NodePath("../DodgeDelay")
-sprint_delay = NodePath("../SprintDelay")
-target_manager = NodePath("../TargetManager")
-target_area = NodePath("../TargetArea")
-
-[node name="TargetClearDelay" type="Timer" parent="." index="14"]
+[node name="TargetClearDelay" type="Timer" parent="." index="13"]
 wait_time = 0.5
 one_shot = true
 
-[node name="TargetSprite" type="Sprite2D" parent="." index="15"]
-scale = Vector2(0.3, 0.3)
-texture = ExtResource("7_exr85")
+[node name="InputManager" type="Node" parent="." index="15"]
+script = ExtResource("5_tbkvl")
+
+[node name="StateMachine" type="Node" parent="." index="16"]
+script = ExtResource("5_kw22v")

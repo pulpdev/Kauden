@@ -1,2 +1,2 @@
-extends State
-class_name StateActionDynamic
+#extends State
+#class_name StateActionDynamic

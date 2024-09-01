@@ -22,3 +22,6 @@ func tween_move(
 		var t = actor.create_tween()
 		vector = vector.normalized() * speed
 		t.tween_property(actor, "velocity", vector, length)
+		
+func get_model_direction()->Vector3:
+	return actor._pivot.get_forward_direction()
