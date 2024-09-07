@@ -68,7 +68,4 @@ process_callback = 1
 [node name="SprintDelay" parent="." index="10"]
 process_callback = 1
 
-[node name="ControllerActor" parent="." index="14" node_paths=PackedStringArray("behavior")]
-behavior = NodePath("../PartyMemberBehavior")
-
 [editable path="Pivot/mixamo_base_03_04"]

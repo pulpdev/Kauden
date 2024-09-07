@@ -34,9 +34,11 @@ const FRICTION_DEFAULT : float = 20.0
 @export_category("Rays")
 @export var _ray_target : RayCast3D
 
-var service_movement : ServiceActorMovement = ServiceActorMovement.new(self)
+@export var service_movement : ServiceActorMovement
 var service_animation  : ServiceActorAnimation = ServiceActorAnimation.new(self)
 var service_abilities
+
+var velocity_tween : Tween
 
 var friction : float = FRICTION_DEFAULT
 var velocity_last : Vector3
@@ -76,6 +78,10 @@ func initialize()->void:
 		_springarm.enabled = true
 	if _statemachine:
 		_statemachine.initialize(self)
+	if _pivot:
+		_pivot.model.service_movement.i(self)
+	if service_movement:
+		service_movement.i(self)
 
 func is_near_position(pos : Vector3, min_dist : float = MIN_DIST_TO_LOCATION):
 	return global_position.distance_to(pos) < min_dist

@@ -1,7 +1,7 @@
 extends Resource
 class_name AbilitySequence
 
-@export var ability : Ability
+@export var ability : int
 @export var length : float
 
 var time_left : int

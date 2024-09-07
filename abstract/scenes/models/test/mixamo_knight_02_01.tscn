@@ -1,0 +1,61 @@
+[gd_scene load_steps=7 format=3 uid="uid://dkrn0ixk4dhcn"]
+
+[ext_resource type="PackedScene" uid="uid://cwaqh7vv7ebb6" path="res://assets/mixamo_knight_02_01.glb" id="1_67bi5"]
+[ext_resource type="Script" path="res://scripts/classes/class_ActorModel.gd" id="2_6cegk"]
+[ext_resource type="Script" path="res://scripts/classes/class_ServiceActorMovement.gd" id="3_7iqsh"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6jas7"]
+animation = &"walk-up-01"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nqtm7"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_32fub"]
+states/walk-up-01/node = SubResource("AnimationNodeAnimation_6jas7")
+states/walk-up-01/position = Vector2(423, 99)
+transitions = ["Start", "walk-up-01", SubResource("AnimationNodeStateMachineTransition_nqtm7")]
+
+[node name="mixamo_knight_02_01" node_paths=PackedStringArray("service_movement") instance=ExtResource("1_67bi5")]
+script = ExtResource("2_6cegk")
+service_movement = NodePath("ServiceActorMovement")
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+bones/2/rotation = Quaternion(-0.0526048, -5.78098e-05, -0.000764983, 0.998615)
+bones/2/scale = Vector3(1, 1, 1)
+bones/4/rotation = Quaternion(0.0526054, 5.79147e-05, 0.000764168, 0.998615)
+bones/4/scale = Vector3(1, 1, 1)
+bones/10/rotation = Quaternion(0.532272, 0.465645, -0.531146, 0.466632)
+bones/10/scale = Vector3(1, 1, 1)
+bones/11/rotation = Quaternion(-0.0655705, -6.96385e-05, -0.00105728, 0.997847)
+bones/11/scale = Vector3(1, 1, 1)
+bones/14/rotation = Quaternion(0.218628, 0.0716937, 0.254757, 0.939234)
+bones/34/rotation = Quaternion(0.532275, -0.465642, 0.531148, 0.466629)
+bones/34/scale = Vector3(1, 1, 1)
+bones/35/rotation = Quaternion(-0.065577, 6.94819e-05, 0.00105699, 0.997847)
+bones/35/scale = Vector3(1, 1, 1)
+bones/38/rotation = Quaternion(0.219251, -0.0688197, -0.254102, 0.939481)
+bones/38/scale = Vector3(1, 1, 1)
+bones/39/rotation = Quaternion(0.000175795, 5.72298e-07, -1.13987e-05, 1)
+bones/45/rotation = Quaternion(-4.94732e-15, 1.50996e-07, 7.36411e-08, 1)
+bones/58/rotation = Quaternion(-2.91155e-08, 0.00726335, 0.999974, 8.12724e-07)
+bones/58/scale = Vector3(1, 1, 1)
+bones/59/rotation = Quaternion(-0.0485908, -1.71897e-07, -7.64713e-09, 0.998819)
+bones/60/rotation = Quaternion(0.444481, 0.0219483, -0.0277601, 0.895089)
+bones/61/rotation = Quaternion(0.356047, 0.0168702, 0.00540074, 0.9343)
+bones/63/rotation = Quaternion(9.0086e-08, 0.00726335, 0.999974, 8.1359e-07)
+bones/63/scale = Vector3(1, 1, 1)
+bones/64/rotation = Quaternion(-0.0485909, -5.28283e-08, -1.85453e-09, 0.998819)
+bones/64/scale = Vector3(1, 1, 1)
+bones/66/rotation = Quaternion(0.356045, -0.0168698, -0.00540029, 0.934301)
+bones/66/scale = Vector3(1, 1, 1)
+
+[node name="AnimationTree" type="AnimationTree" parent="." index="2"]
+root_motion_track = NodePath("Armature/Skeleton3D:mixamorig_Root")
+tree_root = SubResource("AnimationNodeStateMachine_32fub")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="RootMotionView" type="RootMotionView" parent="." index="3"]
+animation_path = NodePath("../AnimationTree")
+
+[node name="ServiceActorMovement" type="Node" parent="." index="4"]
+script = ExtResource("3_7iqsh")

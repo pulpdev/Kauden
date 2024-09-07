@@ -7,6 +7,9 @@ const ANIM_DEFAULT : String = "_default"
 @onready var animations : AnimationPlayer = $AnimationPlayer
 @onready var skeleton : Skeleton3D = $Armature/Skeleton3D
 
+@export var service_movement : ServiceActorMovement
+@export var animation_tree : AnimationTree
+
 func _ready():
 	animations.animation_started.connect(_on_animation_player_animation_started)
 	animations.animation_finished.connect(_on_animation_player_animation_finished)
@@ -23,12 +26,17 @@ func play_animation(anim : String, reset : bool = false)->void:
 
 func get_animation()->String:
 	return animations.current_animation
+	
+func get_skeleton()->Skeleton3D:
+	return $Armature/Skeleton3D
 
 func _on_animation_player_animation_started(anim_name):
 	match anim_name:
 		"sprint":
 			animations.speed_scale = 1.2
 		"player_attack_01":
+			animations.speed_scale = 2.0
+		"bi_attack_gsword_04":
 			animations.speed_scale = 2.0
 		_:
 			animations.speed_scale = 1.0

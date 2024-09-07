@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://32ftca3q0ggj"]
+
+[ext_resource type="PackedScene" uid="uid://lutaxj1v2xqk" path="res://assets/mixamo_knight_02_03.glb" id="1_mk51u"]
+
+[node name="mixamo_knight_02_04" instance=ExtResource("1_mk51u")]

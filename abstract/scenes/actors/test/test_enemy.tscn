@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://ci1vgn1ompclw"]
+[gd_scene load_steps=4 format=3 uid="uid://ci1vgn1ompclw"]
 
 [ext_resource type="PackedScene" uid="uid://bbl7ibnml7ikp" path="res://scenes/ActorBase.tscn" id="1_yfott"]
 [ext_resource type="PackedScene" uid="uid://1eskjnt1arq" path="res://abstract/scenes/behaviors/EnemyBehavior.tscn" id="2_8s5a4"]
+[ext_resource type="Script" path="res://scripts/classes/class_ServiceActorMovement.gd" id="3_8k3ha"]
 
-[node name="test_enemy" instance=ExtResource("1_yfott")]
+[node name="test_enemy" node_paths=PackedStringArray("service_movement") instance=ExtResource("1_yfott")]
+service_movement = NodePath("ServiceActorMovement")
 
 [node name="Pivot" parent="." index="1" node_paths=PackedStringArray("model")]
 model = NodePath("mixamo_base_03_04")
@@ -20,5 +22,5 @@ process_callback = 1
 
 [node name="EnemyBehavior" parent="." index="13" instance=ExtResource("2_8s5a4")]
 
-[node name="ControllerActor" parent="." index="14" node_paths=PackedStringArray("behavior")]
-behavior = NodePath("../EnemyBehavior")
+[node name="ServiceActorMovement" type="Node" parent="." index="15"]
+script = ExtResource("3_8k3ha")

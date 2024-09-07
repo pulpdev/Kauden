@@ -13,6 +13,6 @@ func execute(params : Ability.AbilityParams = null)->void:
 		vector_move = sa.calc_input_direction(im.vector_input)
 	else:
 		vector_move = actor.service_movement.get_model_direction()
-	actor.service_movement.tween_move(vector_move, 8.0, actor._attack_timer.wait_time / 2)
-	actor.service_animation.play("player_attack_01", true)
-	finish()
+	#actor.service_movement.tween_move(vector_move, 8.0, actor._attack_timer.wait_time / 2)
+	#actor.service_animation.play("player_attack_01", true)
+	actor.service_animation.play("bi_attack_gsword_04")

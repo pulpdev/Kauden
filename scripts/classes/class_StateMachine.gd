@@ -31,12 +31,12 @@ class StateFree:
 	func tick(delta : float)->void:
 		var im : InputManager = actor.get_input_manager()
 		var sa : SpringArm = actor.get_springarm()
-
 		if not im.vector_input == Vector2.ZERO:
 			actor.service_movement.move(sa.calc_input_direction(im.vector_input), actor.data.speed_run)
-			actor.service_animation.play(actor.data.anim_run)
+			actor.service_animation.play("run-up-01")
 		else:
-			actor.service_animation.play(actor.data.anim_idle)
+			actor.service_animation.play("idle-01")
+
 
 class StateAttack:
 	extends State
@@ -48,13 +48,20 @@ class StateAttack:
 			return false
 		return true
 		
+	func can_exit()->bool:
+		if not actor._attack_timer.is_stopped():
+			return false
+		return true
+		
 	func on_enter()->void:
 		var p : Ability.AbilityParams = Ability.AbilityParams.new(actor)
-		var a : Ability = actor._ability_manager.magic[0]
+		var a : Ability = actor._ability_manager.attack_combos[0]
 		a.execute(p)
-		actor._attack_timer.start(a.length)
+		actor._attack_timer.wait_time = a.length_base
+		actor._attack_timer.start()
 		
 	func tick(delta : float)->void:
+		return
 		if actor._attack_timer.is_stopped():
 			statemachine.try_state(StateFree)
 		

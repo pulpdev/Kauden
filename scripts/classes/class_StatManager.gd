@@ -30,14 +30,14 @@ class Stat:
 			value_changed.emit(value)
 			
 		get:
-			return base + modifier_get_total()
+			return base + modifier_get_sum()
 
 	var modifiers : Array[int]
 	
 	func _init(name : String) -> void:
 		self.name = name
 
-	func modifier_get_total()->int:
+	func modifier_get_sum()->int:
 		var bonus : int
 		for modifier in modifiers:
 			bonus += modifier
