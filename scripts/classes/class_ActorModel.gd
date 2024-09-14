@@ -1,6 +1,7 @@
 extends Node3D
 class_name ActorModel
 
+const BONE_ROOT = "mixamorig_Root"
 const ANIM_BLEND_TIME : float = 1
 const ANIM_DEFAULT : String = "_default"
 
@@ -9,6 +10,7 @@ const ANIM_DEFAULT : String = "_default"
 
 @export var service_movement : ServiceActorMovement
 @export var animation_tree : AnimationTree
+@export var _motion : Marker3D
 
 func _ready():
 	animations.animation_started.connect(_on_animation_player_animation_started)
@@ -28,7 +30,7 @@ func get_animation()->String:
 	return animations.current_animation
 	
 func get_skeleton()->Skeleton3D:
-	return $Armature/Skeleton3D
+	return $Armature/GeneralSkeleton
 
 func _on_animation_player_animation_started(anim_name):
 	match anim_name:

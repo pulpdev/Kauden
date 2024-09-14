@@ -8,3 +8,6 @@ func _init(actor : Actor) -> void:
 	
 func play(animation : String, reset : bool = false)->void:
 	actor._pivot.model.play_animation(animation, reset)
+
+func get_motion_position()->Vector3:
+	return actor._pivot.model._motion.global_position
