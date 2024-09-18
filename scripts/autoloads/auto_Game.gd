@@ -1,8 +1,11 @@
 extends Node
 
-var data_current : Dictionary = {
-	"levels" : {},
-	"settings" : {},
-}
+class SaveData:
+	extends Resource
 
-var profile : String
+	var filepath : String
+	var data : Dictionary
+
+	func _init(filepath : String, data : Dictionary) -> void:
+		self.filepath = filepath
+		self.data = data

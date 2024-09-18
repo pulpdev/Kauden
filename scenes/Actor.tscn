@@ -10,7 +10,7 @@
 [ext_resource type="Script" path="res://scripts/classes/class_AbilityManager.gd" id="8_1hbmi"]
 [ext_resource type="Script" path="res://scripts/classes/class_TargetManager.gd" id="8_rsihq"]
 
-[node name="Actor" type="CharacterBody3D" node_paths=PackedStringArray("_pivot", "_eyes", "_target_position", "_attack_timer", "_ability_manager", "_target_manager", "_stats_manager", "area_target", "_ray_target")]
+[node name="Actor" type="CharacterBody3D" node_paths=PackedStringArray("_pivot", "_eyes", "_target_position", "_attack_timer", "_ability_manager", "_target_manager", "_stats_manager", "area_target", "_ray_target") groups=["SERIALIZE"]]
 collision_layer = 2
 collision_mask = 15
 script = ExtResource("1_r7p2s")

@@ -36,7 +36,7 @@ class Stat:
 	
 	func _init(name : String) -> void:
 		self.name = name
-
+		
 	func modifier_get_sum()->int:
 		var bonus : int
 		for modifier in modifiers:
@@ -70,11 +70,18 @@ var ap : int :
 func get_stat(stat : STATS)->Stat:
 	var s : Stat = get_node(STATS.keys()[stat])
 	return s
+	
+func get_stats()->Array[Stat]:
+	var a : Array[Stat]
+	for c in get_children():
+		a.append(c)
+	return a
 
 func _ready() -> void:
 	for s in STATS.keys():
 		var stat : Stat = Stat.new(s)
 		add_child(stat)
+
 	get_stat(STATS.HP_MAX).value_changed.connect(func(v): hp = hp)
 	get_stat(STATS.MP_MAX).value_changed.connect(func(v): mp = mp)
 	get_stat(STATS.TP_MAX).value_changed.connect(func(v): tp = tp)

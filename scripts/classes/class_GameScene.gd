@@ -26,3 +26,8 @@ func _physics_process(delta):
 			Engine.physics_ticks_per_second = 60
 			Engine.max_physics_steps_per_frame = 8
 		else: return
+
+func get_data()->Dictionary:
+	var d : Dictionary = {}
+	d["file"] = scene_file_path
+	return d

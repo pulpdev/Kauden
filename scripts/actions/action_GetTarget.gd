@@ -1,6 +1,6 @@
 extends ActionLeaf
 
-enum FACTIONS {
+enum Faction {
 	ANY, ##Find target of any faction.
 	ALLY, ##Find target with the same faction of actor.
 	ENEMY, ##Find target with the opposite faction of actor.
@@ -21,7 +21,7 @@ enum RANGES {
 	KNOWN_MOST ##Find target that's known the longest.
 	}
 
-@export var faction : FACTIONS
+@export var faction : Faction
 @export var type : TYPES
 @export var range : RANGES ##
 @export var override_current : bool ##If able, will override current target with a new one.
@@ -44,14 +44,14 @@ func tick(actor : Actor, blackboard : Blackboard)->int:
 	targets = tm.targets.filter(
 		func(t : TargetManager.Target):
 			match faction:
-				FACTIONS.ANY:
+				Faction.ANY:
 					return true
-				FACTIONS.ALLY:
+				Faction.ALLY:
 					return t.target_actor.faction == actor.faction
-				FACTIONS.ENEMY:
+				Faction.ENEMY:
 					return not t.target_actor.faction == actor.faction
-				FACTIONS.NEUTRAL:
-					return t.target_actor.faction == Actor.FACTIONS.NEUTRAL
+				Faction.NEUTRAL:
+					return t.target_actor.faction == Actor.Faction.NEUTRAL
 			)
 			
 	if targets.size() == 0:

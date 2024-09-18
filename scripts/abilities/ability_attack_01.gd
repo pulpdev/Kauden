@@ -13,6 +13,10 @@ func execute(params : Ability.AbilityParams = null)->void:
 		vector_move = sa.calc_input_direction(im.vector_input)
 	else:
 		vector_move = actor.service_movement.get_model_direction()
+	actor.move_mode_motion = true
 	#actor.service_movement.tween_move(vector_move, 8.0, actor._attack_timer.wait_time / 2)
 	#actor.service_animation.play("player_attack_01", true)
 	actor.service_animation.play("attack-02")
+	actor._pivot.model.animations.animation_finished.connect(func(anim):
+		if anim == "attack-02":
+				actor.move_mode_motion = false)

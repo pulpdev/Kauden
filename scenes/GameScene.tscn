@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c8e6y1b77csa8"]
+[gd_scene load_steps=12 format=3 uid="uid://c8e6y1b77csa8"]
 
 [ext_resource type="Script" path="res://scripts/classes/class_GameScene.gd" id="1_1846m"]
 [ext_resource type="Script" path="res://scripts/classes/class_GameMode_Overworld.gd" id="2_7ud0e"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" path="res://scripts/classes/class_Party.gd" id="6_10ylc"]
 [ext_resource type="PackedScene" uid="uid://ci1vgn1ompclw" path="res://abstract/scenes/actors/test/test_enemy.tscn" id="6_usi14"]
 [ext_resource type="PackedScene" uid="uid://cy18g0t3n5hsf" path="res://scenes/OverworldGUI.tscn" id="8_bole3"]
+[ext_resource type="Script" path="res://scripts/classes/class_VariableManager.gd" id="10_o1nds"]
+[ext_resource type="Script" path="res://scripts/classes/class_Variable.gd" id="11_6irdk"]
 
 [node name="GameScene" type="Node3D" node_paths=PackedStringArray("GameMode", "Background")]
 script = ExtResource("1_1846m")
@@ -41,8 +43,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -32.5606)
 [node name="test_enemy2" parent="Overworld/ActorManager" instance=ExtResource("6_usi14")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.07703, 0.5, -27.7117)
 
+[node name="Player2" parent="Overworld/ActorManager" instance=ExtResource("3_hi1i3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.79843, 0)
+
 [node name="Party" type="Node" parent="Overworld"]
 script = ExtResource("6_10ylc")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.00130287, -0.289884, 0.957061, 0.000394626, 0.957062, 0.289884, -0.999999, 0, 0.00136133, 11.7838, 9.21623, -11.3392)
+
+[node name="VariableManager" type="Node" parent="."]
+script = ExtResource("10_o1nds")
+
+[node name="var" type="Node" parent="VariableManager" groups=["SERIALIZE"]]
+script = ExtResource("11_6irdk")

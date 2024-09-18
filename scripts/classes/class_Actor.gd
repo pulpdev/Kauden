@@ -2,13 +2,13 @@
 extends CharacterBody3D
 class_name Actor
 
-enum FACTIONS {GOOD, EVIL, NEUTRAL}
+enum Faction {GOOD, EVIL, NEUTRAL}
 
 const MIN_DIST_TO_LOCATION : float = 0.3
 const FRICTION_DEFAULT : float = 20.0
 
 @export var data : ActorData
-@export var faction : FACTIONS = FACTIONS.NEUTRAL
+@export var faction : Faction = Faction.NEUTRAL
 
 @export_category("Components")
 @export var controller : ControllerActor
@@ -27,6 +27,7 @@ const FRICTION_DEFAULT : float = 20.0
 @export var _target_manager : TargetManager
 @export var _stats_manager : StatManager
 @export var _input_manager : InputManager
+@export var _variable_manager : VariableManager
 
 @export_category("Areas")
 @export var area_target : Area3D
@@ -43,12 +44,23 @@ var velocity_tween : Tween
 var friction : float = FRICTION_DEFAULT
 var velocity_last : Vector3
 
+var move_mode_motion : bool
+var ml : Vector3
+
 func _ready():
 	if controller:
 		controller.initialize(self)
 	initialize()
+	if name == "Player2":
+		print(name, get_rid())
+	if name == "Player":
+		print(name, get_rid())
 
 func _physics_process(delta):
+	if move_mode_motion:
+		var v : Vector3 = (global_position - service_animation.get_motion_position())
+		velocity = v
+		print(velocity)
 	if not velocity.z == 0.0 and not velocity.x == 0.0:
 		velocity_last = velocity
 
@@ -109,3 +121,26 @@ func get_input_manager()->InputManager:
 
 func get_springarm()->SpringArm:
 	return _springarm
+	
+func get_variable_manager()->VariableManager:
+	return _variable_manager
+
+func on_save_data()->Game.SaveData:
+	var d : Dictionary
+	var sm : StatManager = _stats_manager
+	for s in sm.get_stats():
+		d[s.name]["modifiers"] = s.modifiers.duplicate(true)
+		d[s.name]["base"] = s.base
+		d[s.name]["value"] = s.value
+	d["hp"] = sm.hp
+	d["ap"] = sm.ap
+	d["mp"] = sm.mp
+	var s : Game.SaveData = Game.SaveData.new(
+		scene_file_path,
+		d
+	)
+	return s
+
+func on_load_data(data : Dictionary)->void:
+	for d in data.data:
+		pass

@@ -48,7 +48,11 @@ naming/scene_name_casing=0
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/terrain_3d/plugin.cfg")
+enabled=PackedStringArray()
+
+[global_group]
+
+SERIALIZE="This object's data will be saved."
 
 [gui]
 

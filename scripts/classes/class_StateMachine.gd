@@ -37,7 +37,6 @@ class StateFree:
 		else:
 			actor.service_animation.play("idle-01")
 
-
 class StateAttack:
 	extends State
 
@@ -61,7 +60,6 @@ class StateAttack:
 		actor._attack_timer.start()
 		
 	func tick(delta : float)->void:
-		return
 		if actor._attack_timer.is_stopped():
 			statemachine.try_state(StateFree)
 		
